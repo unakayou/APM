@@ -8,16 +8,13 @@
 #import "APMMemoryStatisitcsCenter.h"
 #import "APMMemoryUtil.h"
 #import "APMRebootMonitor.h"
-#import "APMMemoryStatisitcsThread.h"
+#import "APMSharedThread.h"
 
-@interface APMMemoryStatisitcsCenter() {
-    NSTimer *_timer;                        // 刷新内存
-    APMMemoryStatisitcsThread *_thread;     // 开辟新线程
-    NSRunLoop * _runLoop;                   // 新线程的runLoop
-    BOOL _shouldKeepRunning;                // 是否继续运行runLoop
-}
+@interface APMMemoryStatisitcsCenter()
 @property (nonatomic, assign) double maxMemoryValue;
-@property (nonatomic, copy) MemoryCallbackHandler memoryHandler;    
+@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, assign) APMSharedThread *sharedThread;        // 使用共享线程
+@property (nonatomic,   copy) MemoryCallbackHandler memoryHandler;
 @end
 
 @implementation APMMemoryStatisitcsCenter
@@ -25,6 +22,8 @@
 - (instancetype)initSingleton {
     if (self = [super init]) {
         self.maxMemoryValue = [APMMemoryUtil getTotalMemory] / 2;
+        self.sharedThread = [APMSharedThread shareDefaultThread];
+        [_sharedThread start];
     }
     return self;
 }
@@ -38,43 +37,15 @@
 }
 
 - (void)start {
-    _shouldKeepRunning = YES;
-    
-    if (!_thread) {
-        _thread = [[APMMemoryStatisitcsThread alloc] initWithTarget:self selector:@selector(threadLaunch) object:nil];
-        _thread.name = [NSString stringWithFormat:@"%@", self.class];
-        [_thread start];
-    }
-}
-
-// 线程启动runLoop
-- (void)threadLaunch {
-    if (!_timer) {
-        _timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(updateMemory) userInfo:nil repeats:YES];
-    }
-        
-    _runLoop = [NSRunLoop currentRunLoop];
-    [_runLoop addTimer:_timer forMode:NSRunLoopCommonModes];
-    while (_shouldKeepRunning && [_runLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]);
-    APMLogDebug(@"RunLoop 结束");
+    self.timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(updateMemory) userInfo:nil repeats:YES];
+    [_sharedThread addTimer:_timer];
 }
 
 - (void)stop {
-    [self performSelector:@selector(__stop) onThread:_thread withObject:nil waitUntilDone:NO];
-}
-
-// 让子线程执行停止
-- (void)__stop {
-    APMLogDebug(@"停止内存监测");
-    if (_timer.isValid) {
+    if ([_timer isValid]) {
         [_timer invalidate];
+        self.timer = nil;
     }
-    
-    _timer = nil;
-    _thread = nil;
-    _runLoop = nil;
-    _shouldKeepRunning = NO;
-    CFRunLoopStop(CFRunLoopGetCurrent());
 }
 
 - (void)updateMemory {

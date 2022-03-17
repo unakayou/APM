@@ -9,5 +9,6 @@
 #define PrefixHeader_pch
 
 #import "APMLogManager.h"
+#import "NSObject+DeallocLog.h"
 
 #endif /* PrefixHeader_pch */

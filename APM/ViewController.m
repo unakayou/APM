@@ -59,6 +59,7 @@
     self.messageView = [[UITextView alloc] init];
     _messageView.font = [UIFont systemFontOfSize:15];
     _messageView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    _messageView.userInteractionEnabled = NO;
     [self.view addSubview:_messageView];
     
     self.messageViewDataSource = [NSMutableDictionary new];
@@ -101,12 +102,6 @@
         [weakSelf.messageViewDataSource setObject:memoryValueString forKey:@"2"];
         [weakSelf updateMessageView];
     }];
-}
-
-#pragma mark - 点击停止
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [super touchesBegan:touches withEvent:event];
-    [self.memoryCenter stop];
 }
 
 #pragma mark - 布局
