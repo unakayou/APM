@@ -113,8 +113,9 @@
 				A3183C3C27DF189B00310146 /* PrefixHeader.pch */,
 				A34F55E427E0915100553067 /* TestCase */,
 				A34F55E827E09B4500553067 /* View */,
+				A34F55FA27E47F3000553067 /* Memory */,
 				A34F55E027E08A5D00553067 /* Block */,
-				A349BD4427D885D500CDEA8A /* Memory */,
+				A349BD4427D885D500CDEA8A /* Statisitcs */,
 				A349BD4327D885CA00CDEA8A /* OOM */,
 				A349BD4827D8916C00CDEA8A /* Util */,
 				A349BD3027D8855D00CDEA8A /* Main.storyboard */,
@@ -137,7 +138,7 @@
 			path = OOM;
 			sourceTree = "<group>";
 		};
-		A349BD4427D885D500CDEA8A /* Memory */ = {
+		A349BD4427D885D500CDEA8A /* Statisitcs */ = {
 			isa = PBXGroup;
 			children = (
 				A34F55F727E4355B00553067 /* APMCPUStatisitcsCenter.h */,
@@ -145,7 +146,7 @@
 				A349BD5227D898FF00CDEA8A /* APMMemoryStatisitcsCenter.h */,
 				A349BD5327D898FF00CDEA8A /* APMMemoryStatisitcsCenter.m */,
 			);
-			path = Memory;
+			path = Statisitcs;
 			sourceTree = "<group>";
 		};
 		A349BD4827D8916C00CDEA8A /* Util */ = {
@@ -194,6 +195,13 @@
 				A34F55E927E09B5500553067 /* APMToastView.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		A34F55FA27E47F3000553067 /* Memory */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Memory;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

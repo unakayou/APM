@@ -18,7 +18,7 @@ typedef  void (^CPUCallbackHandler)(double usage);
 /// 停止
 + (void)stop;
 
-/// 设置阈值,默认值 80%
+/// 设置阈值,默认值 0.8
 + (void)setLimitCPUUSagePercent:(float)maxCPUUsagePercent;
 
 /// CPU占用刷新回调
