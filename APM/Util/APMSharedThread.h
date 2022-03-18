@@ -21,10 +21,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stop;
 
 /// 添加Timer (立刻 run)
-- (void)addTimer:(NSTimer *)timer;
+- (BOOL)addTimer:(NSTimer *)timer;
+
+/// 删除Timer (立刻停止)
+- (void)removeTimer:(NSTimer *)timer;
 
 /// 执行任务 (功能未完善)
-- (void)executeTask:(void (^)(void))task;
+- (BOOL)executeTask:(void (^)(void))task;
 @end
 
 NS_ASSUME_NONNULL_END

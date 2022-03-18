@@ -19,6 +19,18 @@ NS_ASSUME_NONNULL_BEGIN
 /// 从屏幕点击App,到现在时间, 单位:毫秒
 + (NSTimeInterval)processStartTime;
 
+/// 当前CPU占用百分比 (0.0f - 1.0f)
++ (Float32)currentCPUUsagePercent;
+
+/// 获取主模块UUID
++ (NSString *)mainMachOUUID;
+
+/// 当前内存占用 (单位MB)
++ (Float32)physFootprintMemory;
+
+/// 系统总内存 (单位MB)
++ (Float32)getTotalMemory;
+
 @end
 
 NS_ASSUME_NONNULL_END

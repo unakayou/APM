@@ -13,83 +13,96 @@
 @property (nonatomic, strong) NSRunLoop *runLoop;
 @property (nonatomic, strong) NSThread *insideThread;
 @property (nonatomic, assign) BOOL shouldKeepRunning;
-@property (nonatomic, strong) NSPointerArray *timerPointArray;
+@property (nonatomic, strong) NSHashTable *timerHashTable;
 @end
 
 @implementation APMSharedThread
 
 #pragma mark - Public
-- (void)start {
-    [self startNewThread];
-}
-
-- (void)stop {
-    [self performSelector:@selector(_stop) onThread:_insideThread withObject:nil waitUntilDone:NO];
-}
-
-- (void)addTimer:(NSTimer *)timer {
-    [self performSelector:@selector(_addTimer:) onThread:_insideThread withObject:timer waitUntilDone:NO];
-}
-
-- (void)executeTask:(void (^)(void))task {
-    [self performSelector:@selector(_executeTask:) onThread:_insideThread withObject:task waitUntilDone:NO];
-}
-
-#pragma mark - Private
-- (instancetype)initSingleton {
-    if (self = [super init]) {
-        self.timerPointArray = [NSPointerArray weakObjectsPointerArray];
-    }
-    return self;
-}
-
-/// 创建真实线程
 static pthread_mutex_t _sharedThreadLock;
-- (void)startNewThread {
+- (void)start {
     pthread_mutex_lock(&_sharedThreadLock);
     if (_insideThread == nil) {
         // 创建后立刻启动线程,进行等待
-        self.insideThread = [[NSThread alloc] initWithTarget:self selector:@selector(threadLaunch) object:nil];
+        self.insideThread = [[NSThread alloc] initWithTarget:self selector:@selector(_start) object:nil];
         [_insideThread setName:[NSString stringWithFormat:@"%@", self.class]];
         [_insideThread start];
-
-        _insideThread.deallocObject = [DeallocLogObject new];
-        _insideThread.deallocObject.name = @"InsideThread";
     }
     pthread_mutex_unlock(&_sharedThreadLock);
 }
 
+- (void)stop {
+    if (!_insideThread) return;
+    [self performSelector:@selector(_stop) onThread:_insideThread withObject:nil waitUntilDone:NO];
+}
+
+- (BOOL)addTimer:(NSTimer *)timer {
+    if (!_insideThread || !timer) return NO;
+    [self performSelector:@selector(_addTimer:) onThread:_insideThread withObject:timer waitUntilDone:NO];
+    return YES;    
+}
+
+- (void)removeTimer:(NSTimer *)timer {
+    if (!timer) return;
+    [self performSelector:@selector(_removeTimer:) onThread:_insideThread withObject:timer waitUntilDone:NO];
+}
+
+- (BOOL)executeTask:(void (^)(void))task {
+    if (!_insideThread || !task) return NO;
+    [self performSelector:@selector(_executeTask:) onThread:_insideThread withObject:task waitUntilDone:NO];
+    return YES;
+}
+
+#pragma mark - Private
+
 /// 线程启动RunLoop
-- (void)threadLaunch {
-    _shouldKeepRunning = YES;
-    APMLogDebug(@"%s - %@", __FUNCTION__, [NSThread currentThread]);
-    
+- (void)_start {
+    self.shouldKeepRunning = YES;
+    self.timerHashTable = [NSHashTable weakObjectsHashTable];
     self.runLoop = [NSRunLoop currentRunLoop];
     [_runLoop addPort:[NSPort port] forMode:NSRunLoopCommonModes];
-    
+    APMLogDebug(@"⚠️ 线程启动 - %@", [NSThread currentThread]);
     while (_shouldKeepRunning && [_runLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]);
 }
 
 - (void)_stop {
-    self.insideThread = nil;
-    self.shouldKeepRunning = NO;
-    for (int i = (int)_timerPointArray.count - 1; i >= 0; i--) {
-        NSTimer *timer = (NSTimer *)[_timerPointArray pointerAtIndex:i];
+    _insideThread.deallocObject = [DeallocLogObject new];
+    _insideThread.deallocObject.lastWord = [NSString stringWithFormat:@"线程结束 - %@", [NSThread currentThread]];
+    
+    NSArray *timerArray = _timerHashTable.allObjects;
+    for (int i = (int)timerArray.count - 1; i >= 0; i--) {
+        NSTimer *timer = (NSTimer *)[timerArray objectAtIndex:i];
         if ([timer isValid]) {
             [timer invalidate];
         }
-        [_timerPointArray removePointerAtIndex:i];
     }
+    self.runLoop = nil;
+    self.insideThread = nil;
+    self.shouldKeepRunning = NO;
+    [_timerHashTable removeAllObjects];
     CFRunLoopStop(CFRunLoopGetCurrent());
 }
 
 - (void)_addTimer:(NSTimer *)timer {
-    [_timerPointArray addPointer:(__bridge void * _Nullable)(timer)];
-    timer.deallocObject = [[DeallocLogObject alloc] init];
-    timer.deallocObject.name = [NSString stringWithFormat:@"APMSharedThread - %@", timer];
+    if (![_timerHashTable containsObject:timer]) {
+        [_timerHashTable addObject:timer];
+    
+#if DEBUG
+        if (!timer.deallocObject) {
+            timer.deallocObject = [[DeallocLogObject alloc] init];
+            timer.deallocObject.lastWord = [NSString stringWithFormat:@"Timer销毁 - %@", timer];
+        }
+#endif
+        APMLogDebug(@"⚠️ Timer 加入 RunLoop - %@ ", timer);
+        [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    }
+}
 
-    APMLogDebug(@"⚠️ %@ - %@ 启动", self.class, timer);
-    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+- (void)_removeTimer:(NSTimer *)timer {
+    if ([timer isValid]) {
+        [timer invalidate];
+    }
+    [_timerHashTable removeObject:timer];
 }
 
 - (void)_executeTask:(void(^)(void))task {
@@ -104,6 +117,13 @@ static pthread_mutex_t _sharedThreadLock;
         _thread = [[super allocWithZone:NULL] initSingleton];
     });
     return _thread;
+}
+
+- (instancetype)initSingleton {
+    if (self = [super init]) {
+        
+    }
+    return self;
 }
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {

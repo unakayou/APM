@@ -9,23 +9,22 @@
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
-typedef  void (^MemoryCallbackHandler)(double memory);
+typedef  void (^MemoryCallbackHandler)(Float32 memory);
 
 @interface APMMemoryStatisitcsCenter : NSObject
 
-+ (instancetype)shareMemoryCenter;
+/// 开始
++ (void)start;
 
-/// 开始监测
-- (void)start;
+/// 停止
++ (void)stop;
 
-/// 停止监测
-- (void)stop;
-
-/// 设置OOM触定阈值.默认为当前设备物理内存50%
-- (void)setOverFlowLimitMemoryValue:(double)memoryValue;
+/// 设置OOM触定阈值.单位MB
++ (void)setOverFlowLimitMemoryUsage:(uint32_t)maxMemoryUsage;
 
 /// 内存刷新回调
-- (void)setMemoryInfoHandler:(MemoryCallbackHandler _Nonnull)memoryHandler;
++ (void)setMemoryInfoHandler:(MemoryCallbackHandler _Nonnull)memoryHandler;
+
 @end
 
 NS_ASSUME_NONNULL_END

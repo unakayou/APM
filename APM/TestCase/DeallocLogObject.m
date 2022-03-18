@@ -9,6 +9,6 @@
 
 @implementation DeallocLogObject
 - (void)dealloc {
-    NSLog(@"⚠️ %@ dealloc", self.name);
+    NSLog(@"⚠️ %@ dealloc", self.lastWord);
 }
 @end

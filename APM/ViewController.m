@@ -9,13 +9,11 @@
 #import "APMDeviceInfo.h"
 #import "APMRebootMonitor.h"
 #import "APMMemoryStatisitcsCenter.h"
-#import "APMMemoryUtil.h"
+#import "APMCPUStatisitcsCenter.h"
 #import "TestCase.h"
 #import <mach/mach.h>
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic, assign) APMMemoryStatisitcsCenter *memoryCenter;
-
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray <TestCase *>*tableViewDataSource;
 
@@ -27,7 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"OOM监测";
+    self.title = @"测试";
     
     [self initTableView];
     [self initMessageView];
@@ -38,8 +36,11 @@
     // OOM监测
     [self rebootTypeLog];
     
-    // 启动内存监测
+    // 内存监测
     [self initMemoryStatisitcs];
+    
+    // CPU监控
+    [self initCPUStatisitcs];
 }
 
 #pragma mark - 初始化
@@ -66,14 +67,14 @@
 }
 
 - (void)updateMessageView {
-    NSArray *nameArray = @[@"重启类型", @"启动耗时", @"内存占用"];
+    NSArray *nameArray = @[@"重启类型", @"启动耗时", @"CPU占用", @"内存占用"];
     NSArray *allKeys = _messageViewDataSource.allKeys;
     NSMutableString *text = [[NSMutableString alloc] initWithCapacity:allKeys.count];
-    for (int i = 0; i < allKeys.count; i++) {
-        NSString *key = allKeys[i];
+    for (int i = 0; i < nameArray.count; i++) {
+        NSString *key = [NSString stringWithFormat:@"%d",i];
         NSString *value = _messageViewDataSource[key];
         if (value) {
-            [text appendFormat:@"%@: %@\n", nameArray[key.intValue], value];
+            [text appendFormat:@"%@: %@\n", nameArray[i], value];
         }
     }
     _messageView.text = text;
@@ -93,26 +94,39 @@
 }
 
 - (void)initMemoryStatisitcs {
-    self.memoryCenter = [APMMemoryStatisitcsCenter shareMemoryCenter];
-    [_memoryCenter start];
+    [APMMemoryStatisitcsCenter start];
     
     __weak typeof(self) weakSelf = self;
-    [_memoryCenter setMemoryInfoHandler:^(double memory) {
+    [APMMemoryStatisitcsCenter setMemoryInfoHandler:^(Float32 memory) {
         NSString *memoryValueString = [NSString stringWithFormat:@"%.1fMB", memory];
-        [weakSelf.messageViewDataSource setObject:memoryValueString forKey:@"2"];
+        [weakSelf.messageViewDataSource setObject:memoryValueString forKey:@"3"];
+        [weakSelf updateMessageView];
+    }];
+}
+
+- (void)initCPUStatisitcs {
+    [APMCPUStatisitcsCenter start];
+    
+    __weak typeof(self) weakSelf = self;
+    [APMCPUStatisitcsCenter setCPUUsageHandler:^(double usage) {
+        NSString *cpuUsage = [NSString stringWithFormat:@"%.1f%%",[APMDeviceInfo currentCPUUsagePercent] * 100];
+        [weakSelf.messageViewDataSource setObject:cpuUsage forKey:@"2"];
         [weakSelf updateMessageView];
     }];
 }
 
 #pragma mark - 布局
+#define CELL_HEIGHT 50
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
+    CGFloat x = 0, y = 0, width = self.view.frame.size.width, height = CELL_HEIGHT * self.tableViewDataSource.count;
+    CGFloat maxHeight = self.view.frame.size.height / 3 * 2;
+    height = height < maxHeight ? height : maxHeight;
     
-    CGFloat x = 0, y = 0, width = self.view.frame.size.width, height = self.view.frame.size.height;
-    self.tableView.frame = CGRectMake(x, y, width, height / 2);
-    y += _tableView.frame.size.height;
+    self.tableView.frame = CGRectMake(x, y, width, height);
+    y += height;
     
-    self.messageView.frame = CGRectMake( x, y, width, height / 2);
+    self.messageView.frame = CGRectMake( x, y, width, self.view.frame.size.height - y);
 }
 
 #pragma mark - tableview delegate
@@ -132,5 +146,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [_tableViewDataSource[indexPath.row] caseBlock]();
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return CELL_HEIGHT;
 }
 @end

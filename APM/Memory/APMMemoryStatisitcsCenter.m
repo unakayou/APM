@@ -6,84 +6,60 @@
 //
 
 #import "APMMemoryStatisitcsCenter.h"
-#import "APMMemoryUtil.h"
+#import "APMDeviceInfo.h"
 #import "APMRebootMonitor.h"
 #import "APMSharedThread.h"
 
-@interface APMMemoryStatisitcsCenter()
-@property (nonatomic, assign) double maxMemoryValue;
-@property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, assign) APMSharedThread *sharedThread;        // 使用共享线程
-@property (nonatomic,   copy) MemoryCallbackHandler memoryHandler;
-@end
+#define DEFAULT_LIMIT_MEMORY_PERCENT 0.5;
+
+static NSTimer *_timer;
+static int _maxMemoryUsage;
+static MemoryCallbackHandler _memoryHandler;
 
 @implementation APMMemoryStatisitcsCenter
 
-- (instancetype)initSingleton {
-    if (self = [super init]) {
-        self.maxMemoryValue = [APMMemoryUtil getTotalMemory] / 2;
-        self.sharedThread = [APMSharedThread shareDefaultThread];
-        [_sharedThread start];
++ (void)start {
+    // Timer不存在 或 Timer已经停止
+    if (!_timer || !_timer.isValid) {
+        _timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(updateMemory) userInfo:nil repeats:YES];
     }
-    return self;
-}
-
-- (void)setOverFlowLimitMemoryValue:(double)memoryValue {
-    self.maxMemoryValue = memoryValue;
-}
-
-- (void)setMemoryInfoHandler:(MemoryCallbackHandler)memoryHandler {
-    self.memoryHandler = memoryHandler;
-}
-
-- (void)start {
-    self.timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(updateMemory) userInfo:nil repeats:YES];
-    [_sharedThread addTimer:_timer];
-}
-
-- (void)stop {
-    if ([_timer isValid]) {
-        [_timer invalidate];
-        self.timer = nil;
+    
+    if (_maxMemoryUsage <= 0) {
+        _maxMemoryUsage = [APMDeviceInfo getTotalMemory] * DEFAULT_LIMIT_MEMORY_PERCENT;
     }
+    
+    [[APMSharedThread shareDefaultThread] start];
+    [[APMSharedThread shareDefaultThread] addTimer:_timer];
 }
 
-- (void)updateMemory {
-    double physFootprintMemory = [APMMemoryUtil physFootprintMemory];
-    if (physFootprintMemory >= _maxMemoryValue) {
++ (void)updateMemory {
+    Float32 physFootprintMemory = [APMDeviceInfo physFootprintMemory];
+    if (physFootprintMemory >= _maxMemoryUsage) {
         APMLogDebug(@"⚠️ 警告:内存即将达到阈值");
+        
+        // 记录可能产生OOM的内存增长
         [APMRebootMonitor applicationWillOOM:physFootprintMemory];
     }
-    if (self.memoryHandler) {
+    if (_memoryHandler) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.memoryHandler(physFootprintMemory);
+            _memoryHandler(physFootprintMemory);
         });
     }
 }
 
-#pragma mark - 单例初始化
-+ (instancetype)shareMemoryCenter {
-    static dispatch_once_t _onceToken;
-    static APMMemoryStatisitcsCenter *_center = nil;
-    dispatch_once(&_onceToken, ^{
-        _center = [[super allocWithZone:NULL] initSingleton];
-    });
-    return _center;
++ (void)stop {
+    [[APMSharedThread shareDefaultThread] removeTimer:_timer];
+    
+    _timer = nil;
+    _memoryHandler = nil;
 }
 
-+ (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return [APMMemoryStatisitcsCenter shareMemoryCenter];
++ (void)setOverFlowLimitMemoryUsage:(uint32_t)maxMemoryUsage {
+    _maxMemoryUsage = maxMemoryUsage;
 }
 
-- (id)copyWithZone:(NSZone *)zone {
-    return [APMMemoryStatisitcsCenter shareMemoryCenter];
++ (void)setMemoryInfoHandler:(MemoryCallbackHandler)memoryHandler {
+    _memoryHandler = [memoryHandler copy];
 }
 
-- (id)mutableCopyWithZone:(NSZone *)zone {
-    return [APMMemoryStatisitcsCenter shareMemoryCenter];
-}
-
-- (instancetype)init {
-    return [APMMemoryStatisitcsCenter shareMemoryCenter];
-}
 @end

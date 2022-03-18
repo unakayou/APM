@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 崩溃 (需要崩溃模块调用)
 + (void)applicationCrashed;
 
-/// 即将OOM时调用.用于记录当前内存值
+/// 可能发生OOM时调用.用于记录当前内存值
 + (void)applicationWillOOM:(double)memoryValue;
 @end
 

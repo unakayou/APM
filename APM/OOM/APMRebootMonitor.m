@@ -7,7 +7,6 @@
 
 #import <UIKit/UIKit.h>
 #import <pthread.h>
-#import "APMMemoryUtil.h"
 #import "APMLogManager.h"
 #import "APMRebootInfo.h"
 #import "APMDeviceInfo.h"
@@ -56,10 +55,10 @@ static APMRebootType _rebootType = APMRebootTypeBegin;
         _rebootType = APMRebootTypeUnKnow;
     }
     
-    APMLogDebug(@"重启类型: %@", APMRebootMonitor.rebootTypeString);
+    APMLogDebug(@"⚠️ 重启类型: %@", APMRebootMonitor.rebootTypeString);
     
     info.appLaunchTimeStamp = (uint64_t)time(NULL);
-    info.appUUID = [APMMemoryUtil mainMachOUUID];
+    info.appUUID = [APMDeviceInfo mainMachOUUID];
     info.osVersion = [APMDeviceInfo systemVersion];
     info.overLimitMemory = 0;
     
@@ -78,7 +77,7 @@ static APMRebootType _rebootType = APMRebootTypeBegin;
 + (BOOL)appVersionChange {
     APMRebootInfo *info = [APMRebootInfo lastBootInfo];
     NSString *lastMainMachOUUID = info.appUUID;
-    NSString *mainMachOUUID = [APMMemoryUtil mainMachOUUID];
+    NSString *mainMachOUUID = [APMDeviceInfo mainMachOUUID];
     APMLogDebug(@"\n⚠️ UUID\n上次: %@\n本次: %@", lastMainMachOUUID, mainMachOUUID);
     return (lastMainMachOUUID != nil && ![lastMainMachOUUID isEqualToString:mainMachOUUID]);
 }
