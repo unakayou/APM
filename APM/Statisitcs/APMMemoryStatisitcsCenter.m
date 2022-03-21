@@ -11,25 +11,26 @@
 #import "APMSharedThread.h"
 
 #define DEFAULT_LIMIT_MEMORY_PERCENT 0.5;
+#define APM_MEMORY_STATISITCSCENTER_TIMER_KEY @"apmmemorystatisitcscentertimerkey"
 
-static NSTimer *_timer;
 static int _maxMemoryUsage;
 static MemoryCallbackHandler _memoryHandler;
 
 @implementation APMMemoryStatisitcsCenter
 
 + (void)start {
-    // Timer不存在 或 Timer已经停止
-    if (!_timer || !_timer.isValid) {
-        _timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(updateMemory) userInfo:nil repeats:YES];
-    }
-    
     if (_maxMemoryUsage <= 0) {
         _maxMemoryUsage = [APMDeviceInfo getTotalMemory] * DEFAULT_LIMIT_MEMORY_PERCENT;
     }
     
+    __weak typeof (self) weakSelf = self;
     [[APMSharedThread shareDefaultThread] start];
-    [[APMSharedThread shareDefaultThread] addTimer:_timer];
+    [[APMSharedThread shareDefaultThread] scheduledTimerWithKey:APM_MEMORY_STATISITCSCENTER_TIMER_KEY
+                                                   timeInterval:1
+                                                        repeats:YES
+                                                          block:^(APMSharedThread * _Nonnull thread) {
+        [weakSelf updateMemory];
+    }];
 }
 
 + (void)updateMemory {
@@ -48,10 +49,8 @@ static MemoryCallbackHandler _memoryHandler;
 }
 
 + (void)stop {
-    [[APMSharedThread shareDefaultThread] removeTimer:_timer];
-    
-    _timer = nil;
     _memoryHandler = nil;
+    [[APMSharedThread shareDefaultThread] invalidateTimerWithKey:APM_MEMORY_STATISITCSCENTER_TIMER_KEY];
 }
 
 + (void)setOverFlowLimitMemoryUsage:(uint32_t)maxMemoryUsage {

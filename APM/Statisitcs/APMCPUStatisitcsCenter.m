@@ -12,17 +12,20 @@
 @implementation APMCPUStatisitcsCenter
 
 #define DEFUTALT_MAX_CPU_USAGE_PERCENT 0.8
+#define APM_CPU_STATISITCS_CENTER_TIMER_KEY @"APMCPUSTATISITCSCENTERTIMERKEY"
 
-static NSTimer *_timer;                                             // 循环检测CPU
 static CPUCallbackHandler _usageHandler;                            // CPU占用回调
 static float _maxCPUUsagePercent = DEFUTALT_MAX_CPU_USAGE_PERCENT;  // 默认CPU警告阈值
 
 + (void)start {
-    if (!_timer || !_timer.isValid) {
-        _timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(updateCPUUsage) userInfo:nil repeats:YES];
-    }
+    __weak typeof (self) weakSelf = self;
     [[APMSharedThread shareDefaultThread] start];
-    [[APMSharedThread shareDefaultThread] addTimer:_timer];
+    [[APMSharedThread shareDefaultThread] scheduledTimerWithKey:APM_CPU_STATISITCS_CENTER_TIMER_KEY
+                                                   timeInterval:1
+                                                        repeats:YES
+                                                          block:^(APMSharedThread * _Nonnull thread) {
+        [weakSelf updateCPUUsage];
+    }];
 }
 
 + (void)updateCPUUsage {
@@ -39,10 +42,8 @@ static float _maxCPUUsagePercent = DEFUTALT_MAX_CPU_USAGE_PERCENT;  // 默认CPU
 }
 
 + (void)stop {
-    [[APMSharedThread shareDefaultThread] removeTimer:_timer];
-    
-    _timer = nil;
     _usageHandler = nil;
+    [[APMSharedThread shareDefaultThread] invalidateTimerWithKey:APM_CPU_STATISITCS_CENTER_TIMER_KEY];
 }
 
 + (void)setLimitCPUUSagePercent:(float)maxCPUUsagePercent {

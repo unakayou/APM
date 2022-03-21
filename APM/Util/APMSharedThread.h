@@ -20,14 +20,18 @@ NS_ASSUME_NONNULL_BEGIN
 /// 停止线程
 - (void)stop;
 
-/// 添加Timer (立刻 run)
-- (BOOL)addTimer:(NSTimer *)timer;
+/// 创建一个Timer
+- (APMSharedThread *)scheduledTimerWithKey:(NSString *)key
+                              timeInterval:(NSTimeInterval)interval
+                                   repeats:(BOOL)repeats
+                                     block:(void (^)(APMSharedThread *thread))block;
 
-/// 删除Timer (立刻停止)
-- (void)removeTimer:(NSTimer *)timer;
+/// 停止Timer
+- (void)invalidateTimerWithKey:(NSString *)key;
 
 /// 执行任务 (功能未完善)
 - (BOOL)executeTask:(void (^)(void))task;
+
 @end
 
 NS_ASSUME_NONNULL_END

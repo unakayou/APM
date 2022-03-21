@@ -88,6 +88,7 @@
         if (tmp) {
             name = tmp + 1;
         }
+
         NSString *imageName = [NSString stringWithUTF8String:name];
         NSString *executableName = [[NSBundle mainBundle] infoDictionary][@"CFBundleExecutable"];
         if ([imageName isEqualToString:executableName]) {

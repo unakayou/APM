@@ -30,6 +30,19 @@
 		A34F55F927E4355B00553067 /* APMCPUStatisitcsCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A34F55F827E4355B00553067 /* APMCPUStatisitcsCenter.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		A34F55FF27E82E1400553067 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		A3183C3627DF15F900310146 /* APMRebootMonitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMRebootMonitor.h; sourceTree = "<group>"; };
 		A3183C3727DF15F900310146 /* APMRebootMonitor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMRebootMonitor.m; sourceTree = "<group>"; };
@@ -214,6 +227,7 @@
 				A349BD2027D8855D00CDEA8A /* Sources */,
 				A349BD2127D8855D00CDEA8A /* Frameworks */,
 				A349BD2227D8855D00CDEA8A /* Resources */,
+				A34F55FF27E82E1400553067 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -438,6 +452,10 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 29C5EDQ3MS;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/APM/TestCase",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/APM/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = APM/Info.plist;
@@ -469,6 +487,10 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 29C5EDQ3MS;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/APM/TestCase",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/APM/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = APM/Info.plist;
