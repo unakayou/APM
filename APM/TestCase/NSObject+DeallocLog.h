@@ -8,11 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "DeallocLogObject.h"
+#import "APMDefines.h"
 
+#if APM_DEALLOC_LOG_SWITCH
 NS_ASSUME_NONNULL_BEGIN
-
 @interface NSObject (DeallocLog)
 @property (nonatomic, strong) DeallocLogObject *deallocObject;
 @end
-
 NS_ASSUME_NONNULL_END
+#endif

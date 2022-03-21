@@ -85,6 +85,7 @@
 		A34F55F227E203B300553067 /* DeallocLogObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeallocLogObject.m; sourceTree = "<group>"; };
 		A34F55F727E4355B00553067 /* APMCPUStatisitcsCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMCPUStatisitcsCenter.h; sourceTree = "<group>"; };
 		A34F55F827E4355B00553067 /* APMCPUStatisitcsCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMCPUStatisitcsCenter.m; sourceTree = "<group>"; };
+		A34F560027E8671D00553067 /* APMDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMDefines.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +166,7 @@
 		A349BD4827D8916C00CDEA8A /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				A34F560027E8671D00553067 /* APMDefines.h */,
 				A349BD4927D8919100CDEA8A /* APMPathUtil.h */,
 				A349BD4A27D8919100CDEA8A /* APMPathUtil.m */,
 				A3183C4027E0305000310146 /* APMDeviceInfo.h */,

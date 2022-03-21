@@ -7,6 +7,7 @@
 
 #import "APMSharedThread.h"
 #import "APMLogManager.h"
+#import "APMDefines.h"
 #import <pthread.h>
 
 typedef void(^APMSharedThreadTimerCallback)(APMSharedThread *);
@@ -88,7 +89,7 @@ static pthread_mutex_t _sharedThreadLock;
 }
 
 - (void)_stop {
-#if DEBUG
+#if APM_DEALLOC_LOG_SWITCH
     _insideThread.deallocObject = [DeallocLogObject new];
     _insideThread.deallocObject.lastWord = [NSString stringWithFormat:@"线程销毁 - %@", [NSThread currentThread]];
 #endif
@@ -121,10 +122,10 @@ static pthread_mutex_t _sharedThreadLock;
                                                        block:^(NSTimer * _Nonnull timer) {
         timerObj.callback(weakSelf);
     }];
-    APMLogDebug(@"⚠️ Timer 加入 RunLoop - %@ ", timer);
+    APMLogDebug(@"⚠️ %@ - 加入 RunLoop", timer);
     [_timerDictionary setObject:timer forKey:timerObj.key];
 
-#if DEBUG
+#if APM_DEALLOC_LOG_SWITCH
     if (!timer.deallocObject) {
         timer.deallocObject = [[DeallocLogObject alloc] init];
         timer.deallocObject.lastWord = [NSString stringWithFormat:@"Timer销毁 - %@", timer];

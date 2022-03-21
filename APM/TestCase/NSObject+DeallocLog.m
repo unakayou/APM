@@ -8,6 +8,8 @@
 #import "NSObject+DeallocLog.h"
 #import <objc/runtime.h>
 
+#if APM_DEALLOC_LOG_SWITCH
+
 @implementation NSObject (DeallocLog)
 static char _deallocLogSentryKey;
 
@@ -19,3 +21,4 @@ static char _deallocLogSentryKey;
     objc_setAssociatedObject(self, &_deallocLogSentryKey, object, OBJC_ASSOCIATION_RETAIN);
 }
 @end
+#endif
