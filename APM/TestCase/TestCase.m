@@ -33,60 +33,72 @@
         [TestCase OCCrash];
     };
     
+    TestCase *cpuHigh = [TestCase new];
+    cpuHigh.name = @"CPU高占用";
+    cpuHigh.caseBlock = ^{
+        for (int i = 0; i < 100; i++) {
+            dispatch_queue_t queue = dispatch_queue_create([NSString stringWithFormat:@"Queue-%d",i].UTF8String, DISPATCH_QUEUE_CONCURRENT);
+            dispatch_async(queue, ^{
+                while (1);
+            });
+        }
+    };
+    
     TestCase *exitCase = [TestCase new];
     exitCase.name = @"Exit(0)";
     exitCase.caseBlock = ^{
         [TestCase exitCase];
     };
     
-    TestCase *startCPU = [TestCase new];
-    startCPU.name = @"重启CPU监控";
-    startCPU.caseBlock = ^{
-        [APMCPUStatisitcsCenter start];
-    };
-
-    TestCase *stopCPU = [TestCase new];
-    stopCPU.name = @"停止CPU监控";
-    stopCPU.caseBlock = ^{
-        [APMCPUStatisitcsCenter stop];
-    };
-    
-    TestCase *startCase = [TestCase new];
-    startCase.name = @"重启内存监控";
-    startCase.caseBlock = ^{
-        [APMMemoryStatisitcsCenter  start];
-    };
-
-    TestCase *stopCase = [TestCase new];
-    stopCase.name = @"停止内存监控";
-    stopCase.caseBlock = ^{
-        [APMMemoryStatisitcsCenter  stop];
-    };
-
-    TestCase *startThread = [TestCase new];
-    startThread.name = @"重启共享线程";
-    startThread.caseBlock = ^{
-        [[APMSharedThread shareDefaultThread] start];
-    };
-
-    TestCase *stopThread = [TestCase new];
-    stopThread.name = @"退出共享线程";
-    stopThread.caseBlock = ^{
-        [[APMSharedThread shareDefaultThread] stop];
-    };
-    
+//    TestCase *startCPU = [TestCase new];
+//    startCPU.name = @"重启CPU监控";
+//    startCPU.caseBlock = ^{
+//        [APMCPUStatisitcsCenter start];
+//    };
+//
+//    TestCase *stopCPU = [TestCase new];
+//    stopCPU.name = @"停止CPU监控";
+//    stopCPU.caseBlock = ^{
+//        [APMCPUStatisitcsCenter stop];
+//    };
+//    
+//    TestCase *startCase = [TestCase new];
+//    startCase.name = @"重启内存监控";
+//    startCase.caseBlock = ^{
+//        [APMMemoryStatisitcsCenter  start];
+//    };
+//
+//    TestCase *stopCase = [TestCase new];
+//    stopCase.name = @"停止内存监控";
+//    stopCase.caseBlock = ^{
+//        [APMMemoryStatisitcsCenter  stop];
+//    };
+//
+//    TestCase *startThread = [TestCase new];
+//    startThread.name = @"重启共享线程";
+//    startThread.caseBlock = ^{
+//        [[APMSharedThread shareDefaultThread] start];
+//    };
+//
+//    TestCase *stopThread = [TestCase new];
+//    stopThread.name = @"退出共享线程";
+//    stopThread.caseBlock = ^{
+//        [[APMSharedThread shareDefaultThread] stop];
+//    };
+//    
     NSMutableArray *allTestCase = [NSMutableArray new];
     [allTestCase addObject:oomCase];
     [allTestCase addObject:blockCase];
     [allTestCase addObject:crashCase];
+    [allTestCase addObject:cpuHigh];
     [allTestCase addObject:exitCase];
     
-    [allTestCase addObject:startCPU];
-    [allTestCase addObject:stopCPU];
-    [allTestCase addObject:startCase];
-    [allTestCase addObject:stopCase];
-    [allTestCase addObject:startThread];
-    [allTestCase addObject:stopThread];
+//    [allTestCase addObject:startCPU];
+//    [allTestCase addObject:stopCPU];
+//    [allTestCase addObject:startCase];
+//    [allTestCase addObject:stopCase];
+//    [allTestCase addObject:startThread];
+//    [allTestCase addObject:stopThread];
 
     return allTestCase;
 }

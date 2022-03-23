@@ -20,7 +20,7 @@ typedef  void (^MemoryCallbackHandler)(Float32 memory);
 + (void)stop;
 
 /// 设置OOM触定阈值.单位MB
-+ (void)setOverFlowLimitMemoryUsage:(uint32_t)maxMemoryUsage;
++ (void)setOverFlowLimitMemoryUsage:(uint32_t)limitMemoryUsage;
 
 /// 内存刷新回调
 + (void)setMemoryInfoHandler:(MemoryCallbackHandler _Nonnull)memoryHandler;

@@ -121,7 +121,7 @@
     return memoryUsageInByte / 1024.0f / 1024.0f;
 }
 
-+ (Float32)getTotalMemory {
++ (Float32)totalMemory {
     return [[NSProcessInfo processInfo] physicalMemory] / 1024.0f / 1024.0f;
 }
 

@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (Float32)physFootprintMemory;
 
 /// 系统总内存 (单位MB)
-+ (Float32)getTotalMemory;
++ (Float32)totalMemory;
 
 @end
 
