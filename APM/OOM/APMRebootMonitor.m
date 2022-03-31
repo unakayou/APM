@@ -16,6 +16,7 @@
 @dynamic rebootType, rebootTypeString;
 static double _lastOverLimitMemory; // 上次OOM时的内存占用
 static APMRebootType _rebootType = APMRebootTypeBegin;
+static pthread_mutex_t _rebootMonitorLock;
 
 + (void)checkRebootType {
     APMRebootInfo *info = [APMRebootInfo lastBootInfo];
@@ -134,6 +135,10 @@ void exitCallback(void) {
     [info saveInfo];
 }
 
+void exitCallbackNull(void) {
+    return;
+}
+
 /// 卡顿
 + (void)applicationMainThreadBlocked {
     APMRebootInfo *info = [APMRebootInfo lastBootInfo];
@@ -154,17 +159,6 @@ void exitCallback(void) {
 }
 
 #pragma mark - 初始化
-static pthread_mutex_t _rebootMonitorLock;
-+ (APMRebootType)rebootType {
-    pthread_mutex_lock(&_rebootMonitorLock);
-    if (_rebootType == APMRebootTypeBegin) {
-        [self notificationRegister];
-        [self checkRebootType];
-    }
-    pthread_mutex_unlock(&_rebootMonitorLock);
-    return _rebootType;
-}
-
 + (void)notificationRegister {
     // 进后台
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -197,6 +191,25 @@ static pthread_mutex_t _rebootMonitorLock;
                                                object:nil];
     
     atexit(exitCallback);
+}
+
+#pragma mark - Public
++ (void)start {
+    pthread_mutex_lock(&_rebootMonitorLock);
+    if (_rebootType == APMRebootTypeBegin) {
+        [self notificationRegister];
+        [self checkRebootType];
+    }
+    pthread_mutex_unlock(&_rebootMonitorLock);
+}
+
++ (void)stop {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    atexit(exitCallbackNull);
+}
+
++ (APMRebootType)rebootType {
+    return _rebootType;
 }
 
 + (NSString *)rebootTypeString {

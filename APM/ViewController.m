@@ -6,13 +6,9 @@
 //
 
 #import "ViewController.h"
-#import "APMDeviceInfo.h"
-#import "APMRebootMonitor.h"
-#import "APMMemoryStatisticCenter.h"
-#import "APMCPUStatisticCenter.h"
+#import <mach/mach.h>
 #import "APMController.h"
 #import "TestCase.h"
-#import <mach/mach.h>
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -26,32 +22,49 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"测试";
     
-    // 开启FPS
-    [APMController startFPSMonitor];
-    
-    // 开启malloc监控
-    [APMController startMallocMonitor];
-    
+    // 初始化UI
     [self initTableView];
     [self initMessageView];
 
     // 启动时间
-    [self getLaunchTime];
+    [self launchTime];
     
     // OOM监测
     [self rebootTypeLog];
-    
+
+    __weak typeof(self) weakSelf = self;
     // 内存监测
-    [self initMemoryStatisitcs];
+    [APMController startMemoryMonitor];
+    [APMController setMemoryInfoHandler:^(Float32 memory) {
+        NSString *memoryValueString = [NSString stringWithFormat:@"%.1fMB", memory];
+        [weakSelf.messageViewDataSource setObject:memoryValueString forKey:@"3"];
+        [weakSelf updateMessageView];
+    }];
     
     // CPU监控
-    [self initCPUStatisitcs];
+    [APMController startCPUMonitor];
+    [APMController setCPUUsageHandler:^(double usage) {
+        NSString *cpuUsage = [NSString stringWithFormat:@"%.1f%%",usage * 100];
+        [weakSelf.messageViewDataSource setObject:cpuUsage forKey:@"2"];
+        [weakSelf updateMessageView];
+    }];
+    
+    // 开启FPS
+    [APMController startFPSMonitor];
+    [APMController setFPSValueHandler:^(int fps) {
+        NSString *fpsString = [NSString stringWithFormat:@"%d", fps];
+        [weakSelf.messageViewDataSource setObject:fpsString forKey:@"4"];
+        [weakSelf updateMessageView];
+    }];
+    
+    // 开启malloc监控
+    [APMController startMallocMonitor];
 }
 
 #pragma mark - 初始化
 - (void)initTableView {
+    self.title = @"测试";
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -74,7 +87,7 @@
 }
 
 - (void)updateMessageView {
-    NSArray *nameArray = @[@"重启类型", @"启动耗时", @"CPU占用", @"内存占用"];
+    NSArray *nameArray = @[@"重启类型", @"启动耗时", @"CPU占用", @"内存占用", @"FPS"];
     NSArray *allKeys = _messageViewDataSource.allKeys;
     NSMutableString *text = [[NSMutableString alloc] initWithCapacity:allKeys.count];
     for (int i = 0; i < nameArray.count; i++) {
@@ -89,37 +102,17 @@
 
 // 显示重启类型
 - (void)rebootTypeLog {
-    [_messageViewDataSource setObject:APMRebootMonitor.rebootTypeString forKey:@"0"];
+    [APMController startOOMMonitor];
+    NSString *typeString = [APMController rebootTypeString];
+    [_messageViewDataSource setObject:typeString forKey:@"0"];
     [self updateMessageView];
 }
 
 // 启动时间
-- (void)getLaunchTime {
-    NSTimeInterval launchTime = [APMDeviceInfo processStartTime];
+- (void)launchTime {
+    NSTimeInterval launchTime = [APMController launchTime];
     [_messageViewDataSource setObject:[NSString stringWithFormat:@"%f秒", launchTime / USEC_PER_SEC] forKey:@"1"];
     [self updateMessageView];
-}
-
-- (void)initMemoryStatisitcs {
-    [APMMemoryStatisticCenter start];
-    
-    __weak typeof(self) weakSelf = self;
-    [APMMemoryStatisticCenter setMemoryInfoHandler:^(Float32 memory) {
-        NSString *memoryValueString = [NSString stringWithFormat:@"%.1fMB", memory];
-        [weakSelf.messageViewDataSource setObject:memoryValueString forKey:@"3"];
-        [weakSelf updateMessageView];
-    }];
-}
-
-- (void)initCPUStatisitcs {
-    [APMCPUStatisticCenter start];
-    
-    __weak typeof(self) weakSelf = self;
-    [APMCPUStatisticCenter setCPUUsageHandler:^(double usage) {
-        NSString *cpuUsage = [NSString stringWithFormat:@"%.1f%%",[APMDeviceInfo currentCPUUsagePercent] * 100];
-        [weakSelf.messageViewDataSource setObject:cpuUsage forKey:@"2"];
-        [weakSelf updateMessageView];
-    }];
 }
 
 #pragma mark - 布局

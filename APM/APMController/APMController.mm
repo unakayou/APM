@@ -7,17 +7,34 @@
 
 #import "APMController.h"
 #import "APMPathUtil.h"
+#import "APMDeviceInfo.h"
+#import "APMRebootMonitor.h"
 #import "APMMallocManager.h"
+#import "APMCPUStatisticCenter.h"
 #import "APMFPSStatisticCenter.h"
+#import "APMMemoryStatisticCenter.h"
 
 @implementation APMController
 
++ (void)startWithAppid:(NSString *)appid config:(id)config {
+    APMLogDebug(@"真正的初始化...");
+}
+
++ (NSTimeInterval)launchTime {
+    NSTimeInterval launchTime = [APMDeviceInfo processStartTime];
+    return launchTime;
+}
+
 + (void)startCPUMonitor {
-    
+    [APMCPUStatisticCenter start];
 }
 
 + (void)stopCPUMonitor {
-    
+    [APMCPUStatisticCenter stop];
+}
+
++ (void)setCPUUsageHandler:(CPUCallbackHandler)usageHandler {
+    [APMCPUStatisticCenter setCPUUsageHandler:usageHandler];
 }
 
 + (void)startFPSMonitor {
@@ -28,20 +45,36 @@
     [APMFPSStatisticCenter stop];
 }
 
++ (void)setFPSValueHandler:(FPSCallbackHandler)FPSHandler {
+    [APMFPSStatisticCenter setFPSValueHandler:FPSHandler];
+}
+
 + (void)startMemoryMonitor {
-    
+    [APMMemoryStatisticCenter start];
 }
 
 + (void)stopMemoryMonitor {
-    
+    [APMMemoryStatisticCenter stop];
+}
+
++ (void)setMemoryInfoHandler:(MemoryCallbackHandler)memoryHandler {
+    [APMMemoryStatisticCenter setMemoryInfoHandler:memoryHandler];
 }
 
 + (void)startOOMMonitor {
-    
+    [APMRebootMonitor start];
 }
 
 + (void)stopOOMMonitor {
-    
+    [APMRebootMonitor stop];
+}
+
++ (APMRebootType)rebootType {
+    return [APMRebootMonitor rebootType];
+}
+
++ (NSString *)rebootTypeString {
+    return [APMRebootMonitor rebootTypeString];
 }
 
 APMMallocManager *g_apmMallocManager;

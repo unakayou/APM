@@ -41,8 +41,6 @@ static CFTimeInterval _lastTimestamp = 0;
 
     if (fps <= _limitFPSValue) {
         APMLogDebug(@"⚠️ FPS: %d, 低于阈值", fps);
-    } else {
-        APMLogDebug(@"FPS: %d", fps);
     }
     
     if (_FPSHandler) {
