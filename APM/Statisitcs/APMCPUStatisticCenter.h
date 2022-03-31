@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 typedef  void (^CPUCallbackHandler)(double usage);
 
-@interface APMCPUStatisitcsCenter : NSObject
+@interface APMCPUStatisticCenter : NSObject
 
 /// 开始
 + (void)start;

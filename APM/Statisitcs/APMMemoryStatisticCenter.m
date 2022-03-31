@@ -5,7 +5,7 @@
 //  Created by unakayou on 2022/3/9.
 //
 
-#import "APMMemoryStatisitcsCenter.h"
+#import "APMMemoryStatisticCenter.h"
 #import "APMDeviceInfo.h"
 #import "APMRebootMonitor.h"
 #import "APMSharedThread.h"
@@ -15,7 +15,7 @@
 
 static int _limitMemoryUsage;
 static MemoryCallbackHandler _memoryHandler;
-@implementation APMMemoryStatisitcsCenter
+@implementation APMMemoryStatisticCenter
 
 + (void)start {
     if (_limitMemoryUsage <= 0) {

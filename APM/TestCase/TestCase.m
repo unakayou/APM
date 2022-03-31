@@ -9,8 +9,8 @@
 #import "APMToastView.h"
 #import "APMRebootMonitor.h"
 #import "APMSharedThread.h"
-#import "APMCPUStatisitcsCenter.h"
-#import "APMMemoryStatisitcsCenter.h"
+#import "APMCPUStatisticCenter.h"
+#import "APMMemoryStatisticCenter.h"
 
 @implementation TestCase
 

@@ -16,7 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)rootPath;
 
 /// 重启信息路径: Library/Caches/com.platform.apmsdk/rebootInfo.dat
-+ (NSString *)rebootInfoArchPatch;
++ (NSString *)rebootInfoArchPath;
+
+/// Malloc地址记录
++ (NSString *)mallocInfoPath;
 @end
 
 NS_ASSUME_NONNULL_END

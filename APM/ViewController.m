@@ -8,8 +8,9 @@
 #import "ViewController.h"
 #import "APMDeviceInfo.h"
 #import "APMRebootMonitor.h"
-#import "APMMemoryStatisitcsCenter.h"
-#import "APMCPUStatisitcsCenter.h"
+#import "APMMemoryStatisticCenter.h"
+#import "APMCPUStatisticCenter.h"
+#import "APMController.h"
 #import "TestCase.h"
 #import <mach/mach.h>
 
@@ -26,6 +27,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"测试";
+    
+    // 开启malloc监控
+    [APMController startMallocMonitor];
     
     [self initTableView];
     [self initMessageView];
@@ -94,10 +98,10 @@
 }
 
 - (void)initMemoryStatisitcs {
-    [APMMemoryStatisitcsCenter start];
+    [APMMemoryStatisticCenter start];
     
     __weak typeof(self) weakSelf = self;
-    [APMMemoryStatisitcsCenter setMemoryInfoHandler:^(Float32 memory) {
+    [APMMemoryStatisticCenter setMemoryInfoHandler:^(Float32 memory) {
         NSString *memoryValueString = [NSString stringWithFormat:@"%.1fMB", memory];
         [weakSelf.messageViewDataSource setObject:memoryValueString forKey:@"3"];
         [weakSelf updateMessageView];
@@ -105,10 +109,10 @@
 }
 
 - (void)initCPUStatisitcs {
-    [APMCPUStatisitcsCenter start];
+    [APMCPUStatisticCenter start];
     
     __weak typeof(self) weakSelf = self;
-    [APMCPUStatisitcsCenter setCPUUsageHandler:^(double usage) {
+    [APMCPUStatisticCenter setCPUUsageHandler:^(double usage) {
         NSString *cpuUsage = [NSString stringWithFormat:@"%.1f%%",[APMDeviceInfo currentCPUUsagePercent] * 100];
         [weakSelf.messageViewDataSource setObject:cpuUsage forKey:@"2"];
         [weakSelf updateMessageView];

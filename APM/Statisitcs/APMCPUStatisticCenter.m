@@ -5,7 +5,7 @@
 //  Created by unakayou on 2022/3/18.
 //
 
-#import "APMCPUStatisitcsCenter.h"
+#import "APMCPUStatisticCenter.h"
 #import "APMSharedThread.h"
 #import "APMDeviceInfo.h"
 
@@ -15,7 +15,7 @@
 static CPUCallbackHandler _usageHandler;                            // CPU占用回调
 static float _maxCPUUsagePercent = DEFUTALT_MAX_CPU_USAGE_PERCENT;  // 默认CPU警告阈值
 
-@implementation APMCPUStatisitcsCenter
+@implementation APMCPUStatisticCenter
 
 + (void)start {
     __weak typeof (self) weakSelf = self;

@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 typedef  void (^MemoryCallbackHandler)(Float32 memory);
 
-@interface APMMemoryStatisitcsCenter : NSObject
+@interface APMMemoryStatisticCenter : NSObject
 
 /// 开始
 + (void)start;

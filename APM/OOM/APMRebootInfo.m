@@ -15,7 +15,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         @try {
-            _lastBootInfo = [NSKeyedUnarchiver unarchiveObjectWithFile:[APMPathUtil rebootInfoArchPatch]];
+            _lastBootInfo = [NSKeyedUnarchiver unarchiveObjectWithFile:[APMPathUtil rebootInfoArchPath]];
         } @catch (NSException *exception) {
             APMLogDebug(@"%@",exception);
         } @finally {
@@ -30,7 +30,7 @@
 - (BOOL)saveInfo {
     BOOL bRet = NO;
     @try {
-        bRet = [NSKeyedArchiver archiveRootObject:self toFile:[APMPathUtil rebootInfoArchPatch]];
+        bRet = [NSKeyedArchiver archiveRootObject:self toFile:[APMPathUtil rebootInfoArchPath]];
     } @catch (NSException *exception) {
         APMLogDebug(@"%@",exception);
     } @finally {

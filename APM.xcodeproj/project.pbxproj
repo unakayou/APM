@@ -20,14 +20,22 @@
 		A349BD3A27D8856000CDEA8A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD3927D8856000CDEA8A /* main.m */; };
 		A349BD4727D88AD700CDEA8A /* APMRebootInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD4627D88AD700CDEA8A /* APMRebootInfo.m */; };
 		A349BD4B27D8919100CDEA8A /* APMPathUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD4A27D8919100CDEA8A /* APMPathUtil.m */; };
-		A349BD5427D898FF00CDEA8A /* APMMemoryStatisitcsCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD5327D898FF00CDEA8A /* APMMemoryStatisitcsCenter.m */; };
+		A349BD5427D898FF00CDEA8A /* APMMemoryStatisticCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD5327D898FF00CDEA8A /* APMMemoryStatisticCenter.m */; };
 		A349BD5727D8AB2C00CDEA8A /* APMSharedThread.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD5627D8AB2C00CDEA8A /* APMSharedThread.m */; };
 		A34F55E327E08A9300553067 /* APMMainThreadBlockMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = A34F55E227E08A9300553067 /* APMMainThreadBlockMonitor.m */; };
 		A34F55E727E0917E00553067 /* TestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = A34F55E627E0917E00553067 /* TestCase.m */; };
 		A34F55EB27E09B5500553067 /* APMToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = A34F55E927E09B5500553067 /* APMToastView.m */; };
 		A34F55F027E2038100553067 /* NSObject+DeallocLog.m in Sources */ = {isa = PBXBuildFile; fileRef = A34F55EF27E2038100553067 /* NSObject+DeallocLog.m */; };
 		A34F55F327E203B300553067 /* DeallocLogObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A34F55F227E203B300553067 /* DeallocLogObject.m */; };
-		A34F55F927E4355B00553067 /* APMCPUStatisitcsCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A34F55F827E4355B00553067 /* APMCPUStatisitcsCenter.m */; };
+		A34F55F927E4355B00553067 /* APMCPUStatisticCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A34F55F827E4355B00553067 /* APMCPUStatisticCenter.m */; };
+		A3566FAA27EAF9A6008D51CA /* APMMallocLoggerHook.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FA927EAF9A6008D51CA /* APMMallocLoggerHook.mm */; };
+		A3566FAD27EAFAF4008D51CA /* APMLeakLogger.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FAC27EAFAF4008D51CA /* APMLeakLogger.mm */; };
+		A3566FB027EAFB69008D51CA /* APMMemoryLogger.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FAF27EAFB69008D51CA /* APMMemoryLogger.mm */; };
+		A3566FB427EB0099008D51CA /* APMController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FB327EB0099008D51CA /* APMController.mm */; };
+		A3566FB727EB2286008D51CA /* APMMallocManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FB627EB2286008D51CA /* APMMallocManager.mm */; };
+		A3566FBA27EB427B008D51CA /* APMBaseHashmap.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FB927EB427B008D51CA /* APMBaseHashmap.mm */; };
+		A3566FBE27EC1CA4008D51CA /* APMAddressHashmap.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FBD27EC1CA4008D51CA /* APMAddressHashmap.mm */; };
+		A3EA793527F58096001287CE /* APMFPSStatisticCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A3EA793427F58096001287CE /* APMFPSStatisticCenter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -69,8 +77,8 @@
 		A349BD4627D88AD700CDEA8A /* APMRebootInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMRebootInfo.m; sourceTree = "<group>"; };
 		A349BD4927D8919100CDEA8A /* APMPathUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMPathUtil.h; sourceTree = "<group>"; };
 		A349BD4A27D8919100CDEA8A /* APMPathUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMPathUtil.m; sourceTree = "<group>"; };
-		A349BD5227D898FF00CDEA8A /* APMMemoryStatisitcsCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMMemoryStatisitcsCenter.h; sourceTree = "<group>"; };
-		A349BD5327D898FF00CDEA8A /* APMMemoryStatisitcsCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMMemoryStatisitcsCenter.m; sourceTree = "<group>"; };
+		A349BD5227D898FF00CDEA8A /* APMMemoryStatisticCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMMemoryStatisticCenter.h; sourceTree = "<group>"; };
+		A349BD5327D898FF00CDEA8A /* APMMemoryStatisticCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMMemoryStatisticCenter.m; sourceTree = "<group>"; };
 		A349BD5527D8AB2C00CDEA8A /* APMSharedThread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMSharedThread.h; sourceTree = "<group>"; };
 		A349BD5627D8AB2C00CDEA8A /* APMSharedThread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMSharedThread.m; sourceTree = "<group>"; };
 		A34F55E127E08A9300553067 /* APMMainThreadBlockMonitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMMainThreadBlockMonitor.h; sourceTree = "<group>"; };
@@ -83,9 +91,25 @@
 		A34F55EF27E2038100553067 /* NSObject+DeallocLog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DeallocLog.m"; sourceTree = "<group>"; };
 		A34F55F127E203B300553067 /* DeallocLogObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeallocLogObject.h; sourceTree = "<group>"; };
 		A34F55F227E203B300553067 /* DeallocLogObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeallocLogObject.m; sourceTree = "<group>"; };
-		A34F55F727E4355B00553067 /* APMCPUStatisitcsCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMCPUStatisitcsCenter.h; sourceTree = "<group>"; };
-		A34F55F827E4355B00553067 /* APMCPUStatisitcsCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMCPUStatisitcsCenter.m; sourceTree = "<group>"; };
+		A34F55F727E4355B00553067 /* APMCPUStatisticCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMCPUStatisticCenter.h; sourceTree = "<group>"; };
+		A34F55F827E4355B00553067 /* APMCPUStatisticCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMCPUStatisticCenter.m; sourceTree = "<group>"; };
 		A34F560027E8671D00553067 /* APMDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMDefines.h; sourceTree = "<group>"; };
+		A3566FA827EAF9A6008D51CA /* APMMallocLoggerHook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMMallocLoggerHook.h; sourceTree = "<group>"; };
+		A3566FA927EAF9A6008D51CA /* APMMallocLoggerHook.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMMallocLoggerHook.mm; sourceTree = "<group>"; };
+		A3566FAB27EAFAF4008D51CA /* APMLeakLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMLeakLogger.h; sourceTree = "<group>"; };
+		A3566FAC27EAFAF4008D51CA /* APMLeakLogger.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMLeakLogger.mm; sourceTree = "<group>"; };
+		A3566FAE27EAFB69008D51CA /* APMMemoryLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMMemoryLogger.h; sourceTree = "<group>"; };
+		A3566FAF27EAFB69008D51CA /* APMMemoryLogger.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMMemoryLogger.mm; sourceTree = "<group>"; };
+		A3566FB227EB0099008D51CA /* APMController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMController.h; sourceTree = "<group>"; };
+		A3566FB327EB0099008D51CA /* APMController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMController.mm; sourceTree = "<group>"; };
+		A3566FB527EB2286008D51CA /* APMMallocManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMMallocManager.h; sourceTree = "<group>"; };
+		A3566FB627EB2286008D51CA /* APMMallocManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMMallocManager.mm; sourceTree = "<group>"; };
+		A3566FB827EB427B008D51CA /* APMBaseHashmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMBaseHashmap.h; sourceTree = "<group>"; };
+		A3566FB927EB427B008D51CA /* APMBaseHashmap.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMBaseHashmap.mm; sourceTree = "<group>"; };
+		A3566FBC27EC1CA4008D51CA /* APMAddressHashmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMAddressHashmap.h; sourceTree = "<group>"; };
+		A3566FBD27EC1CA4008D51CA /* APMAddressHashmap.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMAddressHashmap.mm; sourceTree = "<group>"; };
+		A3EA793327F58096001287CE /* APMFPSStatisticCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMFPSStatisticCenter.h; sourceTree = "<group>"; };
+		A3EA793427F58096001287CE /* APMFPSStatisticCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMFPSStatisticCenter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +150,7 @@
 				A349BD2E27D8855D00CDEA8A /* ViewController.m */,
 				A3183C3C27DF189B00310146 /* PrefixHeader.pch */,
 				A34F55E427E0915100553067 /* TestCase */,
+				A3566FB127EB006B008D51CA /* APMController */,
 				A34F55E827E09B4500553067 /* View */,
 				A34F55FA27E47F3000553067 /* Memory */,
 				A34F55E027E08A5D00553067 /* Block */,
@@ -155,10 +180,12 @@
 		A349BD4427D885D500CDEA8A /* Statisitcs */ = {
 			isa = PBXGroup;
 			children = (
-				A34F55F727E4355B00553067 /* APMCPUStatisitcsCenter.h */,
-				A34F55F827E4355B00553067 /* APMCPUStatisitcsCenter.m */,
-				A349BD5227D898FF00CDEA8A /* APMMemoryStatisitcsCenter.h */,
-				A349BD5327D898FF00CDEA8A /* APMMemoryStatisitcsCenter.m */,
+				A3EA793327F58096001287CE /* APMFPSStatisticCenter.h */,
+				A3EA793427F58096001287CE /* APMFPSStatisticCenter.m */,
+				A34F55F727E4355B00553067 /* APMCPUStatisticCenter.h */,
+				A34F55F827E4355B00553067 /* APMCPUStatisticCenter.m */,
+				A349BD5227D898FF00CDEA8A /* APMMemoryStatisticCenter.h */,
+				A349BD5327D898FF00CDEA8A /* APMMemoryStatisticCenter.m */,
 			);
 			path = Statisitcs;
 			sourceTree = "<group>";
@@ -215,8 +242,37 @@
 		A34F55FA27E47F3000553067 /* Memory */ = {
 			isa = PBXGroup;
 			children = (
+				A3566FBB27EB4280008D51CA /* Hashmap */,
+				A3566FB527EB2286008D51CA /* APMMallocManager.h */,
+				A3566FB627EB2286008D51CA /* APMMallocManager.mm */,
+				A3566FA827EAF9A6008D51CA /* APMMallocLoggerHook.h */,
+				A3566FA927EAF9A6008D51CA /* APMMallocLoggerHook.mm */,
+				A3566FAE27EAFB69008D51CA /* APMMemoryLogger.h */,
+				A3566FAF27EAFB69008D51CA /* APMMemoryLogger.mm */,
+				A3566FAB27EAFAF4008D51CA /* APMLeakLogger.h */,
+				A3566FAC27EAFAF4008D51CA /* APMLeakLogger.mm */,
 			);
 			path = Memory;
+			sourceTree = "<group>";
+		};
+		A3566FB127EB006B008D51CA /* APMController */ = {
+			isa = PBXGroup;
+			children = (
+				A3566FB227EB0099008D51CA /* APMController.h */,
+				A3566FB327EB0099008D51CA /* APMController.mm */,
+			);
+			path = APMController;
+			sourceTree = "<group>";
+		};
+		A3566FBB27EB4280008D51CA /* Hashmap */ = {
+			isa = PBXGroup;
+			children = (
+				A3566FB827EB427B008D51CA /* APMBaseHashmap.h */,
+				A3566FB927EB427B008D51CA /* APMBaseHashmap.mm */,
+				A3566FBC27EC1CA4008D51CA /* APMAddressHashmap.h */,
+				A3566FBD27EC1CA4008D51CA /* APMAddressHashmap.mm */,
+			);
+			path = Hashmap;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,7 +303,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1330;
 				TargetAttributes = {
 					A349BD2327D8855D00CDEA8A = {
 						CreatedOnToolsVersion = 13.2.1;
@@ -290,23 +346,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3566FAA27EAF9A6008D51CA /* APMMallocLoggerHook.mm in Sources */,
 				A349BD4B27D8919100CDEA8A /* APMPathUtil.m in Sources */,
 				A3183C3B27DF182900310146 /* APMLogManager.m in Sources */,
 				A34F55EB27E09B5500553067 /* APMToastView.m in Sources */,
 				A349BD2F27D8855D00CDEA8A /* ViewController.m in Sources */,
+				A3566FB027EAFB69008D51CA /* APMMemoryLogger.mm in Sources */,
 				A34F55F027E2038100553067 /* NSObject+DeallocLog.m in Sources */,
 				A349BD2927D8855D00CDEA8A /* AppDelegate.m in Sources */,
+				A3566FB427EB0099008D51CA /* APMController.mm in Sources */,
 				A349BD5727D8AB2C00CDEA8A /* APMSharedThread.m in Sources */,
 				A34F55E727E0917E00553067 /* TestCase.m in Sources */,
+				A3566FB727EB2286008D51CA /* APMMallocManager.mm in Sources */,
 				A349BD4727D88AD700CDEA8A /* APMRebootInfo.m in Sources */,
 				A349BD3A27D8856000CDEA8A /* main.m in Sources */,
-				A349BD5427D898FF00CDEA8A /* APMMemoryStatisitcsCenter.m in Sources */,
+				A349BD5427D898FF00CDEA8A /* APMMemoryStatisticCenter.m in Sources */,
 				A3183C3827DF15F900310146 /* APMRebootMonitor.m in Sources */,
-				A34F55F927E4355B00553067 /* APMCPUStatisitcsCenter.m in Sources */,
+				A34F55F927E4355B00553067 /* APMCPUStatisticCenter.m in Sources */,
 				A3183C3F27DF303900310146 /* APMBaseEncodeModel.m in Sources */,
 				A34F55F327E203B300553067 /* DeallocLogObject.m in Sources */,
 				A349BD2C27D8855D00CDEA8A /* SceneDelegate.m in Sources */,
+				A3566FBE27EC1CA4008D51CA /* APMAddressHashmap.mm in Sources */,
+				A3EA793527F58096001287CE /* APMFPSStatisticCenter.m in Sources */,
+				A3566FAD27EAFAF4008D51CA /* APMLeakLogger.mm in Sources */,
 				A3183C4227E0305000310146 /* APMDeviceInfo.m in Sources */,
+				A3566FBA27EB427B008D51CA /* APMBaseHashmap.mm in Sources */,
 				A34F55E327E08A9300553067 /* APMMainThreadBlockMonitor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -384,7 +448,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -437,7 +501,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -466,7 +530,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -501,7 +565,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
