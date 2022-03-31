@@ -8,6 +8,7 @@
 #import "APMController.h"
 #import "APMPathUtil.h"
 #import "APMMallocManager.h"
+#import "APMFPSStatisticCenter.h"
 
 @implementation APMController
 
@@ -17,6 +18,14 @@
 
 + (void)stopCPUMonitor {
     
+}
+
++ (void)startFPSMonitor {
+    [APMFPSStatisticCenter start];
+}
+
++ (void)stopFPSMonitor {
+    [APMFPSStatisticCenter stop];
 }
 
 + (void)startMemoryMonitor {

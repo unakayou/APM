@@ -28,6 +28,9 @@
     [super viewDidLoad];
     self.title = @"测试";
     
+    // 开启FPS
+    [APMController startFPSMonitor];
+    
     // 开启malloc监控
     [APMController startMallocMonitor];
     

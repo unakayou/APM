@@ -10,7 +10,7 @@
 #import "APMDeviceInfo.h"
 
 #define DEFUTALT_MAX_CPU_USAGE_PERCENT 0.8
-#define APM_CPU_STATISITCS_CENTER_TIMER_KEY @"apmcpustatisitcscentertimerkey"
+#define APM_CPU_STATISTICS_CENTER_TIMER_KEY @"apmcpustatisitcscentertimerkey"
 
 static CPUCallbackHandler _usageHandler;                            // CPU占用回调
 static float _maxCPUUsagePercent = DEFUTALT_MAX_CPU_USAGE_PERCENT;  // 默认CPU警告阈值
@@ -20,7 +20,7 @@ static float _maxCPUUsagePercent = DEFUTALT_MAX_CPU_USAGE_PERCENT;  // 默认CPU
 + (void)start {
     __weak typeof (self) weakSelf = self;
     [[APMSharedThread shareDefaultThread] start];
-    [[APMSharedThread shareDefaultThread] scheduledTimerWithKey:APM_CPU_STATISITCS_CENTER_TIMER_KEY
+    [[APMSharedThread shareDefaultThread] scheduledTimerWithKey:APM_CPU_STATISTICS_CENTER_TIMER_KEY
                                                    timeInterval:1
                                                         repeats:YES
                                                           block:^(APMSharedThread * _Nonnull thread) {
@@ -43,7 +43,7 @@ static float _maxCPUUsagePercent = DEFUTALT_MAX_CPU_USAGE_PERCENT;  // 默认CPU
 
 + (void)stop {
     _usageHandler = nil;
-    [[APMSharedThread shareDefaultThread] invalidateTimerWithKey:APM_CPU_STATISITCS_CENTER_TIMER_KEY];
+    [[APMSharedThread shareDefaultThread] invalidateTimerWithKey:APM_CPU_STATISTICS_CENTER_TIMER_KEY];
 }
 
 + (void)setLimitCPUUSagePercent:(float)maxCPUUsagePercent {

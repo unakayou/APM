@@ -11,7 +11,7 @@
 #import "APMSharedThread.h"
 
 #define DEFAULT_LIMIT_MEMORY_PERCENT 0.5;
-#define APM_MEMORY_STATISITCSCENTER_TIMER_KEY @"apmmemorystatisitcscentertimerkey"
+#define APM_MEMORY_STATISTICS_CENTER_TIMER_KEY @"apmmemorystatisitcscentertimerkey"
 
 static int _limitMemoryUsage;
 static MemoryCallbackHandler _memoryHandler;
@@ -24,7 +24,7 @@ static MemoryCallbackHandler _memoryHandler;
     
     __weak typeof (self) weakSelf = self;
     [[APMSharedThread shareDefaultThread] start];
-    [[APMSharedThread shareDefaultThread] scheduledTimerWithKey:APM_MEMORY_STATISITCSCENTER_TIMER_KEY
+    [[APMSharedThread shareDefaultThread] scheduledTimerWithKey:APM_MEMORY_STATISTICS_CENTER_TIMER_KEY
                                                    timeInterval:1
                                                         repeats:YES
                                                           block:^(APMSharedThread * _Nonnull thread) {
@@ -49,7 +49,7 @@ static MemoryCallbackHandler _memoryHandler;
 
 + (void)stop {
     _memoryHandler = nil;
-    [[APMSharedThread shareDefaultThread] invalidateTimerWithKey:APM_MEMORY_STATISITCSCENTER_TIMER_KEY];
+    [[APMSharedThread shareDefaultThread] invalidateTimerWithKey:APM_MEMORY_STATISTICS_CENTER_TIMER_KEY];
 }
 
 + (void)setOverFlowLimitMemoryUsage:(uint32_t)limitMemoryUsage {

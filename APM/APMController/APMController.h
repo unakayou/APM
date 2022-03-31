@@ -16,6 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)startCPUMonitor;
 + (void)stopCPUMonitor;
 
++ (void)startFPSMonitor;
++ (void)stopFPSMonitor;
+
 /// 开启内存监控
 + (void)startMemoryMonitor;
 + (void)stopMemoryMonitor;
