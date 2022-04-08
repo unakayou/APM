@@ -22,9 +22,13 @@ void apmMemoryLogger(uint32_t type, uintptr_t arg1, uintptr_t arg2, uintptr_t ar
         type &= ~stack_logging_flag_zone;
     }
     
-    if ((type & stack_logging_type_alloc) == stack_logging_type_alloc) {
+    if (type == (stack_logging_type_dealloc | stack_logging_type_alloc)) {
+        // 只有一个特殊既包含alloc、又包含dealloc,如realloc(), 先删除旧地址,再插入新地址
+    } else if ((type & stack_logging_type_alloc) == stack_logging_type_alloc) {
+        // 只要有type_alloc就是新开辟空间,如malloc、calloc、etc...
         g_apmMallocManager->recordMallocStack(result, (uint32_t)arg2, backtrace_to_skip);
-    } else if ((type & stack_logging_type_dealloc) == stack_logging_type_dealloc) {
+    } else if (type == stack_logging_type_dealloc) {
+        // 只包含dealloc的才是释放空间,如free、etc...
         g_apmMallocManager->removeMallocStack(result);
     }
 }

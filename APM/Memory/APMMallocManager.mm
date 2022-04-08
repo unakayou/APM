@@ -20,10 +20,11 @@ APMMallocManager::APMMallocManager() {
 
 APMMallocManager::~APMMallocManager() {
     printf("销毁");
+    delete(apmAddressHashmap);
 }
 
-void APMMallocManager::initLogger(NSString *path, size_t mmap_size) {
-    APMLogDebug(@"初始化Logger");
+void APMMallocManager::initWriter(NSString *path, size_t mmap_size) {
+    // 持久化模块初始化
 }
 
 void APMMallocManager::startMallocStackMonitor(size_t threshholdInBytes) {
@@ -32,8 +33,11 @@ void APMMallocManager::startMallocStackMonitor(size_t threshholdInBytes) {
     }
     // 设置malloc_logger
     startMallocLogger();
-    
     enableMallocMonitor = YES;
+}
+
+void APMMallocManager::stopMallocStackMonitor() {
+    stopMallocLogger();
 }
 
 void APMMallocManager::recordMallocStack(vm_address_t address,uint32_t size,size_t stack_num_to_skip) {

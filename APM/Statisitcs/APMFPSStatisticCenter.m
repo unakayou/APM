@@ -44,7 +44,9 @@ static CFTimeInterval _lastTimestamp = 0;
     }
     
     if (_FPSHandler) {
-        _FPSHandler(fps);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _FPSHandler(fps);
+        });
     }
 }
 

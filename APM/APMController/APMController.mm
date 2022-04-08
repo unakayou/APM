@@ -81,13 +81,15 @@ APMMallocManager *g_apmMallocManager;
 + (void)startMallocMonitor {
     if (NULL == g_apmMallocManager) {
         g_apmMallocManager = new APMMallocManager();
-        g_apmMallocManager->initLogger([APMPathUtil mallocInfoPath], 100);
+        g_apmMallocManager->initWriter([APMPathUtil mallocInfoPath], 100);
         g_apmMallocManager->startMallocStackMonitor(0);
     }
 }
 
 + (void)stopMallocMonitor {
-    
+    g_apmMallocManager->stopMallocStackMonitor();
+    delete(g_apmMallocManager);
+    g_apmMallocManager = NULL;
 }
 
 @end

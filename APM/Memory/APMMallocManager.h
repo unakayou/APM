@@ -22,7 +22,7 @@ public:
     /// 初始化logger
     /// @param path 存储mmap文件路径
     /// @param mmap_size mmap文件大小
-    void initLogger(NSString *path, size_t mmap_size);
+    void initWriter(NSString *path, size_t mmap_size);
 
     /// malloc监控开始、停止
     /// @param threshholdInBytes 同一函数开辟空间累积阈值

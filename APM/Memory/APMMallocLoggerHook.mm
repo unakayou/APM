@@ -23,9 +23,6 @@ void startMallocLogger(void) {
 void stopMallocLogger(void) {
     // 还原malloc_logger
     malloc_logger = g_apmPreMallocLogger;
-    
-    // todo: 释放hashMap
-    // ...
 }
 
 /// ⚠️ 记录关键逻辑
@@ -33,9 +30,9 @@ void stopMallocLogger(void) {
 /// malloc_logger 回调
 /// @param type malloc, realloc, etc... + NSZoneMalloc
 /// @param arg1 malloc_zone_t 地址
-/// @param arg2 size
-/// @param arg3 0
-/// @param result = malloc_zone_t->malloc(zone, size) 返回开辟的内存地址
+/// @param arg2 size (realloc时: 原本开辟地址, free时: 释放的地址)
+/// @param arg3 0     (realloc时: size)
+/// @param result = malloc_zone_t->malloc(zone, size) 返回新开辟的内存地址
 /// @param backtrace_to_skip 0
 void apmMallocLoggerHook(uint32_t type, uintptr_t arg1, uintptr_t arg2, uintptr_t arg3, uintptr_t result, uint32_t backtrace_to_skip) {
     if (g_apmMallocManager == NULL) {
@@ -48,6 +45,11 @@ void apmMallocLoggerHook(uint32_t type, uintptr_t arg1, uintptr_t arg2, uintptr_
     
     if (g_apmPreMallocLogger) {
         g_apmPreMallocLogger(type, arg1, arg2, arg3, result, backtrace_to_skip);
+    }
+    
+    // 消除共同项
+    if (type & stack_logging_flag_zone) {
+        type &= ~stack_logging_flag_zone;
     }
     
     // 内存统计

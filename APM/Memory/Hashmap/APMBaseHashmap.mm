@@ -29,7 +29,7 @@ void *APMBaseHashmap::hashmap_malloc(size_t size) {
 }
 
 void APMBaseHashmap::hashmap_free(void *ptr) {
-    malloc_zone->free(malloc_zone,ptr);
+    malloc_zone->free(malloc_zone, ptr);
 }
 
 base_entry_t *APMBaseHashmap::getHashmapEntry() {
