@@ -11,7 +11,7 @@ APMBaseHashmap::APMBaseHashmap(size_t entrys,malloc_zone_t *zone) {
     entry_num = entrys;
     malloc_zone = zone;
     hashmap_entry = (base_entry_t *)hashmap_malloc((entry_num)*sizeof(base_entry_t));
-    for(size_t i = 0; i < entry_num;i++){
+    for(size_t i = 0; i < entry_num; i++){
         base_entry_t *entry_tmp = hashmap_entry + i;
         entry_tmp->root = NULL;
     }

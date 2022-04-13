@@ -27,6 +27,7 @@ typedef  void (^FPSCallbackHandler)(int fps);
 + (void)stopCPUMonitor;
 + (void)setCPUUsageHandler:(CPUCallbackHandler _Nonnull)usageHandler;
 
+/// FPS监控
 + (void)startFPSMonitor;
 + (void)stopFPSMonitor;
 + (void)setFPSValueHandler:(FPSCallbackHandler _Nonnull)FPSHandler;
@@ -42,8 +43,10 @@ typedef  void (^FPSCallbackHandler)(int fps);
 + (APMRebootType)rebootType;
 + (NSString *)rebootTypeString;
 
-/// malloc监控
-+ (void)startMallocMonitor;
+/// malloc监控, 停止后大幅降低CPU、内存占用
+/// @param functionLimitSize 单独函数累积开辟内存阈值
+/// @param singleLimitSize 单次开辟内存阈值
++ (void)startMallocMonitorWithFunctionLimitSize:(size_t)functionLimitSize singleLimitSize:(size_t)singleLimitSize;
 + (void)stopMallocMonitor;
 
 @end

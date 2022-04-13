@@ -13,6 +13,7 @@
 #import "APMCPUStatisticCenter.h"
 #import "APMFPSStatisticCenter.h"
 #import "APMMemoryStatisticCenter.h"
+#import "APMMallocLoggerHook.h"
 
 @implementation APMController
 
@@ -78,18 +79,25 @@
 }
 
 APMMallocManager *g_apmMallocManager;
-+ (void)startMallocMonitor {
++ (void)startMallocMonitorWithFunctionLimitSize:(size_t)functionLimitSize singleLimitSize:(size_t)singleLimitSize {
     if (NULL == g_apmMallocManager) {
         g_apmMallocManager = new APMMallocManager();
-        g_apmMallocManager->initWriter([APMPathUtil mallocInfoPath], 100);
-        g_apmMallocManager->startMallocStackMonitor(0);
+        g_apmMallocManager->setWriterParamarters([APMPathUtil mallocInfoPath], 1024 * 1024);
+        g_apmMallocManager->setMallocFuncLimitSize(functionLimitSize);
+        
+        // 先初始化 malloc_manager, 再设置 malloc_logger
+        startMallocLogger();
     }
 }
 
 + (void)stopMallocMonitor {
-    g_apmMallocManager->stopMallocStackMonitor();
-    delete(g_apmMallocManager);
-    g_apmMallocManager = NULL;
+    // 先还原 malloc_logger,再释放 malloc_manager
+    stopMallocLogger();
+    
+    if (NULL != g_apmMallocManager) {
+        delete g_apmMallocManager;
+        g_apmMallocManager = NULL;
+    }
 }
 
 @end

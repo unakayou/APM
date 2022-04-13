@@ -9,7 +9,6 @@
 #import "APMMallocManager.h"
 #import "APMDefines.h"
 
-malloc_zone_t *g_apmHashmapZone;
 extern APMMallocManager *g_apmMallocManager;
 
 void startMallocLogger(void) {
@@ -36,10 +35,6 @@ void stopMallocLogger(void) {
 /// @param backtrace_to_skip 0
 void apmMallocLoggerHook(uint32_t type, uintptr_t arg1, uintptr_t arg2, uintptr_t arg3, uintptr_t result, uint32_t backtrace_to_skip) {
     if (g_apmMallocManager == NULL) {
-        return;
-    }
-    
-    if (!g_apmMallocManager->enableMallocMonitor) {
         return;
     }
     

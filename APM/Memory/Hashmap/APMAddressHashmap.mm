@@ -21,12 +21,13 @@ APMAddresshashmap::~APMAddresshashmap() {
 }
 
 // malloc地址指针入hashmap
-BOOL APMAddresshashmap::insertPtr(vm_address_t addr,base_ptr_log *ptr_log) {
+BOOL APMAddresshashmap::insertPtr(vm_address_t addr, base_ptr_log *ptr_log) {
     size_t offset = addr % (entry_num - 1);
     base_entry_t *entry = hashmap_entry + offset;
     ptr_log_t *parent = (ptr_log_t *)entry->root;
     access_num++;
     collision_num++;
+    printf("⚠️ 当前节点数量 %ld \n", record_num);
     if(parent == NULL) {
         ptr_log_t *insert_data = create_hashmap_data(addr, ptr_log);
         entry->root = insert_data;

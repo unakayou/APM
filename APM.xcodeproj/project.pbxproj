@@ -13,7 +13,7 @@
 		A3183C4227E0305000310146 /* APMDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A3183C4127E0305000310146 /* APMDeviceInfo.m */; };
 		A349BD2927D8855D00CDEA8A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD2827D8855D00CDEA8A /* AppDelegate.m */; };
 		A349BD2C27D8855D00CDEA8A /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD2B27D8855D00CDEA8A /* SceneDelegate.m */; };
-		A349BD2F27D8855D00CDEA8A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD2E27D8855D00CDEA8A /* ViewController.m */; };
+		A349BD2F27D8855D00CDEA8A /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A349BD2E27D8855D00CDEA8A /* ViewController.mm */; };
 		A349BD3227D8855D00CDEA8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A349BD3027D8855D00CDEA8A /* Main.storyboard */; };
 		A349BD3427D8856000CDEA8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A349BD3327D8856000CDEA8A /* Assets.xcassets */; };
 		A349BD3727D8856000CDEA8A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A349BD3527D8856000CDEA8A /* LaunchScreen.storyboard */; };
@@ -36,6 +36,9 @@
 		A3566FBA27EB427B008D51CA /* APMBaseHashmap.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FB927EB427B008D51CA /* APMBaseHashmap.mm */; };
 		A3566FBE27EC1CA4008D51CA /* APMAddressHashmap.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FBD27EC1CA4008D51CA /* APMAddressHashmap.mm */; };
 		A3EA793527F58096001287CE /* APMFPSStatisticCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A3EA793427F58096001287CE /* APMFPSStatisticCenter.m */; };
+		A3ECD9C128056E6E00DAACE1 /* APMStackDumper.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3ECD9C028056E6E00DAACE1 /* APMStackDumper.mm */; };
+		A3ECD9C428057BAE00DAACE1 /* APMRapidCRC.c in Sources */ = {isa = PBXBuildFile; fileRef = A3ECD9C328057BAE00DAACE1 /* APMRapidCRC.c */; };
+		A3ECD9C72806C65300DAACE1 /* APMStackHashmap.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3ECD9C62806C65300DAACE1 /* APMStackHashmap.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -67,7 +70,7 @@
 		A349BD2A27D8855D00CDEA8A /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		A349BD2B27D8855D00CDEA8A /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		A349BD2D27D8855D00CDEA8A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		A349BD2E27D8855D00CDEA8A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		A349BD2E27D8855D00CDEA8A /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		A349BD3127D8855D00CDEA8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A349BD3327D8856000CDEA8A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A349BD3627D8856000CDEA8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -110,6 +113,12 @@
 		A3566FBD27EC1CA4008D51CA /* APMAddressHashmap.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMAddressHashmap.mm; sourceTree = "<group>"; };
 		A3EA793327F58096001287CE /* APMFPSStatisticCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMFPSStatisticCenter.h; sourceTree = "<group>"; };
 		A3EA793427F58096001287CE /* APMFPSStatisticCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMFPSStatisticCenter.m; sourceTree = "<group>"; };
+		A3ECD9BF28056E6E00DAACE1 /* APMStackDumper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMStackDumper.h; sourceTree = "<group>"; };
+		A3ECD9C028056E6E00DAACE1 /* APMStackDumper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMStackDumper.mm; sourceTree = "<group>"; };
+		A3ECD9C228057BAE00DAACE1 /* APMRapidCRC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMRapidCRC.h; sourceTree = "<group>"; };
+		A3ECD9C328057BAE00DAACE1 /* APMRapidCRC.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = APMRapidCRC.c; sourceTree = "<group>"; };
+		A3ECD9C52806C65300DAACE1 /* APMStackHashmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMStackHashmap.h; sourceTree = "<group>"; };
+		A3ECD9C62806C65300DAACE1 /* APMStackHashmap.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMStackHashmap.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,7 +156,7 @@
 				A349BD2A27D8855D00CDEA8A /* SceneDelegate.h */,
 				A349BD2B27D8855D00CDEA8A /* SceneDelegate.m */,
 				A349BD2D27D8855D00CDEA8A /* ViewController.h */,
-				A349BD2E27D8855D00CDEA8A /* ViewController.m */,
+				A349BD2E27D8855D00CDEA8A /* ViewController.mm */,
 				A3183C3C27DF189B00310146 /* PrefixHeader.pch */,
 				A34F55E427E0915100553067 /* TestCase */,
 				A3566FB127EB006B008D51CA /* APMController */,
@@ -204,6 +213,8 @@
 				A349BD5627D8AB2C00CDEA8A /* APMSharedThread.m */,
 				A3183C3D27DF303900310146 /* APMBaseEncodeModel.h */,
 				A3183C3E27DF303900310146 /* APMBaseEncodeModel.m */,
+				A3ECD9C228057BAE00DAACE1 /* APMRapidCRC.h */,
+				A3ECD9C328057BAE00DAACE1 /* APMRapidCRC.c */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -251,6 +262,8 @@
 				A3566FAF27EAFB69008D51CA /* APMMemoryLogger.mm */,
 				A3566FAB27EAFAF4008D51CA /* APMLeakLogger.h */,
 				A3566FAC27EAFAF4008D51CA /* APMLeakLogger.mm */,
+				A3ECD9BF28056E6E00DAACE1 /* APMStackDumper.h */,
+				A3ECD9C028056E6E00DAACE1 /* APMStackDumper.mm */,
 			);
 			path = Memory;
 			sourceTree = "<group>";
@@ -269,6 +282,8 @@
 			children = (
 				A3566FB827EB427B008D51CA /* APMBaseHashmap.h */,
 				A3566FB927EB427B008D51CA /* APMBaseHashmap.mm */,
+				A3ECD9C52806C65300DAACE1 /* APMStackHashmap.h */,
+				A3ECD9C62806C65300DAACE1 /* APMStackHashmap.mm */,
 				A3566FBC27EC1CA4008D51CA /* APMAddressHashmap.h */,
 				A3566FBD27EC1CA4008D51CA /* APMAddressHashmap.mm */,
 			);
@@ -350,17 +365,20 @@
 				A349BD4B27D8919100CDEA8A /* APMPathUtil.m in Sources */,
 				A3183C3B27DF182900310146 /* APMLogManager.m in Sources */,
 				A34F55EB27E09B5500553067 /* APMToastView.m in Sources */,
-				A349BD2F27D8855D00CDEA8A /* ViewController.m in Sources */,
+				A3ECD9C128056E6E00DAACE1 /* APMStackDumper.mm in Sources */,
+				A349BD2F27D8855D00CDEA8A /* ViewController.mm in Sources */,
 				A3566FB027EAFB69008D51CA /* APMMemoryLogger.mm in Sources */,
 				A34F55F027E2038100553067 /* NSObject+DeallocLog.m in Sources */,
 				A349BD2927D8855D00CDEA8A /* AppDelegate.m in Sources */,
 				A3566FB427EB0099008D51CA /* APMController.mm in Sources */,
 				A349BD5727D8AB2C00CDEA8A /* APMSharedThread.m in Sources */,
 				A34F55E727E0917E00553067 /* TestCase.m in Sources */,
+				A3ECD9C428057BAE00DAACE1 /* APMRapidCRC.c in Sources */,
 				A3566FB727EB2286008D51CA /* APMMallocManager.mm in Sources */,
 				A349BD4727D88AD700CDEA8A /* APMRebootInfo.m in Sources */,
 				A349BD3A27D8856000CDEA8A /* main.m in Sources */,
 				A349BD5427D898FF00CDEA8A /* APMMemoryStatisticCenter.m in Sources */,
+				A3ECD9C72806C65300DAACE1 /* APMStackHashmap.mm in Sources */,
 				A3183C3827DF15F900310146 /* APMRebootMonitor.m in Sources */,
 				A34F55F927E4355B00553067 /* APMCPUStatisticCenter.m in Sources */,
 				A3183C3F27DF303900310146 /* APMBaseEncodeModel.m in Sources */,

@@ -6,7 +6,6 @@
 //
 //  Hashmap基类
 
-#import <Foundation/Foundation.h>
 #import <malloc/malloc.h>
 
 // 节点结构体

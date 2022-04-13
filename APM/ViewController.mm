@@ -9,6 +9,7 @@
 #import <mach/mach.h>
 #import "APMController.h"
 #import "TestCase.h"
+#import "APMMallocManager.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -59,7 +60,7 @@
     }];
     
     // 开启malloc监控
-    [APMController startMallocMonitor];
+    [APMController startMallocMonitorWithFunctionLimitSize:1024 * 1024 singleLimitSize:1024 * 1024];
 }
 
 #pragma mark - 初始化
