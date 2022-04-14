@@ -12,8 +12,6 @@
 typedef struct base_ptr_log {
     uint64_t digest;        // rapid_crc64
     uint64_t size;          // 开辟内存占用空间
-    uint32_t depth;         // 堆栈深度
-    vm_address_t **stack;   // 堆栈数组
 } base_ptr_log;
 
 // 下挂链表结构体, 不需要:堆栈数组、堆栈深度、

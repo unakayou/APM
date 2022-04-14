@@ -38,6 +38,12 @@ public:
     /// @param mallocBlock 单次触顶回调
     void setSingleMallocLimitSize(size_t singleLimitSize, MallocChunkCallback mallocBlock);
     
+    /// 重新开始记录malloc
+    void startMallocManager(void);
+    
+    /// 停止记录malloc, 已记录内容清空
+    void stopMallocManager(void);
+    
     /// malloc_logger()  记录内存开辟
     void recordMallocStack(vm_address_t address,uint32_t size,size_t stack_num_to_skip);
     

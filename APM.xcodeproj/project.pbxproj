@@ -39,6 +39,7 @@
 		A3ECD9C128056E6E00DAACE1 /* APMStackDumper.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3ECD9C028056E6E00DAACE1 /* APMStackDumper.mm */; };
 		A3ECD9C428057BAE00DAACE1 /* APMRapidCRC.c in Sources */ = {isa = PBXBuildFile; fileRef = A3ECD9C328057BAE00DAACE1 /* APMRapidCRC.c */; };
 		A3ECD9C72806C65300DAACE1 /* APMStackHashmap.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3ECD9C62806C65300DAACE1 /* APMStackHashmap.mm */; };
+		A3ECD9CA2807FCEA00DAACE1 /* APMStackWriter.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3ECD9C92807FCEA00DAACE1 /* APMStackWriter.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -119,6 +120,8 @@
 		A3ECD9C328057BAE00DAACE1 /* APMRapidCRC.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = APMRapidCRC.c; sourceTree = "<group>"; };
 		A3ECD9C52806C65300DAACE1 /* APMStackHashmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMStackHashmap.h; sourceTree = "<group>"; };
 		A3ECD9C62806C65300DAACE1 /* APMStackHashmap.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMStackHashmap.mm; sourceTree = "<group>"; };
+		A3ECD9C82807FCEA00DAACE1 /* APMStackWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMStackWriter.h; sourceTree = "<group>"; };
+		A3ECD9C92807FCEA00DAACE1 /* APMStackWriter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMStackWriter.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -286,6 +289,8 @@
 				A3ECD9C62806C65300DAACE1 /* APMStackHashmap.mm */,
 				A3566FBC27EC1CA4008D51CA /* APMAddressHashmap.h */,
 				A3566FBD27EC1CA4008D51CA /* APMAddressHashmap.mm */,
+				A3ECD9C82807FCEA00DAACE1 /* APMStackWriter.h */,
+				A3ECD9C92807FCEA00DAACE1 /* APMStackWriter.mm */,
 			);
 			path = Hashmap;
 			sourceTree = "<group>";
@@ -363,6 +368,7 @@
 			files = (
 				A3566FAA27EAF9A6008D51CA /* APMMallocLoggerHook.mm in Sources */,
 				A349BD4B27D8919100CDEA8A /* APMPathUtil.m in Sources */,
+				A3ECD9CA2807FCEA00DAACE1 /* APMStackWriter.mm in Sources */,
 				A3183C3B27DF182900310146 /* APMLogManager.m in Sources */,
 				A34F55EB27E09B5500553067 /* APMToastView.m in Sources */,
 				A3ECD9C128056E6E00DAACE1 /* APMStackDumper.mm in Sources */,
