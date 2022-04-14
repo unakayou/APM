@@ -6,16 +6,12 @@
 //
 
 #import "ViewController.h"
-#import "APMDeviceInfo.h"
-#import "APMRebootMonitor.h"
-#import "APMMemoryStatisitcsCenter.h"
-#import "APMMemoryUtil.h"
-#import "TestCase.h"
 #import <mach/mach.h>
+#import "APMController.h"
+#import "TestCase.h"
+#import "APMMallocManager.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic, assign) APMMemoryStatisitcsCenter *memoryCenter;
-
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray <TestCase *>*tableViewDataSource;
 
@@ -27,23 +23,49 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"OOM监测";
     
+    // 初始化UI
     [self initTableView];
     [self initMessageView];
 
     // 启动时间
-    [self getLaunchTime];
+    [self launchTime];
     
     // OOM监测
     [self rebootTypeLog];
+
+    __weak typeof(self) weakSelf = self;
+    // 内存监测
+    [APMController startMemoryMonitor];
+    [APMController setMemoryInfoHandler:^(Float32 memory) {
+        NSString *memoryValueString = [NSString stringWithFormat:@"%.1fMB", memory];
+        [weakSelf.messageViewDataSource setObject:memoryValueString forKey:@"3"];
+        [weakSelf updateMessageView];
+    }];
     
-    // 启动内存监测
-    [self initMemoryStatisitcs];
+    // CPU监控
+    [APMController startCPUMonitor];
+    [APMController setCPUUsageHandler:^(double usage) {
+        NSString *cpuUsage = [NSString stringWithFormat:@"%.1f%%",usage * 100];
+        [weakSelf.messageViewDataSource setObject:cpuUsage forKey:@"2"];
+        [weakSelf updateMessageView];
+    }];
+    
+    // 开启FPS
+    [APMController startFPSMonitor];
+    [APMController setFPSValueHandler:^(int fps) {
+        NSString *fpsString = [NSString stringWithFormat:@"%d", fps];
+        [weakSelf.messageViewDataSource setObject:fpsString forKey:@"4"];
+        [weakSelf updateMessageView];
+    }];
+    
+    // 开启malloc监控
+    [APMController startMallocMonitorWithFunctionLimitSize:1024 * 1024 singleLimitSize:1024 * 1024];
 }
 
 #pragma mark - 初始化
 - (void)initTableView {
+    self.title = @"测试";
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -59,20 +81,21 @@
     self.messageView = [[UITextView alloc] init];
     _messageView.font = [UIFont systemFontOfSize:15];
     _messageView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    _messageView.userInteractionEnabled = NO;
     [self.view addSubview:_messageView];
     
     self.messageViewDataSource = [NSMutableDictionary new];
 }
 
 - (void)updateMessageView {
-    NSArray *nameArray = @[@"重启类型", @"启动耗时", @"内存占用"];
+    NSArray *nameArray = @[@"重启类型", @"启动耗时", @"CPU占用", @"内存占用", @"FPS"];
     NSArray *allKeys = _messageViewDataSource.allKeys;
     NSMutableString *text = [[NSMutableString alloc] initWithCapacity:allKeys.count];
-    for (int i = 0; i < allKeys.count; i++) {
-        NSString *key = allKeys[i];
+    for (int i = 0; i < nameArray.count; i++) {
+        NSString *key = [NSString stringWithFormat:@"%d",i];
         NSString *value = _messageViewDataSource[key];
         if (value) {
-            [text appendFormat:@"%@: %@\n", nameArray[key.intValue], value];
+            [text appendFormat:@"%@: %@\n", nameArray[i], value];
         }
     }
     _messageView.text = text;
@@ -80,44 +103,31 @@
 
 // 显示重启类型
 - (void)rebootTypeLog {
-    [_messageViewDataSource setObject:APMRebootMonitor.rebootTypeString forKey:@"0"];
+    [APMController startOOMMonitor];
+    NSString *typeString = [APMController rebootTypeString];
+    [_messageViewDataSource setObject:typeString forKey:@"0"];
     [self updateMessageView];
 }
 
 // 启动时间
-- (void)getLaunchTime {
-    NSTimeInterval launchTime = [APMDeviceInfo processStartTime];
+- (void)launchTime {
+    NSTimeInterval launchTime = [APMController launchTime];
     [_messageViewDataSource setObject:[NSString stringWithFormat:@"%f秒", launchTime / USEC_PER_SEC] forKey:@"1"];
     [self updateMessageView];
 }
 
-- (void)initMemoryStatisitcs {
-    self.memoryCenter = [APMMemoryStatisitcsCenter shareMemoryCenter];
-    [_memoryCenter start];
-    
-    __weak typeof(self) weakSelf = self;
-    [_memoryCenter setMemoryInfoHandler:^(double memory) {
-        NSString *memoryValueString = [NSString stringWithFormat:@"%.1fMB", memory];
-        [weakSelf.messageViewDataSource setObject:memoryValueString forKey:@"2"];
-        [weakSelf updateMessageView];
-    }];
-}
-
-#pragma mark - 点击停止
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [super touchesBegan:touches withEvent:event];
-    [self.memoryCenter stop];
-}
-
 #pragma mark - 布局
+#define CELL_HEIGHT 50
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
+    CGFloat x = 0, y = 0, width = self.view.frame.size.width, height = CELL_HEIGHT * self.tableViewDataSource.count;
+    CGFloat maxHeight = self.view.frame.size.height / 3 * 2;
+    height = height < maxHeight ? height : maxHeight;
     
-    CGFloat x = 0, y = 0, width = self.view.frame.size.width, height = self.view.frame.size.height;
-    self.tableView.frame = CGRectMake(x, y, width, height / 2);
-    y += _tableView.frame.size.height;
+    self.tableView.frame = CGRectMake(x, y, width, height);
+    y += height;
     
-    self.messageView.frame = CGRectMake( x, y, width, height / 2);
+    self.messageView.frame = CGRectMake( x, y, width, self.view.frame.size.height - y);
 }
 
 #pragma mark - tableview delegate
@@ -137,5 +147,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [_tableViewDataSource[indexPath.row] caseBlock]();
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return CELL_HEIGHT;
 }
 @end

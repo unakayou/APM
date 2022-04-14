@@ -20,6 +20,7 @@
         id value = [self valueForKey:key];
         [aCoder encodeObject:value forKey:key];
     }
+    free(vars);
 }
 
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder{

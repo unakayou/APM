@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define APMLogDebug NSLog
+#define APMLogDebug(...) NSLog(__VA_ARGS__, nil)
 
 @interface APMLogManager : NSObject
 

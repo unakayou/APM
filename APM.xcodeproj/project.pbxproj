@@ -13,20 +13,47 @@
 		A3183C4227E0305000310146 /* APMDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A3183C4127E0305000310146 /* APMDeviceInfo.m */; };
 		A349BD2927D8855D00CDEA8A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD2827D8855D00CDEA8A /* AppDelegate.m */; };
 		A349BD2C27D8855D00CDEA8A /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD2B27D8855D00CDEA8A /* SceneDelegate.m */; };
-		A349BD2F27D8855D00CDEA8A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD2E27D8855D00CDEA8A /* ViewController.m */; };
+		A349BD2F27D8855D00CDEA8A /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A349BD2E27D8855D00CDEA8A /* ViewController.mm */; };
 		A349BD3227D8855D00CDEA8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A349BD3027D8855D00CDEA8A /* Main.storyboard */; };
 		A349BD3427D8856000CDEA8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A349BD3327D8856000CDEA8A /* Assets.xcassets */; };
 		A349BD3727D8856000CDEA8A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A349BD3527D8856000CDEA8A /* LaunchScreen.storyboard */; };
 		A349BD3A27D8856000CDEA8A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD3927D8856000CDEA8A /* main.m */; };
 		A349BD4727D88AD700CDEA8A /* APMRebootInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD4627D88AD700CDEA8A /* APMRebootInfo.m */; };
 		A349BD4B27D8919100CDEA8A /* APMPathUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD4A27D8919100CDEA8A /* APMPathUtil.m */; };
-		A349BD5127D8983C00CDEA8A /* APMMemoryUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD5027D8983C00CDEA8A /* APMMemoryUtil.m */; };
-		A349BD5427D898FF00CDEA8A /* APMMemoryStatisitcsCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD5327D898FF00CDEA8A /* APMMemoryStatisitcsCenter.m */; };
-		A349BD5727D8AB2C00CDEA8A /* APMMemoryStatisitcsThread.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD5627D8AB2C00CDEA8A /* APMMemoryStatisitcsThread.m */; };
+		A349BD5427D898FF00CDEA8A /* APMMemoryStatisticCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD5327D898FF00CDEA8A /* APMMemoryStatisticCenter.m */; };
+		A349BD5727D8AB2C00CDEA8A /* APMSharedThread.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD5627D8AB2C00CDEA8A /* APMSharedThread.m */; };
 		A34F55E327E08A9300553067 /* APMMainThreadBlockMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = A34F55E227E08A9300553067 /* APMMainThreadBlockMonitor.m */; };
 		A34F55E727E0917E00553067 /* TestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = A34F55E627E0917E00553067 /* TestCase.m */; };
 		A34F55EB27E09B5500553067 /* APMToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = A34F55E927E09B5500553067 /* APMToastView.m */; };
+		A34F55F027E2038100553067 /* NSObject+DeallocLog.m in Sources */ = {isa = PBXBuildFile; fileRef = A34F55EF27E2038100553067 /* NSObject+DeallocLog.m */; };
+		A34F55F327E203B300553067 /* DeallocLogObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A34F55F227E203B300553067 /* DeallocLogObject.m */; };
+		A34F55F927E4355B00553067 /* APMCPUStatisticCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A34F55F827E4355B00553067 /* APMCPUStatisticCenter.m */; };
+		A3566FAA27EAF9A6008D51CA /* APMMallocLoggerHook.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FA927EAF9A6008D51CA /* APMMallocLoggerHook.mm */; };
+		A3566FAD27EAFAF4008D51CA /* APMLeakLogger.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FAC27EAFAF4008D51CA /* APMLeakLogger.mm */; };
+		A3566FB027EAFB69008D51CA /* APMMemoryLogger.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FAF27EAFB69008D51CA /* APMMemoryLogger.mm */; };
+		A3566FB427EB0099008D51CA /* APMController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FB327EB0099008D51CA /* APMController.mm */; };
+		A3566FB727EB2286008D51CA /* APMMallocManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FB627EB2286008D51CA /* APMMallocManager.mm */; };
+		A3566FBA27EB427B008D51CA /* APMBaseHashmap.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FB927EB427B008D51CA /* APMBaseHashmap.mm */; };
+		A3566FBE27EC1CA4008D51CA /* APMAddressHashmap.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FBD27EC1CA4008D51CA /* APMAddressHashmap.mm */; };
+		A3EA793527F58096001287CE /* APMFPSStatisticCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A3EA793427F58096001287CE /* APMFPSStatisticCenter.m */; };
+		A3ECD9C128056E6E00DAACE1 /* APMStackDumper.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3ECD9C028056E6E00DAACE1 /* APMStackDumper.mm */; };
+		A3ECD9C428057BAE00DAACE1 /* APMRapidCRC.c in Sources */ = {isa = PBXBuildFile; fileRef = A3ECD9C328057BAE00DAACE1 /* APMRapidCRC.c */; };
+		A3ECD9C72806C65300DAACE1 /* APMStackHashmap.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3ECD9C62806C65300DAACE1 /* APMStackHashmap.mm */; };
+		A3ECD9CA2807FCEA00DAACE1 /* APMStackWriter.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3ECD9C92807FCEA00DAACE1 /* APMStackWriter.mm */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A34F55FF27E82E1400553067 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		A3183C3627DF15F900310146 /* APMRebootMonitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMRebootMonitor.h; sourceTree = "<group>"; };
@@ -44,7 +71,7 @@
 		A349BD2A27D8855D00CDEA8A /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		A349BD2B27D8855D00CDEA8A /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		A349BD2D27D8855D00CDEA8A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		A349BD2E27D8855D00CDEA8A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		A349BD2E27D8855D00CDEA8A /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		A349BD3127D8855D00CDEA8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A349BD3327D8856000CDEA8A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A349BD3627D8856000CDEA8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -54,18 +81,47 @@
 		A349BD4627D88AD700CDEA8A /* APMRebootInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMRebootInfo.m; sourceTree = "<group>"; };
 		A349BD4927D8919100CDEA8A /* APMPathUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMPathUtil.h; sourceTree = "<group>"; };
 		A349BD4A27D8919100CDEA8A /* APMPathUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMPathUtil.m; sourceTree = "<group>"; };
-		A349BD4F27D8983C00CDEA8A /* APMMemoryUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMMemoryUtil.h; sourceTree = "<group>"; };
-		A349BD5027D8983C00CDEA8A /* APMMemoryUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMMemoryUtil.m; sourceTree = "<group>"; };
-		A349BD5227D898FF00CDEA8A /* APMMemoryStatisitcsCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMMemoryStatisitcsCenter.h; sourceTree = "<group>"; };
-		A349BD5327D898FF00CDEA8A /* APMMemoryStatisitcsCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMMemoryStatisitcsCenter.m; sourceTree = "<group>"; };
-		A349BD5527D8AB2C00CDEA8A /* APMMemoryStatisitcsThread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMMemoryStatisitcsThread.h; sourceTree = "<group>"; };
-		A349BD5627D8AB2C00CDEA8A /* APMMemoryStatisitcsThread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMMemoryStatisitcsThread.m; sourceTree = "<group>"; };
+		A349BD5227D898FF00CDEA8A /* APMMemoryStatisticCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMMemoryStatisticCenter.h; sourceTree = "<group>"; };
+		A349BD5327D898FF00CDEA8A /* APMMemoryStatisticCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMMemoryStatisticCenter.m; sourceTree = "<group>"; };
+		A349BD5527D8AB2C00CDEA8A /* APMSharedThread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMSharedThread.h; sourceTree = "<group>"; };
+		A349BD5627D8AB2C00CDEA8A /* APMSharedThread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMSharedThread.m; sourceTree = "<group>"; };
 		A34F55E127E08A9300553067 /* APMMainThreadBlockMonitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMMainThreadBlockMonitor.h; sourceTree = "<group>"; };
 		A34F55E227E08A9300553067 /* APMMainThreadBlockMonitor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMMainThreadBlockMonitor.m; sourceTree = "<group>"; };
 		A34F55E527E0917E00553067 /* TestCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestCase.h; sourceTree = "<group>"; };
 		A34F55E627E0917E00553067 /* TestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestCase.m; sourceTree = "<group>"; };
 		A34F55E927E09B5500553067 /* APMToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APMToastView.m; sourceTree = "<group>"; };
 		A34F55EA27E09B5500553067 /* APMToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APMToastView.h; sourceTree = "<group>"; };
+		A34F55EE27E2038100553067 /* NSObject+DeallocLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+DeallocLog.h"; sourceTree = "<group>"; };
+		A34F55EF27E2038100553067 /* NSObject+DeallocLog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DeallocLog.m"; sourceTree = "<group>"; };
+		A34F55F127E203B300553067 /* DeallocLogObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeallocLogObject.h; sourceTree = "<group>"; };
+		A34F55F227E203B300553067 /* DeallocLogObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeallocLogObject.m; sourceTree = "<group>"; };
+		A34F55F727E4355B00553067 /* APMCPUStatisticCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMCPUStatisticCenter.h; sourceTree = "<group>"; };
+		A34F55F827E4355B00553067 /* APMCPUStatisticCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMCPUStatisticCenter.m; sourceTree = "<group>"; };
+		A34F560027E8671D00553067 /* APMDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMDefines.h; sourceTree = "<group>"; };
+		A3566FA827EAF9A6008D51CA /* APMMallocLoggerHook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMMallocLoggerHook.h; sourceTree = "<group>"; };
+		A3566FA927EAF9A6008D51CA /* APMMallocLoggerHook.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMMallocLoggerHook.mm; sourceTree = "<group>"; };
+		A3566FAB27EAFAF4008D51CA /* APMLeakLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMLeakLogger.h; sourceTree = "<group>"; };
+		A3566FAC27EAFAF4008D51CA /* APMLeakLogger.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMLeakLogger.mm; sourceTree = "<group>"; };
+		A3566FAE27EAFB69008D51CA /* APMMemoryLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMMemoryLogger.h; sourceTree = "<group>"; };
+		A3566FAF27EAFB69008D51CA /* APMMemoryLogger.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMMemoryLogger.mm; sourceTree = "<group>"; };
+		A3566FB227EB0099008D51CA /* APMController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMController.h; sourceTree = "<group>"; };
+		A3566FB327EB0099008D51CA /* APMController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMController.mm; sourceTree = "<group>"; };
+		A3566FB527EB2286008D51CA /* APMMallocManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMMallocManager.h; sourceTree = "<group>"; };
+		A3566FB627EB2286008D51CA /* APMMallocManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMMallocManager.mm; sourceTree = "<group>"; };
+		A3566FB827EB427B008D51CA /* APMBaseHashmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMBaseHashmap.h; sourceTree = "<group>"; };
+		A3566FB927EB427B008D51CA /* APMBaseHashmap.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMBaseHashmap.mm; sourceTree = "<group>"; };
+		A3566FBC27EC1CA4008D51CA /* APMAddressHashmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMAddressHashmap.h; sourceTree = "<group>"; };
+		A3566FBD27EC1CA4008D51CA /* APMAddressHashmap.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMAddressHashmap.mm; sourceTree = "<group>"; };
+		A3EA793327F58096001287CE /* APMFPSStatisticCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMFPSStatisticCenter.h; sourceTree = "<group>"; };
+		A3EA793427F58096001287CE /* APMFPSStatisticCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMFPSStatisticCenter.m; sourceTree = "<group>"; };
+		A3ECD9BF28056E6E00DAACE1 /* APMStackDumper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMStackDumper.h; sourceTree = "<group>"; };
+		A3ECD9C028056E6E00DAACE1 /* APMStackDumper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMStackDumper.mm; sourceTree = "<group>"; };
+		A3ECD9C228057BAE00DAACE1 /* APMRapidCRC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMRapidCRC.h; sourceTree = "<group>"; };
+		A3ECD9C328057BAE00DAACE1 /* APMRapidCRC.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = APMRapidCRC.c; sourceTree = "<group>"; };
+		A3ECD9C52806C65300DAACE1 /* APMStackHashmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMStackHashmap.h; sourceTree = "<group>"; };
+		A3ECD9C62806C65300DAACE1 /* APMStackHashmap.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMStackHashmap.mm; sourceTree = "<group>"; };
+		A3ECD9C82807FCEA00DAACE1 /* APMStackWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMStackWriter.h; sourceTree = "<group>"; };
+		A3ECD9C92807FCEA00DAACE1 /* APMStackWriter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMStackWriter.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,12 +158,15 @@
 				A349BD2827D8855D00CDEA8A /* AppDelegate.m */,
 				A349BD2A27D8855D00CDEA8A /* SceneDelegate.h */,
 				A349BD2B27D8855D00CDEA8A /* SceneDelegate.m */,
+				A349BD2D27D8855D00CDEA8A /* ViewController.h */,
+				A349BD2E27D8855D00CDEA8A /* ViewController.mm */,
 				A3183C3C27DF189B00310146 /* PrefixHeader.pch */,
-				A34F55EC27E09B5D00553067 /* Controller */,
 				A34F55E427E0915100553067 /* TestCase */,
+				A3566FB127EB006B008D51CA /* APMController */,
 				A34F55E827E09B4500553067 /* View */,
+				A34F55FA27E47F3000553067 /* Memory */,
 				A34F55E027E08A5D00553067 /* Block */,
-				A349BD4427D885D500CDEA8A /* Memory */,
+				A349BD4427D885D500CDEA8A /* Statisitcs */,
 				A349BD4327D885CA00CDEA8A /* OOM */,
 				A349BD4827D8916C00CDEA8A /* Util */,
 				A349BD3027D8855D00CDEA8A /* Main.storyboard */,
@@ -130,30 +189,35 @@
 			path = OOM;
 			sourceTree = "<group>";
 		};
-		A349BD4427D885D500CDEA8A /* Memory */ = {
+		A349BD4427D885D500CDEA8A /* Statisitcs */ = {
 			isa = PBXGroup;
 			children = (
-				A349BD5227D898FF00CDEA8A /* APMMemoryStatisitcsCenter.h */,
-				A349BD5327D898FF00CDEA8A /* APMMemoryStatisitcsCenter.m */,
-				A349BD5527D8AB2C00CDEA8A /* APMMemoryStatisitcsThread.h */,
-				A349BD5627D8AB2C00CDEA8A /* APMMemoryStatisitcsThread.m */,
+				A3EA793327F58096001287CE /* APMFPSStatisticCenter.h */,
+				A3EA793427F58096001287CE /* APMFPSStatisticCenter.m */,
+				A34F55F727E4355B00553067 /* APMCPUStatisticCenter.h */,
+				A34F55F827E4355B00553067 /* APMCPUStatisticCenter.m */,
+				A349BD5227D898FF00CDEA8A /* APMMemoryStatisticCenter.h */,
+				A349BD5327D898FF00CDEA8A /* APMMemoryStatisticCenter.m */,
 			);
-			path = Memory;
+			path = Statisitcs;
 			sourceTree = "<group>";
 		};
 		A349BD4827D8916C00CDEA8A /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				A34F560027E8671D00553067 /* APMDefines.h */,
 				A349BD4927D8919100CDEA8A /* APMPathUtil.h */,
 				A349BD4A27D8919100CDEA8A /* APMPathUtil.m */,
 				A3183C4027E0305000310146 /* APMDeviceInfo.h */,
 				A3183C4127E0305000310146 /* APMDeviceInfo.m */,
-				A349BD4F27D8983C00CDEA8A /* APMMemoryUtil.h */,
-				A349BD5027D8983C00CDEA8A /* APMMemoryUtil.m */,
 				A3183C3927DF182900310146 /* APMLogManager.h */,
 				A3183C3A27DF182900310146 /* APMLogManager.m */,
+				A349BD5527D8AB2C00CDEA8A /* APMSharedThread.h */,
+				A349BD5627D8AB2C00CDEA8A /* APMSharedThread.m */,
 				A3183C3D27DF303900310146 /* APMBaseEncodeModel.h */,
 				A3183C3E27DF303900310146 /* APMBaseEncodeModel.m */,
+				A3ECD9C228057BAE00DAACE1 /* APMRapidCRC.h */,
+				A3ECD9C328057BAE00DAACE1 /* APMRapidCRC.c */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -172,6 +236,10 @@
 			children = (
 				A34F55E527E0917E00553067 /* TestCase.h */,
 				A34F55E627E0917E00553067 /* TestCase.m */,
+				A34F55F127E203B300553067 /* DeallocLogObject.h */,
+				A34F55F227E203B300553067 /* DeallocLogObject.m */,
+				A34F55EE27E2038100553067 /* NSObject+DeallocLog.h */,
+				A34F55EF27E2038100553067 /* NSObject+DeallocLog.m */,
 			);
 			path = TestCase;
 			sourceTree = "<group>";
@@ -185,13 +253,46 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		A34F55EC27E09B5D00553067 /* Controller */ = {
+		A34F55FA27E47F3000553067 /* Memory */ = {
 			isa = PBXGroup;
 			children = (
-				A349BD2D27D8855D00CDEA8A /* ViewController.h */,
-				A349BD2E27D8855D00CDEA8A /* ViewController.m */,
+				A3566FBB27EB4280008D51CA /* Hashmap */,
+				A3566FB527EB2286008D51CA /* APMMallocManager.h */,
+				A3566FB627EB2286008D51CA /* APMMallocManager.mm */,
+				A3566FA827EAF9A6008D51CA /* APMMallocLoggerHook.h */,
+				A3566FA927EAF9A6008D51CA /* APMMallocLoggerHook.mm */,
+				A3566FAE27EAFB69008D51CA /* APMMemoryLogger.h */,
+				A3566FAF27EAFB69008D51CA /* APMMemoryLogger.mm */,
+				A3566FAB27EAFAF4008D51CA /* APMLeakLogger.h */,
+				A3566FAC27EAFAF4008D51CA /* APMLeakLogger.mm */,
+				A3ECD9BF28056E6E00DAACE1 /* APMStackDumper.h */,
+				A3ECD9C028056E6E00DAACE1 /* APMStackDumper.mm */,
 			);
-			path = Controller;
+			path = Memory;
+			sourceTree = "<group>";
+		};
+		A3566FB127EB006B008D51CA /* APMController */ = {
+			isa = PBXGroup;
+			children = (
+				A3566FB227EB0099008D51CA /* APMController.h */,
+				A3566FB327EB0099008D51CA /* APMController.mm */,
+			);
+			path = APMController;
+			sourceTree = "<group>";
+		};
+		A3566FBB27EB4280008D51CA /* Hashmap */ = {
+			isa = PBXGroup;
+			children = (
+				A3566FB827EB427B008D51CA /* APMBaseHashmap.h */,
+				A3566FB927EB427B008D51CA /* APMBaseHashmap.mm */,
+				A3ECD9C52806C65300DAACE1 /* APMStackHashmap.h */,
+				A3ECD9C62806C65300DAACE1 /* APMStackHashmap.mm */,
+				A3566FBC27EC1CA4008D51CA /* APMAddressHashmap.h */,
+				A3566FBD27EC1CA4008D51CA /* APMAddressHashmap.mm */,
+				A3ECD9C82807FCEA00DAACE1 /* APMStackWriter.h */,
+				A3ECD9C92807FCEA00DAACE1 /* APMStackWriter.mm */,
+			);
+			path = Hashmap;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,6 +305,7 @@
 				A349BD2027D8855D00CDEA8A /* Sources */,
 				A349BD2127D8855D00CDEA8A /* Frameworks */,
 				A349BD2227D8855D00CDEA8A /* Resources */,
+				A34F55FF27E82E1400553067 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -221,7 +323,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1330;
 				TargetAttributes = {
 					A349BD2327D8855D00CDEA8A = {
 						CreatedOnToolsVersion = 13.2.1;
@@ -237,7 +339,7 @@
 				Base,
 			);
 			mainGroup = A349BD1B27D8855D00CDEA8A;
-			productRefGroup = A349BD2527D8855D00CDEA8A /* Products */;
+			productRefGroup = A349BD1B27D8855D00CDEA8A;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -264,21 +366,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3566FAA27EAF9A6008D51CA /* APMMallocLoggerHook.mm in Sources */,
 				A349BD4B27D8919100CDEA8A /* APMPathUtil.m in Sources */,
+				A3ECD9CA2807FCEA00DAACE1 /* APMStackWriter.mm in Sources */,
 				A3183C3B27DF182900310146 /* APMLogManager.m in Sources */,
 				A34F55EB27E09B5500553067 /* APMToastView.m in Sources */,
-				A349BD2F27D8855D00CDEA8A /* ViewController.m in Sources */,
+				A3ECD9C128056E6E00DAACE1 /* APMStackDumper.mm in Sources */,
+				A349BD2F27D8855D00CDEA8A /* ViewController.mm in Sources */,
+				A3566FB027EAFB69008D51CA /* APMMemoryLogger.mm in Sources */,
+				A34F55F027E2038100553067 /* NSObject+DeallocLog.m in Sources */,
 				A349BD2927D8855D00CDEA8A /* AppDelegate.m in Sources */,
-				A349BD5727D8AB2C00CDEA8A /* APMMemoryStatisitcsThread.m in Sources */,
+				A3566FB427EB0099008D51CA /* APMController.mm in Sources */,
+				A349BD5727D8AB2C00CDEA8A /* APMSharedThread.m in Sources */,
 				A34F55E727E0917E00553067 /* TestCase.m in Sources */,
+				A3ECD9C428057BAE00DAACE1 /* APMRapidCRC.c in Sources */,
+				A3566FB727EB2286008D51CA /* APMMallocManager.mm in Sources */,
 				A349BD4727D88AD700CDEA8A /* APMRebootInfo.m in Sources */,
 				A349BD3A27D8856000CDEA8A /* main.m in Sources */,
-				A349BD5427D898FF00CDEA8A /* APMMemoryStatisitcsCenter.m in Sources */,
+				A349BD5427D898FF00CDEA8A /* APMMemoryStatisticCenter.m in Sources */,
+				A3ECD9C72806C65300DAACE1 /* APMStackHashmap.mm in Sources */,
 				A3183C3827DF15F900310146 /* APMRebootMonitor.m in Sources */,
+				A34F55F927E4355B00553067 /* APMCPUStatisticCenter.m in Sources */,
 				A3183C3F27DF303900310146 /* APMBaseEncodeModel.m in Sources */,
-				A349BD5127D8983C00CDEA8A /* APMMemoryUtil.m in Sources */,
+				A34F55F327E203B300553067 /* DeallocLogObject.m in Sources */,
 				A349BD2C27D8855D00CDEA8A /* SceneDelegate.m in Sources */,
+				A3566FBE27EC1CA4008D51CA /* APMAddressHashmap.mm in Sources */,
+				A3EA793527F58096001287CE /* APMFPSStatisticCenter.m in Sources */,
+				A3566FAD27EAFAF4008D51CA /* APMLeakLogger.mm in Sources */,
 				A3183C4227E0305000310146 /* APMDeviceInfo.m in Sources */,
+				A3566FBA27EB427B008D51CA /* APMBaseHashmap.mm in Sources */,
 				A34F55E327E08A9300553067 /* APMMainThreadBlockMonitor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -356,7 +472,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -409,7 +525,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -426,6 +542,10 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 29C5EDQ3MS;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/APM/TestCase",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/APM/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = APM/Info.plist;
@@ -434,7 +554,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -457,6 +577,10 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 29C5EDQ3MS;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/APM/TestCase",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/APM/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = APM/Info.plist;
@@ -465,7 +589,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

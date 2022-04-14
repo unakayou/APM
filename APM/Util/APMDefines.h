@@ -1,0 +1,38 @@
+//
+//  APMDefines.h
+//  APM
+//
+//  Created by unakayou on 2022/3/21.
+//
+
+#ifndef APMDefines_h
+#define APMDefines_h
+
+#define APM_DEALLOC_LOG_SWITCH 0
+
+#define stack_logging_type_free        0
+#define stack_logging_type_generic    1    /* anything that is not allocation/deallocation */
+#define stack_logging_type_alloc    2    /* malloc, realloc, etc... */
+#define stack_logging_type_dealloc    4    /* free, realloc, etc... */
+#define stack_logging_flag_zone        8    /* NSZoneMalloc, etc... */
+#define stack_logging_type_vm_allocate  16      /* vm_allocate or mmap */
+#define stack_logging_type_vm_deallocate  32    /* vm_deallocate or munmap */
+#define stack_logging_type_mapped_file_or_shared_mem    128
+
+typedef NS_ENUM(NSUInteger, APMRebootType) {
+    APMRebootTypeUnKnow             = 0,    // 未知
+    APMRebootTypeBegin              = 1,    // 开始
+    
+    APMRebootTypeQuitByUser         = 2,    // 上滑退出
+    APMRebootTypeOSReboot           = 3,    // 系统重启
+    APMRebootTypeAppVersionChange   = 4,    // App升级
+    APMRebootTypeOSVersionChange    = 5,    // 系统升级
+    APMRebootTypeQuitByExit         = 6,    // exit()
+
+    APMRebootTypeCrash              = 7,    // 崩溃
+    APMRebootTypeANR                = 8,    // 卡死
+    APMRebootTypeFOOM               = 9,    // 前台OOM
+    APMRebootTypeBOOM               = 10,   // 后台OOM或被Jestam杀掉
+};
+
+#endif /* APMDefines_h */

@@ -8,6 +8,9 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
+#ifdef __OBJC__
 #import "APMLogManager.h"
+#import "NSObject+DeallocLog.h"
+#endif
 
 #endif /* PrefixHeader_pch */
