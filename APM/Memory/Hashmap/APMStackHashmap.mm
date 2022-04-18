@@ -30,7 +30,7 @@ APMStackHashmap::~APMStackHashmap() {
     }
 }
 
-void APMStackHashmap::insertStackAndIncreaseCountIfExist(uint64_t digest,base_stack_t *stack) {
+void APMStackHashmap::insertStackAndIncreaseCountIfExist(uint64_t digest,base_stack_t *stack, bool *functionOverLimit) {
     size_t offset = (size_t)digest % (entry_num - 1);
     base_entry_t *entry = hashmap_entry + offset;
     merge_stack_t *parent = (merge_stack_t *)entry->root;   // 下挂节点第一个
@@ -44,6 +44,7 @@ void APMStackHashmap::insertStackAndIncreaseCountIfExist(uint64_t digest,base_st
         if(insert_data->size > _functionLimitSize) {
             insert_data->cache_flag = 1;
             _stackWriter->updateStack(insert_data, stack);
+            *functionOverLimit = true;
         }
         record_num++;
         return;
@@ -56,6 +57,7 @@ void APMStackHashmap::insertStackAndIncreaseCountIfExist(uint64_t digest,base_st
             if(parent->size > _functionLimitSize) {
                 parent->cache_flag = 1;
                 _stackWriter->updateStack(parent, stack);
+                *functionOverLimit = true;
             }
             return;
         }
@@ -70,6 +72,7 @@ void APMStackHashmap::insertStackAndIncreaseCountIfExist(uint64_t digest,base_st
                 if(current->size > _functionLimitSize) {
                     current->cache_flag = 1;
                     _stackWriter->updateStack(current, stack);
+                    *functionOverLimit = true;
                 }
                 return ;
             }
@@ -84,6 +87,7 @@ void APMStackHashmap::insertStackAndIncreaseCountIfExist(uint64_t digest,base_st
         if(current->size > _functionLimitSize) {
             current->cache_flag = 1;
             _stackWriter->updateStack(current, stack);
+            *functionOverLimit = true;
         }
         record_num++;
         return ;

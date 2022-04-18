@@ -170,7 +170,13 @@
 
 + (void)funcMallocLimit {
     [APMToastView showToastViewWithMessage:@"连续小内存申请中"];
-    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        for (int i = 0; i < 1000; i++) {
+            void *tmp = malloc(1024 * 5);
+            memset(tmp, 0, 1024 * 5);
+        }
+        [APMToastView showToastViewWithMessage:@"连续小内存申请完毕"];
+    });
 }
 
 @end

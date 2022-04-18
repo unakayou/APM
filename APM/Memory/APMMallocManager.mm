@@ -59,7 +59,9 @@ void APMMallocManager::setFuncMallocLimitSize(size_t funcLimitSize) {
 }
 
 void APMMallocManager::setFuncMallocExceed(MallocExceedCallback callback) {
-    _funcLimitCallback = [callback copy];
+    if (callback) {
+        _funcLimitCallback = [callback copy];
+    }
 }
 
 void APMMallocManager::setSingleMallocLimitSize(size_t singleLimitSize) {
@@ -67,7 +69,9 @@ void APMMallocManager::setSingleMallocLimitSize(size_t singleLimitSize) {
 }
 
 void APMMallocManager::setSingleMallocExceedCallback(MallocExceedCallback callback) {
-    _singleLimitCallback = [callback copy];
+    if (callback) {
+        _singleLimitCallback = [callback copy];
+    }
 }
 
 void APMMallocManager::startMallocManager(void) {
@@ -133,14 +137,23 @@ void APMMallocManager::recordMallocStack(vm_address_t address, uint32_t size, si
     base_stack.stack = stack;
     base_stack.depth = depth;
     base_stack.size = size;
-    
+
     do_lockHashmap
+    bool funcOverLimit = NO;
     if (_apmAddressHashmap && _apmStackHashmap) {
         if (_apmAddressHashmap->insertPtr(address, &base_ptr)) {
-            _apmStackHashmap->insertStackAndIncreaseCountIfExist(digest, &base_stack);
+            _apmStackHashmap->insertStackAndIncreaseCountIfExist(digest, &base_stack, &funcOverLimit);
         }
     }
     do_unlockHashmap
+    
+    if (funcOverLimit && _funcLimitCallback) {
+        NSMutableString *string = [[NSMutableString alloc] init];
+        for (int i = 0; i < depth; i++) {
+            [string appendFormat:@"0x%lx\n", (vm_address_t)stack[i]];
+        }
+        _funcLimitCallback(size, string);
+    }
 }
 
 void APMMallocManager::removeMallocStack(vm_address_t address) {

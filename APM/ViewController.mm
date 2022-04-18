@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    [self redirectLogToSanbox];
+    [self redirectLogToSanbox];
     
     // 初始化UI
     [self initTableView];
@@ -66,6 +66,9 @@
     
     [APMController setFunctionMallocExceedCallback:^(size_t bytes, NSString * _Nonnull stack) {
         APMLogDebug(@"\n发现累积大内存: %ldKB\n堆栈详情:\n%@", bytes / 1024, stack);
+        NSString *stackString = [NSString stringWithFormat:@"%ldKB\n%@", bytes / 1024, stack];
+        [weakSelf.messageViewDataSource setObject:stackString forKey:@"6"];
+        [weakSelf updateMessageView];
     }];
     
     [APMController setSingleMallocExceedCallback:^(size_t bytes, NSString * _Nonnull stack) {
@@ -100,7 +103,7 @@
 }
 
 - (void)updateMessageView {
-    NSArray *nameArray = @[@"重启类型", @"启动耗时", @"CPU占用", @"内存占用", @"FPS", @"大内存捕获"];
+    NSArray *nameArray = @[@"重启类型", @"启动耗时", @"CPU占用", @"内存占用", @"FPS", @"大内存捕获", @"单函数开辟超限"];
     NSArray *allKeys = _messageViewDataSource.allKeys;
     NSMutableString *text = [[NSMutableString alloc] initWithCapacity:allKeys.count];
     for (int i = 0; i < nameArray.count; i++) {
@@ -168,15 +171,15 @@
 - (NSString *)redirectLogToSanbox {
     
     // 已经连接Xcode调试则不输出到文件
-//    if(isatty(STDOUT_FILENO)) {
-//        return nil;
-//    }
+    if(isatty(STDOUT_FILENO)) {
+        return nil;
+    }
     
     // 在模拟器不保存到文件中
-//    UIDevice *device = [UIDevice currentDevice];
-//    if([[device model] hasSuffix:@"Simulator"]) {
-//        return nil;
-//    }
+    UIDevice *device = [UIDevice currentDevice];
+    if([[device model] hasSuffix:@"Simulator"]) {
+        return nil;
+    }
     
     //将NSLog打印信息保存到Document目录下的Log文件夹下
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
