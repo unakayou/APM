@@ -35,22 +35,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EFB7DEB0-1CFD-4DEC-A9CE-E393ECB83411"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "APM/Memory/APMMallocManager.mm"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "APMMallocManager::recordMallocStack(address, size, stack_num_to_skip)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "FBD50F86-1540-47C7-B271-4BB968391379"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -61,6 +45,22 @@
             startingLineNumber = "34"
             endingLineNumber = "34"
             landmarkName = "APMStackHashmap::insertStackAndIncreaseCountIfExist(digest, stack)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D5B2FD47-4DF9-4338-B31D-FE65A4F749CF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "APM/Memory/APMMallocManager.mm"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "APMMallocManager::recordMallocStack(address, size, stack_num_to_skip)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

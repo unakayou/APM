@@ -69,4 +69,5 @@ private:
     APMAddresshashmap *_apmAddressHashmap = NULL;               // Key: 地址
     APMStackHashmap *_apmStackHashmap = NULL;                   // Key: 堆栈CRC
     os_unfair_lock _hashmap_unfair_lock = OS_UNFAIR_LOCK_INIT;  // Hashmap锁
+    dispatch_semaphore_t _hashmap_semaphore;                    // Hashmap信号量
 };

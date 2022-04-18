@@ -11,9 +11,22 @@
 #import "APMRapidCRC.h"
 #import "Block.h"
 
+#define USE_UNFAIR_LOCK 1
+#if USE_UNFAIR_LOCK
+#define do_lockHashmap os_unfair_lock_lock(&_hashmap_unfair_lock);
+#define do_unlockHashmap os_unfair_lock_unlock(&_hashmap_unfair_lock);
+#else
+#define do_lockHashmap dispatch_semaphore_wait(_hashmap_semaphore, DISPATCH_TIME_FOREVER);
+#define do_unlockHashmap dispatch_semaphore_signal(_hashmap_semaphore);
+#endif
+
 APMMallocManager::APMMallocManager() {
     // 初始化crc table
     initCRCTable();
+    
+#if !USE_UNFAIR_LOCK
+    _hashmap_semaphore = dispatch_semaphore_create(1);
+#endif
     
     // 初始化logger存储空间
     if (NULL == g_apmHashmapZone) {
@@ -58,6 +71,7 @@ void APMMallocManager::setSingleMallocExceedCallback(MallocExceedCallback callba
 }
 
 void APMMallocManager::startMallocManager(void) {
+    do_lockHashmap
     // 初始化指针hashmap
     if (NULL == _apmAddressHashmap) {
         _apmAddressHashmap = new APMAddresshashmap(50000, g_apmHashmapZone);
@@ -67,10 +81,11 @@ void APMMallocManager::startMallocManager(void) {
     if (NULL == _apmStackHashmap) {
         _apmStackHashmap = new APMStackHashmap(50000, g_apmHashmapZone, _funcLimitSize, _logPath, _logMmapSize);
     }
+    do_unlockHashmap
 }
 
 void APMMallocManager::stopMallocManager(void) {
-    os_unfair_lock_lock(&_hashmap_unfair_lock);
+    do_lockHashmap
     if (NULL != _apmAddressHashmap) {
         delete _apmAddressHashmap;
     }
@@ -78,7 +93,6 @@ void APMMallocManager::stopMallocManager(void) {
     if (NULL != _apmStackHashmap) {
         delete _apmStackHashmap;
     }
-    os_unfair_lock_unlock(&_hashmap_unfair_lock);
     
     if (_singleLimitCallback) {
         _singleLimitCallback = nil;
@@ -87,6 +101,7 @@ void APMMallocManager::stopMallocManager(void) {
     if (_funcLimitCallback) {
         _funcLimitCallback = nil;
     }
+    do_unlockHashmap
 }
 
 void APMMallocManager::recordMallocStack(vm_address_t address, uint32_t size, size_t stack_num_to_skip) {
@@ -119,18 +134,17 @@ void APMMallocManager::recordMallocStack(vm_address_t address, uint32_t size, si
     base_stack.depth = depth;
     base_stack.size = size;
     
-#warning unfari_lock 有点问题,会导致非debug模式闪退
-    os_unfair_lock_lock(&_hashmap_unfair_lock);
+    do_lockHashmap
     if (_apmAddressHashmap && _apmStackHashmap) {
         if (_apmAddressHashmap->insertPtr(address, &base_ptr)) {
             _apmStackHashmap->insertStackAndIncreaseCountIfExist(digest, &base_stack);
         }
     }
-    os_unfair_lock_unlock(&_hashmap_unfair_lock);
+    do_unlockHashmap
 }
 
 void APMMallocManager::removeMallocStack(vm_address_t address) {
-    os_unfair_lock_lock(&_hashmap_unfair_lock);
+    do_lockHashmap
     if (_apmAddressHashmap) {
         uint32_t size = 0;
         uint64_t digest = 0;
@@ -138,7 +152,7 @@ void APMMallocManager::removeMallocStack(vm_address_t address) {
             _apmStackHashmap->removeIfCountIsZero(digest, size, 1);
         }
     }
-    os_unfair_lock_unlock(&_hashmap_unfair_lock);
+    do_unlockHashmap
 }
 
 uintptr_t APMMallocManager::getMemoryZone() {

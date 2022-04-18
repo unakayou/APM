@@ -24,6 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+//    [self redirectLogToSanbox];
+    
     // 初始化UI
     [self initTableView];
     [self initMessageView];
@@ -92,7 +94,6 @@
     self.messageView = [[UITextView alloc] init];
     _messageView.font = [UIFont systemFontOfSize:15];
     _messageView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-//    _messageView.userInteractionEnabled = NO;
     [self.view addSubview:_messageView];
     
     self.messageViewDataSource = [NSMutableDictionary new];
@@ -163,4 +164,39 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return CELL_HEIGHT;
 }
+
+- (NSString *)redirectLogToSanbox {
+    
+    // 已经连接Xcode调试则不输出到文件
+//    if(isatty(STDOUT_FILENO)) {
+//        return nil;
+//    }
+    
+    // 在模拟器不保存到文件中
+//    UIDevice *device = [UIDevice currentDevice];
+//    if([[device model] hasSuffix:@"Simulator"]) {
+//        return nil;
+//    }
+    
+    //将NSLog打印信息保存到Document目录下的Log文件夹下
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *logDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Log"];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL fileExists = [fileManager fileExistsAtPath:logDirectory];
+    if (!fileExists) {
+        [fileManager createDirectoryAtPath:logDirectory  withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
+    NSString *logFilePath = [logDirectory stringByAppendingPathComponent:@"APMSDK.log"];
+    if ([fileManager fileExistsAtPath:logFilePath]) {
+        [fileManager removeItemAtPath:logFilePath error:nil];//删除上一次的日志文件
+    }
+    
+    // 将log输入到文件
+    freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stdout);
+    freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
+    return logFilePath;
+}
+
 @end
