@@ -122,7 +122,7 @@ static pthread_mutex_t _sharedThreadLock;
                                                        block:^(NSTimer * _Nonnull timer) {
         timerObj.callback(weakSelf);
     }];
-    APMLogDebug(@"⚠️ %@ - 加入 RunLoop", timer);
+//    APMLogDebug(@"⚠️ %@ - 加入 RunLoop", timer);
     [_timerDictionary setObject:timer forKey:timerObj.key];
 
 #if APM_DEALLOC_LOG_SWITCH

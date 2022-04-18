@@ -83,15 +83,21 @@ APMMallocManager *g_apmMallocManager;
     if (NULL == g_apmMallocManager) {
         g_apmMallocManager = new APMMallocManager();
         g_apmMallocManager->setWriterParamarters([APMPathUtil mallocInfoPath], 1024 * 1024);
-        g_apmMallocManager->setMallocFuncLimitSize(functionLimitSize);
-        g_apmMallocManager->setSingleMallocLimitSize(singleLimitSize, ^(size_t bytes, NSString *stack) {
-            APMLogDebug(@"\n发现单次大内存: %ldKB\n堆栈详情:\n%@", bytes / 1024, stack);
-        });
+        g_apmMallocManager->setFuncMallocLimitSize(functionLimitSize);
+        g_apmMallocManager->setSingleMallocLimitSize(singleLimitSize);
         g_apmMallocManager->startMallocManager();
-        
+
         // 先初始化 malloc_manager, 再设置 malloc_logger
         startMallocLogger();
     }
+}
+
++ (void)setFunctionMallocExceedCallback:(MallocExceedCallback)callback {
+    g_apmMallocManager->setFuncMallocExceed(callback);
+}
+
++ (void)setSingleMallocExceedCallback:(MallocExceedCallback)callback {
+    g_apmMallocManager->setSingleMallocExceedCallback(callback);
 }
 
 + (void)stopMallocMonitor {
@@ -103,6 +109,10 @@ APMMallocManager *g_apmMallocManager;
         delete g_apmMallocManager;
         g_apmMallocManager = NULL;
     }
+}
+
++ (void)leakExamine {
+    
 }
 
 @end

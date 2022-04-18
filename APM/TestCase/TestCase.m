@@ -85,21 +85,33 @@
 //    stopThread.caseBlock = ^{
 //        [[APMSharedThread shareDefaultThread] stop];
 //    };
-//    
+//
+    TestCase *chunkMalloc = [TestCase new];
+    chunkMalloc.name = @"开辟大块内存";
+    chunkMalloc.caseBlock = ^{
+        [TestCase chunkMemoryMalloc];
+    };
+    
+    TestCase *funcMallocLimit = [TestCase new];
+    funcMallocLimit.name = @"单函数内存超限";
+    funcMallocLimit.caseBlock = ^{
+        [TestCase funcMallocLimit];
+    };
+    
     NSMutableArray *allTestCase = [NSMutableArray new];
     [allTestCase addObject:oomCase];
     [allTestCase addObject:blockCase];
     [allTestCase addObject:crashCase];
     [allTestCase addObject:cpuHigh];
     [allTestCase addObject:exitCase];
-    
 //    [allTestCase addObject:startCPU];
 //    [allTestCase addObject:stopCPU];
 //    [allTestCase addObject:startCase];
 //    [allTestCase addObject:stopCase];
 //    [allTestCase addObject:startThread];
 //    [allTestCase addObject:stopThread];
-
+    [allTestCase addObject:chunkMalloc];
+    [allTestCase addObject:funcMallocLimit];
     return allTestCase;
 }
 
@@ -145,6 +157,20 @@
             }
         }
     });
+}
+
++ (void)chunkMemoryMalloc {
+    [APMToastView showToastViewWithMessage:@"大块内存申请中"];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        void *chunkMalloc = malloc(10 * 1024 * 1024);
+        free(chunkMalloc);
+        [APMToastView showToastViewWithMessage:@"大块内存申请完毕"];
+    });
+}
+
++ (void)funcMallocLimit {
+    [APMToastView showToastViewWithMessage:@"连续小内存申请中"];
+    
 }
 
 @end

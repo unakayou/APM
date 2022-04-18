@@ -58,9 +58,20 @@
         [weakSelf.messageViewDataSource setObject:fpsString forKey:@"4"];
         [weakSelf updateMessageView];
     }];
-    
+
     // 开启malloc监控
     [APMController startMallocMonitorWithFunctionLimitSize:1024 * 1024 singleLimitSize:1024 * 1024];
+    
+    [APMController setFunctionMallocExceedCallback:^(size_t bytes, NSString * _Nonnull stack) {
+        APMLogDebug(@"\n发现累积大内存: %ldKB\n堆栈详情:\n%@", bytes / 1024, stack);
+    }];
+    
+    [APMController setSingleMallocExceedCallback:^(size_t bytes, NSString * _Nonnull stack) {
+        APMLogDebug(@"\n发现单次大内存: %ldKB\n堆栈详情:\n%@", bytes / 1024, stack);
+        NSString *stackString = [NSString stringWithFormat:@"%ldKB\n%@", bytes / 1024, stack];
+        [weakSelf.messageViewDataSource setObject:stackString forKey:@"5"];
+        [weakSelf updateMessageView];
+    }];
 }
 
 #pragma mark - 初始化
@@ -81,14 +92,14 @@
     self.messageView = [[UITextView alloc] init];
     _messageView.font = [UIFont systemFontOfSize:15];
     _messageView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    _messageView.userInteractionEnabled = NO;
+//    _messageView.userInteractionEnabled = NO;
     [self.view addSubview:_messageView];
     
     self.messageViewDataSource = [NSMutableDictionary new];
 }
 
 - (void)updateMessageView {
-    NSArray *nameArray = @[@"重启类型", @"启动耗时", @"CPU占用", @"内存占用", @"FPS"];
+    NSArray *nameArray = @[@"重启类型", @"启动耗时", @"CPU占用", @"内存占用", @"FPS", @"大内存捕获"];
     NSArray *allKeys = _messageViewDataSource.allKeys;
     NSMutableString *text = [[NSMutableString alloc] initWithCapacity:allKeys.count];
     for (int i = 0; i < nameArray.count; i++) {

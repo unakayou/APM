@@ -35,7 +35,7 @@ void apmMallocLoggerHook(uint32_t type,
 extern malloc_logger_t* malloc_logger;
 
 /// 保存原本的malloc_logger()函数指针
-static malloc_logger_t *g_apmPreMallocLogger;
+static malloc_logger_t *g_apmPreMallocLogger = NULL;
 
 #ifdef __cplusplus
 }

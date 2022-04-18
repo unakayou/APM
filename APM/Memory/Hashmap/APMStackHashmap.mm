@@ -36,18 +36,19 @@ void APMStackHashmap::insertStackAndIncreaseCountIfExist(uint64_t digest,base_st
     merge_stack_t *parent = (merge_stack_t *)entry->root;   // 下挂节点第一个
     access_num++;
     collision_num++;
-    if(parent == NULL) {                                                // 如果该地址为空,则可以放入本次的stack
+    if(parent == NULL) {
+        // 没有下挂节点
         merge_stack_t *insert_data = create_hashmap_data(digest,stack); // stack生成特定结构,准备放入hashMap
         entry->root = insert_data;
-        // 如果本次开辟的内存达到"大内存标准"
+        // 直接达到"大内存"标准
         if(insert_data->size > _functionLimitSize) {
             insert_data->cache_flag = 1;
             _stackWriter->updateStack(insert_data, stack);
         }
         record_num++;
-        return ;
+        return;
     } else {
-        // 如果hash碰撞的是相同的堆栈信息,则只增加结构体里面的记数
+        // hash碰撞的是相同的堆栈信息,则只增加结构体里面的记数
         if(parent->digest == digest) {
             parent->count++;
             parent->size += stack->size;
@@ -58,6 +59,8 @@ void APMStackHashmap::insertStackAndIncreaseCountIfExist(uint64_t digest,base_st
             }
             return;
         }
+        
+        // 如果不是相同堆栈,继续查链表
         merge_stack_t *current = parent->next;
         while(current != NULL){
             collision_num++;
@@ -73,6 +76,8 @@ void APMStackHashmap::insertStackAndIncreaseCountIfExist(uint64_t digest,base_st
             parent = current;
             current = current->next;
         }
+        
+        // 没查询到,则新增
         merge_stack_t *insert_data = create_hashmap_data(digest,stack);
         parent->next = insert_data;
         current = parent->next;

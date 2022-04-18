@@ -41,13 +41,20 @@ void APMMallocManager::setWriterParamarters(NSString *path, size_t mmap_size) {
     _logMmapSize = mmap_size;
 }
 
-void APMMallocManager::setMallocFuncLimitSize(size_t funcLimitSize) {
+void APMMallocManager::setFuncMallocLimitSize(size_t funcLimitSize) {
     _funcLimitSize = funcLimitSize;
 }
 
-void APMMallocManager::setSingleMallocLimitSize(size_t singleLimitSize, MallocChunkCallback mallocBlock) {
+void APMMallocManager::setFuncMallocExceed(MallocExceedCallback callback) {
+    _funcLimitCallback = [callback copy];
+}
+
+void APMMallocManager::setSingleMallocLimitSize(size_t singleLimitSize) {
     _singleLimitSize = singleLimitSize;
-    _mallocBlock = [mallocBlock copy];
+}
+
+void APMMallocManager::setSingleMallocExceedCallback(MallocExceedCallback callback) {
+    _singleLimitCallback = [callback copy];
 }
 
 void APMMallocManager::startMallocManager(void) {
@@ -73,8 +80,12 @@ void APMMallocManager::stopMallocManager(void) {
     }
     os_unfair_lock_unlock(&_hashmap_unfair_lock);
     
-    if (_mallocBlock) {
-        _mallocBlock = nil;
+    if (_singleLimitCallback) {
+        _singleLimitCallback = nil;
+    }
+    
+    if (_funcLimitCallback) {
+        _funcLimitCallback = nil;
     }
 }
 
@@ -90,13 +101,13 @@ void APMMallocManager::recordMallocStack(vm_address_t address, uint32_t size, si
     uint32_t depth = (uint32_t)_stackDumper->recordBacktrace(true, stack_num_to_skip, stack, &digest, MAX_STACK_DEPTH);
     
     if (size >= _singleLimitSize) {
-        // 发现单次大内存特殊处理
-        if (_mallocBlock) {
+        // 发现单次大内存特殊处理后,直接返回
+        if (_singleLimitCallback) {
             NSMutableString *stackInfo = [[NSMutableString alloc] init];
             for (int i = 0; i < depth; i++) {
                 [stackInfo appendFormat:@"0x%lx\n", (vm_address_t)stack[i]];
             }
-            _mallocBlock(size, stackInfo);
+            _singleLimitCallback(size, stackInfo);
         }
         return;
     }
@@ -108,13 +119,11 @@ void APMMallocManager::recordMallocStack(vm_address_t address, uint32_t size, si
     base_stack.depth = depth;
     base_stack.size = size;
     
+#warning unfari_lock 有点问题,会导致非debug模式闪退
     os_unfair_lock_lock(&_hashmap_unfair_lock);
     if (_apmAddressHashmap && _apmStackHashmap) {
         if (_apmAddressHashmap->insertPtr(address, &base_ptr)) {
             _apmStackHashmap->insertStackAndIncreaseCountIfExist(digest, &base_stack);
-//            printf("添加成功 0x%lx \n", address);
-        } else {
-//            printf("添加失败 0x%lx \n", address);
         }
     }
     os_unfair_lock_unlock(&_hashmap_unfair_lock);
@@ -126,9 +135,7 @@ void APMMallocManager::removeMallocStack(vm_address_t address) {
         uint32_t size = 0;
         uint64_t digest = 0;
         if (_apmAddressHashmap->removePtr(address, &size, &digest)) {
-//            printf("删除成功 0x%lx \n", address);
-        } else {
-//            printf("删除失败 0x%lx \n", address);
+            _apmStackHashmap->removeIfCountIsZero(digest, size, 1);
         }
     }
     os_unfair_lock_unlock(&_hashmap_unfair_lock);
