@@ -58,8 +58,9 @@ static pthread_mutex_t _rebootMonitorLock;
     }
     
     _lastExitTimeStamp = info.appExitTimeStamp;
-    APMLogDebug(@"⚠️ 重启类型: %@\n上次启动时间: %llu\n上次退出时间: %llu",
-                APMRebootMonitor.rebootTypeString, info.appLaunchTimeStamp, info.appExitTimeStamp);
+    APMLogDebug(@"\n⚠️ App重启类型: %@\n上次启动时间: %llu\n上次退出时间: %llu",
+                APMRebootMonitor.rebootTypeString,
+                info.appLaunchTimeStamp, info.appExitTimeStamp);
     
     info.appLaunchTimeStamp = (uint64_t)time(NULL);
     info.appExitTimeStamp = 0;
@@ -96,12 +97,12 @@ static pthread_mutex_t _rebootMonitorLock;
     return ![lastVersion isEqualToString:currentVersion];
 }
 
-/// 系统重启
+/// 操作系统启动
 + (BOOL)osReboot {
     APMRebootInfo *info = [APMRebootInfo lastBootInfo];
     uint64_t lastLaunchTimeStamp = info.appLaunchTimeStamp;
     uint64_t systemStartTimeStamp = [APMDeviceInfo systemLaunchTimeStamp];
-    APMLogDebug(@"\n⚠️ 时间戳\n上次: %llu\n本次: %llu", systemStartTimeStamp, systemStartTimeStamp);
+    APMLogDebug(@"\n⚠️ 操作系统启动时间戳: %llu", systemStartTimeStamp);
     return systemStartTimeStamp > lastLaunchTimeStamp;
 }
 
