@@ -6,8 +6,6 @@
 //
 //  malloc统计管理器
 
-#import <Foundation/Foundation.h>
-
 #import "APMAddressHashmap.h"
 #import "APMStackHashmap.h"
 #import "APMStackDumper.h"
@@ -51,6 +49,9 @@ public:
     /// malloc_logger() 删除内存记录
     void removeMallocStack(vm_address_t address);
     
+    /// 是否允许记录
+    bool enableTracking = false;
+    
     /// 获取 malloc_manager 使用的内存块地址.用于 malloc_logger 中过滤可能来自自身内存申请.
     uintptr_t getMemoryZone();
 private:
@@ -65,7 +66,6 @@ private:
     
     APMStackDumper *_stackDumper;                   // 堆栈导出工具
     
-    malloc_zone_t *g_apmHashmapZone = NULL;                     // MallocLogger所需要的HashMap开辟在这里,不统计此zone中的内存变化
     APMAddresshashmap *_apmAddressHashmap = NULL;               // Key: 地址
     APMStackHashmap *_apmStackHashmap = NULL;                   // Key: 堆栈CRC
     os_unfair_lock _hashmap_unfair_lock = OS_UNFAIR_LOCK_INIT;  // Hashmap锁

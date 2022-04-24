@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A3124FE22811514200E69042 /* APMLeakManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3124FE12811514200E69042 /* APMLeakManager.mm */; };
+		A3124FE728115A2600E69042 /* APMLeakedHashmap.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3124FE628115A2600E69042 /* APMLeakedHashmap.mm */; };
+		A3124FEA28115E5E00E69042 /* APMLeakStackHashmap.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3124FE928115E5E00E69042 /* APMLeakStackHashmap.mm */; };
 		A3183C3827DF15F900310146 /* APMRebootMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = A3183C3727DF15F900310146 /* APMRebootMonitor.m */; };
 		A3183C3B27DF182900310146 /* APMLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3183C3A27DF182900310146 /* APMLogManager.m */; };
 		A3183C3F27DF303900310146 /* APMBaseEncodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3183C3E27DF303900310146 /* APMBaseEncodeModel.m */; };
@@ -56,6 +59,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A3124FE02811514200E69042 /* APMLeakManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMLeakManager.h; sourceTree = "<group>"; };
+		A3124FE12811514200E69042 /* APMLeakManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMLeakManager.mm; sourceTree = "<group>"; };
+		A3124FE528115A2600E69042 /* APMLeakedHashmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMLeakedHashmap.h; sourceTree = "<group>"; };
+		A3124FE628115A2600E69042 /* APMLeakedHashmap.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMLeakedHashmap.mm; sourceTree = "<group>"; };
+		A3124FE828115E5E00E69042 /* APMLeakStackHashmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMLeakStackHashmap.h; sourceTree = "<group>"; };
+		A3124FE928115E5E00E69042 /* APMLeakStackHashmap.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMLeakStackHashmap.mm; sourceTree = "<group>"; };
 		A3183C3627DF15F900310146 /* APMRebootMonitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMRebootMonitor.h; sourceTree = "<group>"; };
 		A3183C3727DF15F900310146 /* APMRebootMonitor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMRebootMonitor.m; sourceTree = "<group>"; };
 		A3183C3927DF182900310146 /* APMLogManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMLogManager.h; sourceTree = "<group>"; };
@@ -135,6 +144,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A3124FE3281159DA00E69042 /* MallocHashmap */ = {
+			isa = PBXGroup;
+			children = (
+				A3ECD9C52806C65300DAACE1 /* APMStackHashmap.h */,
+				A3ECD9C62806C65300DAACE1 /* APMStackHashmap.mm */,
+				A3ECD9C82807FCEA00DAACE1 /* APMStackWriter.h */,
+				A3ECD9C92807FCEA00DAACE1 /* APMStackWriter.mm */,
+			);
+			path = MallocHashmap;
+			sourceTree = "<group>";
+		};
+		A3124FE4281159E600E69042 /* LeakHashmap */ = {
+			isa = PBXGroup;
+			children = (
+				A3124FE528115A2600E69042 /* APMLeakedHashmap.h */,
+				A3124FE628115A2600E69042 /* APMLeakedHashmap.mm */,
+				A3124FE828115E5E00E69042 /* APMLeakStackHashmap.h */,
+				A3124FE928115E5E00E69042 /* APMLeakStackHashmap.mm */,
+			);
+			path = LeakHashmap;
+			sourceTree = "<group>";
+		};
 		A349BD1B27D8855D00CDEA8A = {
 			isa = PBXGroup;
 			children = (
@@ -256,17 +287,19 @@
 		A34F55FA27E47F3000553067 /* Memory */ = {
 			isa = PBXGroup;
 			children = (
-				A3566FBB27EB4280008D51CA /* Hashmap */,
-				A3566FB527EB2286008D51CA /* APMMallocManager.h */,
-				A3566FB627EB2286008D51CA /* APMMallocManager.mm */,
 				A3566FA827EAF9A6008D51CA /* APMMallocLoggerHook.h */,
 				A3566FA927EAF9A6008D51CA /* APMMallocLoggerHook.mm */,
 				A3566FAE27EAFB69008D51CA /* APMMemoryLogger.h */,
 				A3566FAF27EAFB69008D51CA /* APMMemoryLogger.mm */,
 				A3566FAB27EAFAF4008D51CA /* APMLeakLogger.h */,
 				A3566FAC27EAFAF4008D51CA /* APMLeakLogger.mm */,
+				A3566FB527EB2286008D51CA /* APMMallocManager.h */,
+				A3566FB627EB2286008D51CA /* APMMallocManager.mm */,
+				A3124FE02811514200E69042 /* APMLeakManager.h */,
+				A3124FE12811514200E69042 /* APMLeakManager.mm */,
 				A3ECD9BF28056E6E00DAACE1 /* APMStackDumper.h */,
 				A3ECD9C028056E6E00DAACE1 /* APMStackDumper.mm */,
+				A3566FBB27EB4280008D51CA /* Hashmap */,
 			);
 			path = Memory;
 			sourceTree = "<group>";
@@ -285,12 +318,10 @@
 			children = (
 				A3566FB827EB427B008D51CA /* APMBaseHashmap.h */,
 				A3566FB927EB427B008D51CA /* APMBaseHashmap.mm */,
-				A3ECD9C52806C65300DAACE1 /* APMStackHashmap.h */,
-				A3ECD9C62806C65300DAACE1 /* APMStackHashmap.mm */,
 				A3566FBC27EC1CA4008D51CA /* APMAddressHashmap.h */,
 				A3566FBD27EC1CA4008D51CA /* APMAddressHashmap.mm */,
-				A3ECD9C82807FCEA00DAACE1 /* APMStackWriter.h */,
-				A3ECD9C92807FCEA00DAACE1 /* APMStackWriter.mm */,
+				A3124FE3281159DA00E69042 /* MallocHashmap */,
+				A3124FE4281159E600E69042 /* LeakHashmap */,
 			);
 			path = Hashmap;
 			sourceTree = "<group>";
@@ -377,6 +408,7 @@
 				A34F55F027E2038100553067 /* NSObject+DeallocLog.m in Sources */,
 				A349BD2927D8855D00CDEA8A /* AppDelegate.m in Sources */,
 				A3566FB427EB0099008D51CA /* APMController.mm in Sources */,
+				A3124FEA28115E5E00E69042 /* APMLeakStackHashmap.mm in Sources */,
 				A349BD5727D8AB2C00CDEA8A /* APMSharedThread.m in Sources */,
 				A34F55E727E0917E00553067 /* TestCase.m in Sources */,
 				A3ECD9C428057BAE00DAACE1 /* APMRapidCRC.c in Sources */,
@@ -385,6 +417,7 @@
 				A349BD3A27D8856000CDEA8A /* main.m in Sources */,
 				A349BD5427D898FF00CDEA8A /* APMMemoryStatisticCenter.m in Sources */,
 				A3ECD9C72806C65300DAACE1 /* APMStackHashmap.mm in Sources */,
+				A3124FE728115A2600E69042 /* APMLeakedHashmap.mm in Sources */,
 				A3183C3827DF15F900310146 /* APMRebootMonitor.m in Sources */,
 				A34F55F927E4355B00553067 /* APMCPUStatisticCenter.m in Sources */,
 				A3183C3F27DF303900310146 /* APMBaseEncodeModel.m in Sources */,
@@ -393,6 +426,7 @@
 				A3566FBE27EC1CA4008D51CA /* APMAddressHashmap.mm in Sources */,
 				A3EA793527F58096001287CE /* APMFPSStatisticCenter.m in Sources */,
 				A3566FAD27EAFAF4008D51CA /* APMLeakLogger.mm in Sources */,
+				A3124FE22811514200E69042 /* APMLeakManager.mm in Sources */,
 				A3183C4227E0305000310146 /* APMDeviceInfo.m in Sources */,
 				A3566FBA27EB427B008D51CA /* APMBaseHashmap.mm in Sources */,
 				A34F55E327E08A9300553067 /* APMMainThreadBlockMonitor.m in Sources */,

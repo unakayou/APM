@@ -20,6 +20,8 @@
 #define do_unlockHashmap dispatch_semaphore_signal(_hashmap_semaphore);
 #endif
 
+extern malloc_zone_t *g_apm_hashmap_zone;
+
 APMMallocManager::APMMallocManager() {
     // 初始化crc table
     initCRCTable();
@@ -29,9 +31,9 @@ APMMallocManager::APMMallocManager() {
 #endif
     
     // 初始化logger存储空间
-    if (NULL == g_apmHashmapZone) {
-        g_apmHashmapZone = malloc_create_zone(0, 0);
-        malloc_set_zone_name(g_apmHashmapZone, "APMHashmapZone");
+    if (NULL == g_apm_hashmap_zone) {
+        g_apm_hashmap_zone = malloc_create_zone(0, 0);
+        malloc_set_zone_name(g_apm_hashmap_zone, "APMHashmapZone");
     }
     
     if (NULL == _stackDumper) {
@@ -42,10 +44,6 @@ APMMallocManager::APMMallocManager() {
 APMMallocManager::~APMMallocManager() {
     if (NULL != _stackDumper) {
         delete _stackDumper;
-    }
-    
-    if (NULL != g_apmHashmapZone) {
-        delete g_apmHashmapZone;
     }
 }
 
@@ -78,17 +76,21 @@ void APMMallocManager::startMallocManager(void) {
     do_lockHashmap
     // 初始化指针hashmap
     if (NULL == _apmAddressHashmap) {
-        _apmAddressHashmap = new APMAddresshashmap(50000, g_apmHashmapZone);
+        _apmAddressHashmap = new APMAddresshashmap(50000, g_apm_hashmap_zone);
     }
     
     // 初始化堆栈hashmap
     if (NULL == _apmStackHashmap) {
-        _apmStackHashmap = new APMStackHashmap(50000, g_apmHashmapZone, _funcLimitSize, _logPath, _logMmapSize);
+        _apmStackHashmap = new APMStackHashmap(50000, g_apm_hashmap_zone, _funcLimitSize, _logPath, _logMmapSize);
     }
     do_unlockHashmap
+    
+    enableTracking = true;
 }
 
 void APMMallocManager::stopMallocManager(void) {
+    enableTracking = false;
+    
     do_lockHashmap
     if (NULL != _apmAddressHashmap) {
         delete _apmAddressHashmap;
@@ -137,7 +139,7 @@ void APMMallocManager::recordMallocStack(vm_address_t address, uint32_t size, si
     base_stack.stack = stack;
     base_stack.depth = depth;
     base_stack.size = size;
-
+    
     do_lockHashmap
     bool funcOverLimit = NO;
     if (_apmAddressHashmap && _apmStackHashmap) {
@@ -169,5 +171,5 @@ void APMMallocManager::removeMallocStack(vm_address_t address) {
 }
 
 uintptr_t APMMallocManager::getMemoryZone() {
-    return (uintptr_t)g_apmHashmapZone;
+    return (uintptr_t)g_apm_hashmap_zone;
 }

@@ -14,11 +14,15 @@ typedef void (^CPUCallbackHandler)(double usage);
 typedef void (^MemoryCallbackHandler)(Float32 memory);
 typedef void (^FPSCallbackHandler)(int fps);
 typedef void (^MallocExceedCallback)(size_t bytes, NSString *stack);
+typedef void (^LeakExamineCallback)(NSString *leakData,size_t leak_num);
 
 @interface APMController : NSObject
 
 /// 启动 (最后只暴露本启动接口)
-+ (void)startWithAppid:(NSString *)appid config:(id)config;
++ (void)startAPMControllerWithAppid:(NSString *)appid config:(id)config;
++ (void)stopAPMController;
+
+/* --------------------------------------------------------------------------------------- */
 
 /// 启动时间
 + (NSTimeInterval)launchTime;
@@ -49,19 +53,25 @@ typedef void (^MallocExceedCallback)(size_t bytes, NSString *stack);
 /// @param singleLimitSize 单次开辟内存阈值
 + (void)startMallocMonitorWithFunctionLimitSize:(size_t)functionLimitSize singleLimitSize:(size_t)singleLimitSize;
 
-/// 函数累积开辟超限
+/// malloc监控 函数累积开辟超限回调
 /// @param callback 回调
 + (void)setFunctionMallocExceedCallback:(MallocExceedCallback)callback;
 
-/// 单次开辟直接超限
+/// malloc监控 单次开辟直接超限回调
 /// @param callback 回调
 + (void)setSingleMallocExceedCallback:(MallocExceedCallback)callback;
 
-/// 停止监控.降低性能消耗
+/// 停止malloc监控.降低性能消耗
 + (void)stopMallocMonitor;
 
-/// 内存泄漏检测 (性能消耗: 极高)
-+ (void)leakExamine;
+/// 开始记录泄漏 (性能消耗: 高)
++ (void)startLeakMonitor;
+
+/// 停止记录泄漏
++ (void)stopLeakMonitor;
+
+/// 内存泄漏导出 (性能消耗: 极高)
++ (void)leakDumpCallback:(LeakExamineCallback)callback;
 @end
 
 NS_ASSUME_NONNULL_END

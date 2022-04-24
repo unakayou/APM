@@ -4,7 +4,7 @@
 //
 //  Created by unakayou on 2022/4/13.
 //
-//  key: 堆栈crc, 用于堆栈角度分析内存
+//  存储堆栈摘要,统计大内存开辟.(为何stackMap不能用在leakMap: 因为leakMap需要保存堆栈详细信息,会成倍增加内存占用)
 
 #import "APMBaseHashmap.h"
 
@@ -14,7 +14,7 @@ typedef struct base_stack_t {
     uint32_t            depth;
     vm_address_t        **stack;
     uint32_t            size;
-}base_stack_t;
+} base_stack_t;
 
 typedef struct merge_stack_t {
     uint64_t            digest;

@@ -7,6 +7,9 @@
 
 #import "APMBaseHashmap.h"
 
+// MallocLogger所需要的HashMap开辟在这里,不统计此zone中的内存变化
+malloc_zone_t *g_apm_hashmap_zone = NULL;
+
 APMBaseHashmap::APMBaseHashmap(size_t entrys,malloc_zone_t *zone) {
     entry_num = entrys;
     malloc_zone = zone;

@@ -77,6 +77,8 @@
         [weakSelf.messageViewDataSource setObject:stackString forKey:@"5"];
         [weakSelf updateMessageView];
     }];
+    
+    [APMController startLeakMonitor];
 }
 
 #pragma mark - 初始化

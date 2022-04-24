@@ -14,11 +14,16 @@
 #import "APMFPSStatisticCenter.h"
 #import "APMMemoryStatisticCenter.h"
 #import "APMMallocLoggerHook.h"
+#import "APMLeakManager.h"
 
 @implementation APMController
 
-+ (void)startWithAppid:(NSString *)appid config:(id)config {
-    APMLogDebug(@"真正的初始化...");
++ (void)startAPMControllerWithAppid:(NSString *)appid config:(id)config {
+    APMLogDebug(@"初始化...");
+}
+
++ (void)stopAPMController {
+    APMLogDebug(@"停止...");
 }
 
 + (NSTimeInterval)launchTime {
@@ -89,6 +94,8 @@ APMMallocManager *g_apmMallocManager;
 
         // 先初始化 malloc_manager, 再设置 malloc_logger
         startMallocLogger();
+        startMallocLogger();
+
     }
 }
 
@@ -111,7 +118,23 @@ APMMallocManager *g_apmMallocManager;
     }
 }
 
-+ (void)leakExamine {
+APMLeakManager *g_apmLeakManager;
++ (void)startLeakMonitor {
+    if (NULL == g_apmLeakManager) {
+        g_apmLeakManager = new APMLeakManager();
+        g_apmLeakManager->startLeakManager();
+    }
+}
+
++ (void)stopLeakMonitor {
+    if (NULL != g_apmLeakManager) {
+        g_apmLeakManager->stopLeakManager();
+        delete g_apmLeakManager;
+        g_apmLeakManager = NULL;
+    }
+}
+
++ (void)leakDumpCallback:(LeakExamineCallback)callback {
     
 }
 
