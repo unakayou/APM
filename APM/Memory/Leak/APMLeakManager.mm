@@ -4,13 +4,15 @@
 //
 //  Created by unakayou on 2022/4/21.
 //
-
 #import "APMLeakManager.h"
 #import "APMRapidCRC.h"
+#import "APMStackChecker.h"
+#import "APMThreadSuspendTool.h"
 
 #define do_lockHashmap os_unfair_lock_lock(&_leak_hashmap_unfair_lock);
 #define do_unlockHashmap os_unfair_lock_unlock(&_leak_hashmap_unfair_lock);
 extern malloc_zone_t *g_apm_hashmap_zone;
+extern APMLeakManager *g_apmLeakManager;
 
 APMLeakManager::APMLeakManager() {
     initCRCTable();
@@ -103,6 +105,23 @@ void APMLeakManager::removeMallocStack(vm_address_t address) {
         }
     }
     do_unlockHashmap
+}
+
+bool APMLeakManager::findPtrInMemoryRegion(vm_address_t address) {
+    return true;
+}
+
+void APMLeakManager::startLeakDump(LeakExamineCallback callback) {
+    if (NULL == _stack_checker) {
+        _stack_checker = new APMStackChecker(g_apmLeakManager);
+    }
+    
+    if (suspendAllChildThreads()) {
+        
+        // TODO: 查找指针
+        
+        resumeAllChildThreads();
+    }
 }
 
 uintptr_t APMLeakManager::getMemoryZone() {

@@ -11,11 +11,6 @@
 extern APMMallocManager *g_apmMallocManager;
 
 void apmMemoryLogger(uint32_t type, uintptr_t arg1, uintptr_t arg2, uintptr_t arg3, uintptr_t result, uint32_t backtrace_to_skip) {
-    if(arg1 == (uintptr_t)g_apmMallocManager->getMemoryZone()){
-        printf("不统计APM自身开辟内存空间");
-        return;
-    }
-    
     if (type == (stack_logging_type_dealloc | stack_logging_type_alloc)) {
         // realloc(), result:新地址 ar2:旧地址 arg3:size
         g_apmMallocManager->removeMallocStack(arg2);

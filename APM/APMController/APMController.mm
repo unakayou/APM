@@ -94,8 +94,6 @@ APMMallocManager *g_apmMallocManager;
 
         // 先初始化 malloc_manager, 再设置 malloc_logger
         startMallocLogger();
-        startMallocLogger();
-
     }
 }
 
@@ -135,7 +133,9 @@ APMLeakManager *g_apmLeakManager;
 }
 
 + (void)leakDumpCallback:(LeakExamineCallback)callback {
-    
+    if (NULL != g_apmLeakManager) {
+        g_apmLeakManager->startLeakDump(callback);
+    }
 }
 
 @end

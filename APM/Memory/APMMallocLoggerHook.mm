@@ -51,7 +51,15 @@ void apm_malloc_logger(uint32_t type, uintptr_t arg1, uintptr_t arg2, uintptr_t 
     if (type & stack_logging_flag_zone) {
         type &= ~stack_logging_flag_zone;
     }
+    
+    if (g_apmMallocManager != NULL && arg1 == g_apmMallocManager->getMemoryZone()){
+        return;
+    }
 
+    if (g_apmLeakManager != NULL && arg1 == g_apmLeakManager->getMemoryZone()) {
+        return;
+    }
+    
     // 统计Malloc (0.002 ms / 次 - 0.015 ms / 次)
     if (g_apmMallocManager != NULL && g_apmMallocManager->enableTracking) {
         apmMemoryLogger(type, arg1, arg2, arg3, result, backtrace_to_skip);
