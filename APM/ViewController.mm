@@ -62,7 +62,8 @@
     }];
 
     // 开启malloc监控
-    [APMController startMallocMonitorWithFunctionLimitSize:1024 * 1024 singleLimitSize:1024 * 1024];
+    [APMController startMallocMonitorWithFunctionLimitSize:1024 * 1024 * 10
+                                           singleLimitSize:1024 * 1024 * 10];
     
     [APMController setFunctionMallocExceedCallback:^(size_t bytes, NSString * _Nonnull stack) {
         APMLogDebug(@"\n发现累积大内存: %ldKB\n堆栈详情:\n%@", bytes / 1024, stack);

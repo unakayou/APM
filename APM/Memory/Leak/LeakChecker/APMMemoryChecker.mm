@@ -11,6 +11,11 @@ APMMemoryChecker::~APMMemoryChecker() {
     printf("销毁checker");
 }
 
+kern_return_t memory_reader (task_t task, vm_address_t remote_address, vm_size_t size, void **local_memory) {
+    *local_memory = (void*) remote_address;
+    return KERN_SUCCESS;
+}
+
 void APMMemoryChecker::check_ptr_in_vmrange(vm_range_t range) {
     const uint32_t align_size = sizeof(void *);
     vm_address_t vm_addr = range.address;

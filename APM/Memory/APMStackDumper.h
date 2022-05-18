@@ -10,6 +10,20 @@
 
 #define MAX_STACK_DEPTH 64
 
+// Image 信息结构体
+typedef struct {
+    const char* name;
+    long loadAddr;
+    long beginAddr;
+    long endAddr;
+} segImageInfo;
+
+// App中的Image们
+typedef struct AppImages {
+    size_t size;
+    segImageInfo **imageInfos;
+} AppImages;
+
 class APMStackDumper {
 public:
     APMStackDumper();
@@ -32,4 +46,10 @@ public:
     /// 判断地址是否属于主模块
     /// @param address 地址
     bool isInAppAddress(vm_address_t address);
+    
+    /// 通过地址获取所属Image
+    bool getImageByAddr(vm_address_t addr,segImageInfo *image);
+    
+private:
+    AppImages allImages;    // 所有Image信息结构
 };

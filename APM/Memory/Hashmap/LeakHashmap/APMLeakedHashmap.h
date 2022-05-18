@@ -8,12 +8,12 @@
 
 #import "APMBaseHashmap.h"
 
-// 泄漏的节点
-typedef struct leaked_ptr_t{
-    uint64_t digest;      
-    uint32_t leak_count;
-    vm_address_t address;
-    leaked_ptr_t *next;
+// 泄漏的节点,链表下挂
+typedef struct leaked_ptr_t {
+    uint64_t digest;            // stack crc
+    uint32_t leak_count;        // 泄漏次数
+    vm_address_t address;       // 空间地址
+    leaked_ptr_t *next;         // 下个结构体
 } leaked_ptr_t;
 
 class APMLeakedHashmap : public APMBaseHashmap {

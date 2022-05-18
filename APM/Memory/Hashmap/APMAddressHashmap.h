@@ -8,7 +8,7 @@
 
 #import "APMBaseHashmap.h"
 
-// 外面传进来的指针crc + size
+// 外界临时结构crc + size.内部转为ptr_log_t下挂链表结构.
 typedef struct base_ptr_log {
     uint64_t digest;        // rapid_crc64
     uint64_t size;          // 开辟内存占用空间

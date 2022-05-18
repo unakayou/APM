@@ -13,12 +13,14 @@ typedef struct extra_t {
     uint32_t        size;
 }extra_t;
 
+// 泄漏堆栈(对外)
 typedef struct base_leaked_stack_t {
     uint16_t            depth;
     vm_address_t        **stack;
     extra_t             extra;
 }base_leaked_stack_t;
 
+// 泄漏堆栈
 typedef struct merge_leaked_stack_t {
     uint64_t                digest;
     uint32_t                depth;

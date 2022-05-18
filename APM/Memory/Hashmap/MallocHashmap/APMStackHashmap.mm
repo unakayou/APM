@@ -95,19 +95,21 @@ void APMStackHashmap::insertStackAndIncreaseCountIfExist(uint64_t digest,base_st
 }
 
 void APMStackHashmap::removeIfCountIsZero(uint64_t digest,uint32_t size,uint32_t count) {
-    size_t offset = (size_t)digest%(entry_num - 1);
+    size_t offset = (size_t)digest % (entry_num - 1);
     base_entry_t *entry = hashmap_entry + offset;
     merge_stack_t *parent = (merge_stack_t *)entry->root;
     if(parent == NULL){
         return ;
     } else {
         if(parent->digest == digest) {
+            // 减少对应堆栈的累积size
             if(parent->size < size) {
                 parent->size = 0;
             } else {
                 parent->size -= size;
             }
             
+            // 减少对应堆栈累积次数
             if(parent->count < count){
                 parent->count = 0;
             } else {

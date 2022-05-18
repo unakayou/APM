@@ -22,19 +22,19 @@ APMLeakedHashmap::~APMLeakedHashmap() {
 }
 
 // 添加泄漏节点
-void APMLeakedHashmap::insertLeakPtrAndIncreaseCountIfExist(uint64_t digest,ptr_log_t *ptr_log) {
+void APMLeakedHashmap::insertLeakPtrAndIncreaseCountIfExist(uint64_t digest, ptr_log_t *ptr_log) {
     size_t offset = hash_code(digest);
     base_entry_t *entry = hashmap_entry + offset;
     leaked_ptr_t *parent = (leaked_ptr_t *)entry->root;
     access_num++;
     collision_num++;
     if(parent == NULL) {
-        leaked_ptr_t *insert_data = create_hashmap_data(digest,ptr_log);
+        leaked_ptr_t *insert_data = create_hashmap_data(digest, ptr_log);
         entry->root = insert_data;
         record_num++;
         return ;
     } else {
-        if(compare(parent,digest) == 0) {
+        if(compare(parent, digest) == 0) {
             parent->leak_count++;
             parent->address = ptr_log->address;
             return;
@@ -42,7 +42,7 @@ void APMLeakedHashmap::insertLeakPtrAndIncreaseCountIfExist(uint64_t digest,ptr_
         leaked_ptr_t *current = parent->next;
         while(current != NULL) {
             collision_num++;
-            if(compare(current,digest) == 0) {
+            if(compare(current, digest) == 0) {
                 current->leak_count++;
                 current->address = ptr_log->address;
                 return ;

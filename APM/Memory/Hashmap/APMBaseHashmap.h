@@ -8,7 +8,7 @@
 
 #import <malloc/malloc.h>
 
-// 节点结构体
+// 哈希表下挂链表入口结构
 typedef struct base_entry_t {
     void *root;
 } base_entry_t;
@@ -16,9 +16,13 @@ typedef struct base_entry_t {
 // 下挂链表结构体, 不需要:堆栈数组、堆栈深度、
 typedef struct ptr_log_t{
     uint64_t digest;        // rapid_crc64
-    uint32_t size;          // 开辟内存占用空间
     vm_address_t address;   // 空间地址
     ptr_log_t *next;        // 链表下一个
+
+    union {
+        uint32_t size;      // 开辟内存占用空间
+        uint32_t hits;      // 空间命中次数
+    };
 } ptr_log_t;
 
 class APMBaseHashmap {

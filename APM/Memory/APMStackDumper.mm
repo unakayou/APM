@@ -8,13 +8,58 @@
 #import "APMStackDumper.h"
 #import "execinfo.h"
 #import "APMRapidCRC.h"
+#import <mach-o/dyld.h>
+
+typedef struct {
+    vm_address_t beginAddr;
+    vm_address_t endAddr;
+}App_Address;
+
+static App_Address app_addrs[3];    // 记录主image地址区间
 
 APMStackDumper::APMStackDumper() {
-    
+    uint32_t count = _dyld_image_count();
+    allImages.imageInfos =(segImageInfo **)malloc(count*sizeof(segImageInfo*));
+    allImages.size = 0;
+    for (uint32_t i = 0; i < count; i++) {
+        const mach_header_t* header = (const mach_header_t*)_dyld_get_image_header(i);
+        const char* name = _dyld_get_image_name(i);
+        const char* tmp = strrchr(name, '/');
+        long slide = _dyld_get_image_vmaddr_slide(i);
+        if (tmp) {
+            name = tmp + 1;
+        }
+        long offset = (long)header + sizeof(mach_header_t);
+        for (unsigned int j = 0; j < header->ncmds; j++) {
+            const segment_command_t* segment = (const segment_command_t*)offset;
+            if (segment->cmd == MY_SEGMENT_CMD_TYPE && strcmp(segment->segname, SEG_TEXT) == 0) {
+                long begin = (long)segment->vmaddr + slide;
+                long end = (long)(begin + segment->vmsize);
+                segImageInfo *image = (segImageInfo *)malloc(sizeof(segImageInfo));
+                image->loadAddr = (long)header;
+                image->beginAddr = begin;
+                image->endAddr = end;
+                image->name = name;
+
+                if(i == 0){
+                    app_addrs[0].beginAddr = image->beginAddr;
+                    app_addrs[0].endAddr = image->endAddr;
+                }
+                allImages.imageInfos[allImages.size++] = image;
+                break;
+            }
+            offset += segment->cmdsize;
+        }
+    }
 }
 
 APMStackDumper::~APMStackDumper() {
-    
+    for (size_t i = 0; i < allImages.size; i++) {
+        free(allImages.imageInfos[i]);
+    }
+    free(allImages.imageInfos);
+    allImages.imageInfos = NULL;
+    allImages.size = 0;
 }
 
 size_t APMStackDumper::recordBacktrace(bool needSystemStack,
@@ -58,5 +103,22 @@ size_t APMStackDumper::recordBacktrace(bool needSystemStack,
 }
 
 bool APMStackDumper::isInAppAddress(vm_address_t address) {
-    return true;
+    if((address >= app_addrs[0].beginAddr && address < app_addrs[0].endAddr)) {
+        return true;
+    }
+    return false;
 }
+
+bool APMStackDumper::getImageByAddr(vm_address_t addr,segImageInfo *image) {
+    for (size_t i = 0; i < allImages.size; i++) {
+        if (addr > allImages.imageInfos[i]->beginAddr && addr < allImages.imageInfos[i]->endAddr) {
+            image->name = allImages.imageInfos[i]->name;
+            image->loadAddr = allImages.imageInfos[i]->loadAddr;
+            image->beginAddr = allImages.imageInfos[i]->beginAddr;
+            image->endAddr = allImages.imageInfos[i]->endAddr;
+            return true;
+        }
+    }
+    return false;
+}
+

@@ -10,9 +10,13 @@
 #import "APMStackDumper.h"
 #import "APMLeakedHashmap.h"
 #import "APMLeakStackHashmap.h"
+#import "APMObjcFilter.h"
 #import <os/lock.h>
 
+class APMRegisterChecker;
+class APMSegmentChecker;
 class APMStackChecker;
+class APMHeapChecker;
 
 typedef void (^LeakExamineCallback)(NSString *leakData,size_t leak_num);
 
@@ -41,12 +45,19 @@ public:
     /// 监控开启状态
     bool enableTracking = false;
 private:
-    APMStackChecker *_stack_checker;                            // 堆栈指针查找
+    APMRegisterChecker *_register_checker;                      // 寄存器指针查找
+    APMSegmentChecker *_segment_checker;                        // 全局指针查找
+    APMStackChecker *_stack_checker;                            // 栈指针查找
+    APMHeapChecker *_heap_checker;                              // 堆指针查找
     
     size_t max_stack_depth = 10;
+    CObjcFilter *_objcFilter = NULL;                             // OC对象检测工具
     APMStackDumper *_stack_dumper;                              // 堆栈导出工具
-    APMAddresshashmap *_apm_address_hashmap = NULL;             // 存储空间地址 key: address
+    APMAddresshashmap *_apm_leak_address_hashmap = NULL;        // 存储空间地址 key: address
     APMLeakStackHashmap *_apm_leak_stack_hashmap = NULL;        // 存储堆栈详情 key: 堆栈CRC
     APMLeakedHashmap *_apm_leaked_hashmap = NULL;               // 临时存储发现的泄漏地址 key: 堆栈CRC
     os_unfair_lock _leak_hashmap_unfair_lock = OS_UNFAIR_LOCK_INIT;
+    
+    void get_all_leak_ptrs();                                   // 获取所有泄漏地址
+    NSString *get_all_leak_stack(size_t *total_count);          // 获取所有泄漏堆栈
 };

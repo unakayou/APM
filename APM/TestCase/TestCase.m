@@ -8,9 +8,7 @@
 #import "TestCase.h"
 #import "APMToastView.h"
 #import "APMRebootMonitor.h"
-#import "APMSharedThread.h"
-#import "APMCPUStatisticCenter.h"
-#import "APMMemoryStatisticCenter.h"
+#import "APMController.h"
 
 @implementation TestCase
 
@@ -98,6 +96,12 @@
         [TestCase funcMallocLimit];
     };
     
+    TestCase *leakedCase = [TestCase new];
+    leakedCase.name = @"内存泄漏";
+    leakedCase.caseBlock = ^{
+        [TestCase leakedTestCase];
+    };
+    
     NSMutableArray *allTestCase = [NSMutableArray new];
     [allTestCase addObject:oomCase];
     [allTestCase addObject:blockCase];
@@ -112,6 +116,7 @@
 //    [allTestCase addObject:stopThread];
     [allTestCase addObject:chunkMalloc];
     [allTestCase addObject:funcMallocLimit];
+    [allTestCase addObject:leakedCase];
     return allTestCase;
 }
 
@@ -179,6 +184,19 @@ static void *tmpArray[1000];
         }
         [APMToastView showToastViewWithMessage:@"连续小内存申请完毕"];
     });
+}
+
++ (void)leakedTestCase {
+    [APMToastView showToastViewWithMessage:@"开始泄漏"];
+
+    static void *tmp;
+    tmp = malloc(1024 * 1024);
+    NSLog(@"创造泄漏 %p", tmp);
+    tmp = NULL;
+    
+    [APMController leakDumpCallback:^(NSString * _Nonnull leakData, size_t leak_num) {
+        NSLog(@"%@",leakData);
+    }];
 }
 
 @end

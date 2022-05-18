@@ -10,6 +10,52 @@
 
 #define APM_DEALLOC_LOG_SWITCH 0
 
+#ifdef __LP64__
+typedef struct mach_header_64 mach_header_t;
+typedef struct segment_command_64 segment_command_t;
+typedef struct section_64 section_t;
+#else
+typedef struct mach_header mach_header_t;
+typedef struct segment_command segment_command_t;
+typedef struct section section_t;
+#endif
+
+#if defined(__i386__)
+
+#define MY_THREAD_STATE_COUTE x86_THREAD_STATE32_COUNT
+#define MY_THREAD_STATE x86_THREAD_STATE32
+#define MY_EXCEPTION_STATE_COUNT x86_EXCEPTION_STATE64_COUNT
+#define MY_EXCEPITON_STATE ARM_EXCEPTION_STATE32
+#define MY_SEGMENT_CMD_TYPE LC_SEGMENT
+
+#elif defined(__x86_64__)
+
+#define MY_THREAD_STATE_COUTE x86_THREAD_STATE64_COUNT
+#define MY_THREAD_STATE x86_THREAD_STATE64
+#define MY_EXCEPTION_STATE_COUNT x86_EXCEPTION_STATE64_COUNT
+#define MY_EXCEPITON_STATE x86_EXCEPTION_STATE64
+#define MY_SEGMENT_CMD_TYPE LC_SEGMENT_64
+
+#elif defined(__arm64__)
+
+#define MY_THREAD_STATE_COUTE ARM_THREAD_STATE64_COUNT
+#define MY_THREAD_STATE ARM_THREAD_STATE64
+#define MY_EXCEPTION_STATE_COUNT ARM_EXCEPTION_STATE64_COUNT
+#define MY_EXCEPITON_STATE ARM_EXCEPTION_STATE64
+#define MY_SEGMENT_CMD_TYPE LC_SEGMENT_64
+
+#elif defined(__arm__)
+
+#define MY_THREAD_STATE_COUTE ARM_THREAD_STATE_COUNT
+#define MY_THREAD_STATE ARM_THREAD_STATE
+#define MY_EXCEPITON_STATE ARM_EXCEPTION_STATE
+#define MY_EXCEPTION_STATE_COUNT ARM_EXCEPTION_STATE_COUNT
+#define MY_SEGMENT_CMD_TYPE LC_SEGMENT
+
+#else
+#error Unsupported host cpu.
+#endif
+
 #define stack_logging_type_free        0
 #define stack_logging_type_generic    1    /* anything that is not allocation/deallocation */
 #define stack_logging_type_alloc    2    /* malloc, realloc, etc... */

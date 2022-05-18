@@ -41,6 +41,10 @@
 		A3566FB727EB2286008D51CA /* APMMallocManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FB627EB2286008D51CA /* APMMallocManager.mm */; };
 		A3566FBA27EB427B008D51CA /* APMBaseHashmap.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FB927EB427B008D51CA /* APMBaseHashmap.mm */; };
 		A3566FBE27EC1CA4008D51CA /* APMAddressHashmap.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FBD27EC1CA4008D51CA /* APMAddressHashmap.mm */; };
+		A3C0588B281BEB9700AF0513 /* APMRegisterChecker.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3C0588A281BEB9700AF0513 /* APMRegisterChecker.mm */; };
+		A3C0588E28290EDD00AF0513 /* APMHeapChecker.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3C0588D28290EDD00AF0513 /* APMHeapChecker.mm */; };
+		A3C058912829633A00AF0513 /* APMSegmentChecker.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3C058902829633A00AF0513 /* APMSegmentChecker.mm */; };
+		A3C05894282E2CF700AF0513 /* APMObjcFilter.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3C05893282E2CF700AF0513 /* APMObjcFilter.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A3EA793527F58096001287CE /* APMFPSStatisticCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A3EA793427F58096001287CE /* APMFPSStatisticCenter.m */; };
 		A3ECD9C128056E6E00DAACE1 /* APMStackDumper.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3ECD9C028056E6E00DAACE1 /* APMStackDumper.mm */; };
 		A3ECD9C428057BAE00DAACE1 /* APMRapidCRC.c in Sources */ = {isa = PBXBuildFile; fileRef = A3ECD9C328057BAE00DAACE1 /* APMRapidCRC.c */; };
@@ -130,6 +134,14 @@
 		A3566FB927EB427B008D51CA /* APMBaseHashmap.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMBaseHashmap.mm; sourceTree = "<group>"; };
 		A3566FBC27EC1CA4008D51CA /* APMAddressHashmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMAddressHashmap.h; sourceTree = "<group>"; };
 		A3566FBD27EC1CA4008D51CA /* APMAddressHashmap.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMAddressHashmap.mm; sourceTree = "<group>"; };
+		A3C05889281BEB9700AF0513 /* APMRegisterChecker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMRegisterChecker.h; sourceTree = "<group>"; };
+		A3C0588A281BEB9700AF0513 /* APMRegisterChecker.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMRegisterChecker.mm; sourceTree = "<group>"; };
+		A3C0588C28290EDD00AF0513 /* APMHeapChecker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMHeapChecker.h; sourceTree = "<group>"; };
+		A3C0588D28290EDD00AF0513 /* APMHeapChecker.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMHeapChecker.mm; sourceTree = "<group>"; };
+		A3C0588F2829633A00AF0513 /* APMSegmentChecker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMSegmentChecker.h; sourceTree = "<group>"; };
+		A3C058902829633A00AF0513 /* APMSegmentChecker.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMSegmentChecker.mm; sourceTree = "<group>"; };
+		A3C05892282E2CF700AF0513 /* APMObjcFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMObjcFilter.h; sourceTree = "<group>"; };
+		A3C05893282E2CF700AF0513 /* APMObjcFilter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMObjcFilter.mm; sourceTree = "<group>"; };
 		A3EA793327F58096001287CE /* APMFPSStatisticCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMFPSStatisticCenter.h; sourceTree = "<group>"; };
 		A3EA793427F58096001287CE /* APMFPSStatisticCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMFPSStatisticCenter.m; sourceTree = "<group>"; };
 		A3ECD9BF28056E6E00DAACE1 /* APMStackDumper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMStackDumper.h; sourceTree = "<group>"; };
@@ -205,6 +217,12 @@
 				A3124FEE2815465900E69042 /* APMMemoryChecker.mm */,
 				A3124FF128154C8100E69042 /* APMStackChecker.h */,
 				A3124FF228154C8100E69042 /* APMStackChecker.mm */,
+				A3C0588C28290EDD00AF0513 /* APMHeapChecker.h */,
+				A3C0588D28290EDD00AF0513 /* APMHeapChecker.mm */,
+				A3C05889281BEB9700AF0513 /* APMRegisterChecker.h */,
+				A3C0588A281BEB9700AF0513 /* APMRegisterChecker.mm */,
+				A3C0588F2829633A00AF0513 /* APMSegmentChecker.h */,
+				A3C058902829633A00AF0513 /* APMSegmentChecker.mm */,
 			);
 			path = LeakChecker;
 			sourceTree = "<group>";
@@ -292,6 +310,8 @@
 				A3183C3E27DF303900310146 /* APMBaseEncodeModel.m */,
 				A3124FF42815518200E69042 /* APMThreadSuspendTool.h */,
 				A3124FF52815518200E69042 /* APMThreadSuspendTool.mm */,
+				A3C05892282E2CF700AF0513 /* APMObjcFilter.h */,
+				A3C05893282E2CF700AF0513 /* APMObjcFilter.mm */,
 				A3ECD9C228057BAE00DAACE1 /* APMRapidCRC.h */,
 				A3ECD9C328057BAE00DAACE1 /* APMRapidCRC.c */,
 			);
@@ -436,9 +456,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3C0588E28290EDD00AF0513 /* APMHeapChecker.mm in Sources */,
 				A3566FAA27EAF9A6008D51CA /* APMMallocLoggerHook.mm in Sources */,
 				A349BD4B27D8919100CDEA8A /* APMPathUtil.m in Sources */,
 				A3ECD9CA2807FCEA00DAACE1 /* APMStackWriter.mm in Sources */,
+				A3C05894282E2CF700AF0513 /* APMObjcFilter.mm in Sources */,
 				A3124FF62815518200E69042 /* APMThreadSuspendTool.mm in Sources */,
 				A3183C3B27DF182900310146 /* APMLogManager.m in Sources */,
 				A34F55EB27E09B5500553067 /* APMToastView.m in Sources */,
@@ -449,6 +471,7 @@
 				A349BD2927D8855D00CDEA8A /* AppDelegate.m in Sources */,
 				A3566FB427EB0099008D51CA /* APMController.mm in Sources */,
 				A3124FEA28115E5E00E69042 /* APMLeakStackHashmap.mm in Sources */,
+				A3C058912829633A00AF0513 /* APMSegmentChecker.mm in Sources */,
 				A349BD5727D8AB2C00CDEA8A /* APMSharedThread.m in Sources */,
 				A34F55E727E0917E00553067 /* TestCase.m in Sources */,
 				A3ECD9C428057BAE00DAACE1 /* APMRapidCRC.c in Sources */,
@@ -465,6 +488,7 @@
 				A3183C3F27DF303900310146 /* APMBaseEncodeModel.m in Sources */,
 				A34F55F327E203B300553067 /* DeallocLogObject.m in Sources */,
 				A349BD2C27D8855D00CDEA8A /* SceneDelegate.m in Sources */,
+				A3C0588B281BEB9700AF0513 /* APMRegisterChecker.mm in Sources */,
 				A3566FBE27EC1CA4008D51CA /* APMAddressHashmap.mm in Sources */,
 				A3EA793527F58096001287CE /* APMFPSStatisticCenter.m in Sources */,
 				A3566FAD27EAFAF4008D51CA /* APMLeakLogger.mm in Sources */,
@@ -614,10 +638,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 29C5EDQ3MS;
+				DEVELOPMENT_TEAM = 8V7G32N23Q;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/APM/TestCase",
@@ -628,6 +652,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -636,9 +661,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.wanmei.crashsdk.demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wanmei.crashsdk.demo2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = com.wanmei.crashsdk.demo;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -649,10 +674,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 29C5EDQ3MS;
+				DEVELOPMENT_TEAM = 8V7G32N23Q;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/APM/TestCase",
@@ -663,6 +688,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -671,9 +697,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.wanmei.crashsdk.demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wanmei.crashsdk.demo2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = com.wanmei.crashsdk.demo;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

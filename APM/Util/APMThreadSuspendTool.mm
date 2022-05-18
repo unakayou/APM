@@ -42,6 +42,11 @@ bool suspendAllChildThreads() {
 void resumeAllChildThreads() {
     thread_act_array_t thread_list = NULL;
     mach_msg_type_number_t thread_count = 0;
+    kern_return_t ret = task_threads(mach_task_self(), &thread_list, &thread_count);
+    if (ret != KERN_SUCCESS) {
+        return;
+    }
+
     for (mach_msg_type_number_t i = 0; i < thread_count; i++) {
         thread_t thread = thread_list[i];
         if (thread == mach_thread_self()) {
