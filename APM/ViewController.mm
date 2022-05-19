@@ -80,6 +80,11 @@
     }];
     
     [APMController startLeakMonitor];
+    [APMController setLeakDumpCallback:^(NSString * _Nonnull leakData, size_t leak_num) {
+        NSLog(@"%@", leakData);
+        [weakSelf.messageViewDataSource setObject:leakData forKey:@"7"];
+        [weakSelf updateMessageView];
+    }];
 }
 
 #pragma mark - 初始化
@@ -106,7 +111,7 @@
 }
 
 - (void)updateMessageView {
-    NSArray *nameArray = @[@"重启类型", @"启动耗时", @"CPU占用", @"内存占用", @"FPS", @"大内存捕获", @"单函数开辟超限"];
+    NSArray *nameArray = @[@"重启类型", @"启动耗时", @"CPU占用", @"内存占用", @"FPS", @"大内存捕获", @"单函数开辟超限", @"发现泄漏"];
     NSArray *allKeys = _messageViewDataSource.allKeys;
     NSMutableString *text = [[NSMutableString alloc] initWithCapacity:allKeys.count];
     for (int i = 0; i < nameArray.count; i++) {

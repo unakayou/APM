@@ -94,6 +94,12 @@ void APMLeakManager::stopLeakManager() {
     do_unlockHashmap
 }
 
+void APMLeakManager::setLeakExamineCallback(LeakExamineCallback callback) {
+    if (callback) {
+        _leakExamineCallback = callback;
+    }
+}
+
 void APMLeakManager::recordMallocStack(vm_address_t address,uint32_t size,const char*name,size_t stack_num_to_skip) {
     base_leaked_stack_t base_stack;
     base_ptr_log base_ptr;
@@ -144,7 +150,7 @@ bool APMLeakManager::findPtrInMemoryRegion(vm_address_t address) {
     return false;
 }
 
-void APMLeakManager::startLeakDump(LeakExamineCallback callback) {
+void APMLeakManager::startLeakDump() {
     enableTracking = false;
     
     if (NULL == _stack_checker) {
@@ -164,7 +170,9 @@ void APMLeakManager::startLeakDump(LeakExamineCallback callback) {
         
         resumeAllChildThreads();
         _segment_checker->removeAllSegments();
-        callback(stackData, total_size);
+        if (_leakExamineCallback) {
+            _leakExamineCallback(stackData, total_size);
+        }
     }
     enableTracking = true;
 }
@@ -196,7 +204,7 @@ NSString* APMLeakManager::get_all_leak_stack(size_t *total_count) {
                 vm_address_t address = (vm_address_t)merge_stack->stack[j];
                 segImageInfo segImage;
                 if (_stack_dumper->getImageByAddr(address, &segImage)) {
-                    [stackData appendFormat:@"\"%lu %s 0x%lx 0x%lx\" ",j,(segImage.name != NULL) ? segImage.name : "unknown",segImage.loadAddr,(long)address];
+                    [stackData appendFormat:@"\"%lu %s 0x%lx 0x%lx\"\n",j,(segImage.name != NULL) ? segImage.name : "unknown",segImage.loadAddr,(long)address];
                 }
             }
             [stackData appendString:@"\n"];

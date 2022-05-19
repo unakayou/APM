@@ -124,6 +124,12 @@ APMLeakManager *g_apmLeakManager;
     }
 }
 
++ (void)setLeakDumpCallback:(LeakExamineCallback)callback {
+    if (NULL != g_apmLeakManager) {
+        g_apmLeakManager->setLeakExamineCallback(callback);
+    }
+}
+
 + (void)stopLeakMonitor {
     if (NULL != g_apmLeakManager) {
         g_apmLeakManager->stopLeakManager();
@@ -132,9 +138,9 @@ APMLeakManager *g_apmLeakManager;
     }
 }
 
-+ (void)leakDumpCallback:(LeakExamineCallback)callback {
++ (void)leakDump {
     if (NULL != g_apmLeakManager) {
-        g_apmLeakManager->startLeakDump(callback);
+        g_apmLeakManager->startLeakDump();
     }
 }
 

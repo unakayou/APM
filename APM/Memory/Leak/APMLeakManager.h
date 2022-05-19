@@ -29,12 +29,15 @@ public:
     void startLeakManager();
     void stopLeakManager();
     
+    /// 设置泄漏回调
+    void setLeakExamineCallback(LeakExamineCallback callback);
+    
     /// 记录、删除开辟空间以及堆栈详情
     void recordMallocStack(vm_address_t address,uint32_t size,const char*name,size_t stack_num_to_skip);
     void removeMallocStack(vm_address_t address);
     
     /// 导出泄漏
-    void startLeakDump(LeakExamineCallback callback);
+    void startLeakDump();
     
     /// 查找指针是否存在于addressHashmap
     bool findPtrInMemoryRegion(vm_address_t address);
@@ -51,8 +54,8 @@ private:
     APMHeapChecker *_heap_checker;                              // 堆指针查找
     
     size_t max_stack_depth = 10;
-    CObjcFilter *_objcFilter = NULL;                             // OC对象检测工具
-    APMStackDumper *_stack_dumper;                              // 堆栈导出工具
+    CObjcFilter *_objcFilter = NULL;                            // OC对象检测工具
+    APMStackDumper *_stack_dumper = NULL;                       // 堆栈导出工具
     APMAddresshashmap *_apm_leak_address_hashmap = NULL;        // 存储空间地址 key: address
     APMLeakStackHashmap *_apm_leak_stack_hashmap = NULL;        // 存储堆栈详情 key: 堆栈CRC
     APMLeakedHashmap *_apm_leaked_hashmap = NULL;               // 临时存储发现的泄漏地址 key: 堆栈CRC
@@ -60,4 +63,6 @@ private:
     
     void get_all_leak_ptrs();                                   // 获取所有泄漏地址
     NSString *get_all_leak_stack(size_t *total_count);          // 获取所有泄漏堆栈
+    
+    LeakExamineCallback _leakExamineCallback;                   // 泄漏回调
 };

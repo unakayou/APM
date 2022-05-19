@@ -194,9 +194,7 @@ static void *tmpArray[1000];
     NSLog(@"创造泄漏 %p", tmp);
     tmp = NULL;
     
-    [APMController leakDumpCallback:^(NSString * _Nonnull leakData, size_t leak_num) {
-        NSLog(@"%@",leakData);
-    }];
+    [APMController leakDump];
 }
 
 @end
