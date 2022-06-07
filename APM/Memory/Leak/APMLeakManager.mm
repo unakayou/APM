@@ -12,6 +12,7 @@
 #import "APMHeapChecker.h"
 #import "APMSegmentChecker.h"
 #import "APMThreadSuspendTool.h"
+#import "APMSmbolTool.h"
 
 #define do_lockHashmap os_unfair_lock_lock(&_leak_hashmap_unfair_lock);
 #define do_unlockHashmap os_unfair_lock_unlock(&_leak_hashmap_unfair_lock);
@@ -200,6 +201,16 @@ NSString* APMLeakManager::get_all_leak_stack(size_t *total_count) {
             [stackData appendString:@"---------------------------------------\n"];
             [stackData appendFormat:@"[发现泄漏]:\n地址:0x%lx\n名字:%s\n泄漏次数:%d\n堆栈详情:\n",
              current->address, merge_stack->extra.name, current->leak_count];
+            
+#if 1
+            uintptr_t backtraceBuffer[merge_stack->depth];
+            for (int j = 0; j <  merge_stack->depth; j++) {
+                vm_address_t address = (vm_address_t)merge_stack->stack[j];
+                backtraceBuffer[j] = address;
+            }
+            NSString *symbolStack = [APMSmbolTool addressToSmbol:backtraceBuffer depth:merge_stack->depth];
+            [stackData appendString:symbolStack];
+#else
             for (size_t j = 0; j < merge_stack->depth; j++) {
                 vm_address_t address = (vm_address_t)merge_stack->stack[j];
                 segImageInfo segImage;
@@ -207,6 +218,7 @@ NSString* APMLeakManager::get_all_leak_stack(size_t *total_count) {
                     [stackData appendFormat:@"\"%lu %s 0x%lx 0x%lx\"\n",j,(segImage.name != NULL) ? segImage.name : "unknown",segImage.loadAddr,(long)address];
                 }
             }
+#endif
             [stackData appendString:@"\n"];
             current = current->next;
         }

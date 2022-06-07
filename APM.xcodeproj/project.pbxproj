@@ -17,6 +17,7 @@
 		A3183C3B27DF182900310146 /* APMLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3183C3A27DF182900310146 /* APMLogManager.m */; };
 		A3183C3F27DF303900310146 /* APMBaseEncodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3183C3E27DF303900310146 /* APMBaseEncodeModel.m */; };
 		A3183C4227E0305000310146 /* APMDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A3183C4127E0305000310146 /* APMDeviceInfo.m */; };
+		A3255CA1284F4C3D00A509C7 /* APMSmbolTool.m in Sources */ = {isa = PBXBuildFile; fileRef = A3255CA0284F4C3D00A509C7 /* APMSmbolTool.m */; };
 		A349BD2927D8855D00CDEA8A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD2827D8855D00CDEA8A /* AppDelegate.m */; };
 		A349BD2C27D8855D00CDEA8A /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD2B27D8855D00CDEA8A /* SceneDelegate.m */; };
 		A349BD2F27D8855D00CDEA8A /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A349BD2E27D8855D00CDEA8A /* ViewController.mm */; };
@@ -87,6 +88,8 @@
 		A3183C3E27DF303900310146 /* APMBaseEncodeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMBaseEncodeModel.m; sourceTree = "<group>"; };
 		A3183C4027E0305000310146 /* APMDeviceInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMDeviceInfo.h; sourceTree = "<group>"; };
 		A3183C4127E0305000310146 /* APMDeviceInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMDeviceInfo.m; sourceTree = "<group>"; };
+		A3255C9F284F4C3D00A509C7 /* APMSmbolTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMSmbolTool.h; sourceTree = "<group>"; };
+		A3255CA0284F4C3D00A509C7 /* APMSmbolTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMSmbolTool.m; sourceTree = "<group>"; };
 		A349BD2427D8855D00CDEA8A /* APM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A349BD2727D8855D00CDEA8A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A349BD2827D8855D00CDEA8A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -310,6 +313,8 @@
 				A3183C3E27DF303900310146 /* APMBaseEncodeModel.m */,
 				A3124FF42815518200E69042 /* APMThreadSuspendTool.h */,
 				A3124FF52815518200E69042 /* APMThreadSuspendTool.mm */,
+				A3255C9F284F4C3D00A509C7 /* APMSmbolTool.h */,
+				A3255CA0284F4C3D00A509C7 /* APMSmbolTool.m */,
 				A3C05892282E2CF700AF0513 /* APMObjcFilter.h */,
 				A3C05893282E2CF700AF0513 /* APMObjcFilter.mm */,
 				A3ECD9C228057BAE00DAACE1 /* APMRapidCRC.h */,
@@ -462,6 +467,7 @@
 				A3ECD9CA2807FCEA00DAACE1 /* APMStackWriter.mm in Sources */,
 				A3C05894282E2CF700AF0513 /* APMObjcFilter.mm in Sources */,
 				A3124FF62815518200E69042 /* APMThreadSuspendTool.mm in Sources */,
+				A3255CA1284F4C3D00A509C7 /* APMSmbolTool.m in Sources */,
 				A3183C3B27DF182900310146 /* APMLogManager.m in Sources */,
 				A34F55EB27E09B5500553067 /* APMToastView.m in Sources */,
 				A3ECD9C128056E6E00DAACE1 /* APMStackDumper.mm in Sources */,
@@ -638,10 +644,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8V7G32N23Q;
+				DEVELOPMENT_TEAM = 29C5EDQ3MS;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/APM/TestCase",
@@ -661,9 +667,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.wanmei.crashsdk.demo2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wanmei.crashsdk.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = com.wanmei.crashsdk.demo;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -674,10 +680,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8V7G32N23Q;
+				DEVELOPMENT_TEAM = 29C5EDQ3MS;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/APM/TestCase",
@@ -697,9 +703,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.wanmei.crashsdk.demo2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wanmei.crashsdk.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = com.wanmei.crashsdk.demo;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
