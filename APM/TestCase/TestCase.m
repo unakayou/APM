@@ -178,7 +178,7 @@ static void *tmpArray[1000];
     [APMToastView showToastViewWithMessage:@"连续小内存申请中"];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         for (int i = 0; i < 1000; i++) {
-            void *tmp = malloc(1024 * 5);
+            void *tmp = malloc(1024 * 20);
             memset(tmp, 0, 1024 * 5);
             tmpArray[i] = tmp;
         }
@@ -190,7 +190,7 @@ static void *tmpArray[1000];
     [APMToastView showToastViewWithMessage:@"开始泄漏"];
 
     static void *tmp;
-    tmp = malloc(1024 * 1024);
+    tmp = malloc(1024 * 5);
     NSLog(@"创造泄漏 %p", tmp);
     tmp = NULL;
     

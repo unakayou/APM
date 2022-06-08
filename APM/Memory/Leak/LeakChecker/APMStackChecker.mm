@@ -29,7 +29,7 @@ void APMStackChecker::startPtrCheck(size_t bt) {
             // 栈底地址
             void *stack = pthread_get_stackaddr_np(pthread);
             if(stack != NULL){
-                vm_address_t stack_ptr;
+                vm_address_t stack_ptr = 0;
                 if(thread == mach_thread_self()) {
                     // 获取FP
                     find_thread_fp(thread, &stack_ptr, bt);

@@ -13,6 +13,7 @@
 #import "APMSegmentChecker.h"
 #import "APMThreadSuspendTool.h"
 #import "APMSmbolTool.h"
+#import "execinfo.h"
 
 #define do_lockHashmap os_unfair_lock_lock(&_leak_hashmap_unfair_lock);
 #define do_unlockHashmap os_unfair_lock_unlock(&_leak_hashmap_unfair_lock);
@@ -107,10 +108,6 @@ void APMLeakManager::recordMallocStack(vm_address_t address,uint32_t size,const 
     uint64_t digest;
     vm_address_t *stack[max_stack_depth];
     
-    if (size == (1024 * 3)) {
-        printf("捕获到测试用例开辟的\n");
-    }
-    
     base_stack.depth = _stack_dumper->recordBacktrace(true, stack_num_to_skip, stack, &digest, max_stack_depth);
     if (base_stack.depth > 0) {
         base_stack.stack = stack;
@@ -202,14 +199,12 @@ NSString* APMLeakManager::get_all_leak_stack(size_t *total_count) {
             [stackData appendFormat:@"[发现泄漏]:\n地址:0x%lx\n名字:%s\n泄漏次数:%d\n堆栈详情:\n",
              current->address, merge_stack->extra.name, current->leak_count];
             
-#if 1
-            uintptr_t backtraceBuffer[merge_stack->depth];
-            for (int j = 0; j <  merge_stack->depth; j++) {
-                vm_address_t address = (vm_address_t)merge_stack->stack[j];
-                backtraceBuffer[j] = address;
+#if APM_SYMBOL_SWITCH
+            char ** symbols = backtrace_symbols((void**)merge_stack->stack, (int)merge_stack->depth);
+            for (int j = 0; j < merge_stack->depth; j++) {
+                [stackData appendFormat:@"%s\n", symbols[j]];
             }
-            NSString *symbolStack = [APMSmbolTool addressToSmbol:backtraceBuffer depth:merge_stack->depth];
-            [stackData appendString:symbolStack];
+            free(symbols);
 #else
             for (size_t j = 0; j < merge_stack->depth; j++) {
                 vm_address_t address = (vm_address_t)merge_stack->stack[j];

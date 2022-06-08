@@ -76,12 +76,6 @@
 
 @implementation APMSmbolTool
 
-// ???
-+ (NSString *)addressToSmbol:(const uintptr_t )address addreddNum:(const int) num {
-    Dl_info *dlInfo;
-    return CrashlogBacktraceEntry(num, address, dlInfo);
-}
-
 + (NSString *)addressToSmbol:(const uintptr_t * const)backtraceBuffer depth:(int)depth {
     int backtraceLength = depth;
     Dl_info symbolicated[backtraceLength];

@@ -8,6 +8,7 @@
 #ifndef APMDefines_h
 #define APMDefines_h
 
+#define APM_SYMBOL_SWITCH 1
 #define APM_DEALLOC_LOG_SWITCH 0
 
 #ifdef __LP64__

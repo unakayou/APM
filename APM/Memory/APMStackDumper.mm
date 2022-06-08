@@ -62,6 +62,7 @@ APMStackDumper::~APMStackDumper() {
     allImages.size = 0;
 }
 
+#warning 有泄漏
 size_t APMStackDumper::recordBacktrace(bool needSystemStack,
                                        size_t backtrace_to_skip,
                                        vm_address_t **app_stack,
@@ -70,7 +71,6 @@ size_t APMStackDumper::recordBacktrace(bool needSystemStack,
     vm_address_t *orig_stack[MAX_STACK_DEPTH];
     size_t depth = backtrace((void**)orig_stack, MAX_STACK_DEPTH);  // 导出堆栈
     size_t orig_depth = depth;  // 备份一下当前获取的堆栈深度
-
     // 深度超过最大值,设置为最大值
     if(depth > max_stack_depth){
         depth = max_stack_depth;

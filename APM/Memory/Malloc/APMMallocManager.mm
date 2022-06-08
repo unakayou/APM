@@ -10,6 +10,8 @@
 #import "APMLogManager.h"
 #import "APMRapidCRC.h"
 #import "Block.h"
+#import "execinfo.h"
+
 
 #define USE_UNFAIR_LOCK 1
 #if USE_UNFAIR_LOCK
@@ -125,9 +127,16 @@ void APMMallocManager::recordMallocStack(vm_address_t address, uint32_t size, si
         // 发现单次大内存特殊处理后,直接返回
         if (_singleLimitCallback) {
             NSMutableString *stackInfo = [[NSMutableString alloc] init];
+#if APM_SYMBOL_SWITCH
+            char ** symbols = backtrace_symbols((void**)stack, (int)depth);
+            for (int i = 0; i < depth; i++) {
+                [stackInfo appendFormat:@"%s\n", symbols[i]];
+            }
+#else
             for (int i = 0; i < depth; i++) {
                 [stackInfo appendFormat:@"0x%lx\n", (vm_address_t)stack[i]];
             }
+#endif
             _singleLimitCallback(size, stackInfo);
         }
         return;
@@ -148,12 +157,21 @@ void APMMallocManager::recordMallocStack(vm_address_t address, uint32_t size, si
         }
     }
     do_unlockHashmap
-    
+
     if (funcOverLimit && _funcLimitCallback) {
+
         NSMutableString *string = [[NSMutableString alloc] init];
+        
+#if APM_SYMBOL_SWITCH
+        char ** symbols = backtrace_symbols((void**)stack, (int)depth);
+        for (int i = 0; i < depth; i++) {
+            [string appendFormat:@"%s\n", symbols[i]];
+        }
+#else
         for (int i = 0; i < depth; i++) {
             [string appendFormat:@"0x%lx\n", (vm_address_t)stack[i]];
         }
+#endif
         _funcLimitCallback(size, string);
     }
 }

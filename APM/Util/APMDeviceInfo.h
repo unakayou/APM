@@ -7,8 +7,6 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface APMDeviceInfo : NSObject
 /// 系统版本号
 + (NSString *)systemVersion;
@@ -32,5 +30,3 @@ NS_ASSUME_NONNULL_BEGIN
 + (Float32)totalMemory;
 
 @end
-
-NS_ASSUME_NONNULL_END

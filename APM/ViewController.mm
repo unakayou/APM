@@ -104,6 +104,7 @@
     // 信息显示
     self.messageView = [[UITextView alloc] init];
     _messageView.font = [UIFont systemFontOfSize:15];
+    _messageView.editable = NO;
     _messageView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     [self.view addSubview:_messageView];
     
@@ -144,7 +145,7 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     CGFloat x = 0, y = 0, width = self.view.frame.size.width, height = CELL_HEIGHT * self.tableViewDataSource.count;
-    CGFloat maxHeight = self.view.frame.size.height / 3 * 2;
+    CGFloat maxHeight = self.view.frame.size.height / 3 ;
     height = height < maxHeight ? height : maxHeight;
     
     self.tableView.frame = CGRectMake(x, y, width, height);
@@ -158,8 +159,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.description];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.description];
-        cell.textLabel.text = [_tableViewDataSource[indexPath.row] name];
     }
+    cell.textLabel.text = [_tableViewDataSource[indexPath.row] name];
     return cell;
 }
 
