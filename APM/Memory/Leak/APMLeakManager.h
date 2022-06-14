@@ -32,7 +32,7 @@ public:
     /// 设置泄漏回调
     void setLeakExamineCallback(LeakExamineCallback callback);
     
-    /// 记录、删除开辟空间以及堆栈详情
+    /// 记录、删除开辟空间以及堆栈详情 stack_num_to_skip栈顶过滤条数
     void recordMallocStack(vm_address_t address,uint32_t size,const char*name,size_t stack_num_to_skip);
     void removeMallocStack(vm_address_t address);
     
@@ -47,13 +47,16 @@ public:
     
     /// 监控开启状态
     bool enableTracking = false;
+    
+    /// 是否正在检测泄漏
+    bool isLeakChecking = false;
 private:
     APMRegisterChecker *_register_checker;                      // 寄存器指针查找
     APMSegmentChecker *_segment_checker;                        // 全局指针查找
     APMStackChecker *_stack_checker;                            // 栈指针查找
     APMHeapChecker *_heap_checker;                              // 堆指针查找
     
-    size_t max_stack_depth = 10;
+    size_t max_stack_depth = 50;
     CObjcFilter *_objcFilter = NULL;                            // OC对象检测工具
     APMStackDumper *_stack_dumper = NULL;                       // 堆栈导出工具
     APMAddresshashmap *_apm_leak_address_hashmap = NULL;        // 存储空间地址 key: address

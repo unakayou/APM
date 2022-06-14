@@ -52,7 +52,7 @@ BOOL APMAddresshashmap::insertPtr(vm_address_t addr, base_ptr_log *ptr_log) {
             parent = current;
             current = current->next;
         }
-        ptr_log_t *insert_data = create_hashmap_data(addr,ptr_log);
+        ptr_log_t *insert_data = create_hashmap_data(addr, ptr_log);
         parent->next = insert_data;
         record_num++;
         return YES;
@@ -121,6 +121,7 @@ ptr_log_t *APMAddresshashmap::create_hashmap_data(vm_address_t addr, base_ptr_lo
     ptr_log_t *ptr_log = (ptr_log_t *)hashmap_malloc(sizeof(ptr_log_t));
     ptr_log->digest = base_ptr->digest;
     ptr_log->size = (uint32_t)base_ptr->size;
+    ptr_log->hits = 0;
     ptr_log->address = addr;
     ptr_log->next = NULL;
     return ptr_log;

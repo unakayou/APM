@@ -9,13 +9,35 @@
 #import "APMLeakManager.h"
 
 extern APMLeakManager *g_apmLeakManager;
-void apm_Leak_logger(uint32_t type, uintptr_t arg1, uintptr_t arg2, uintptr_t arg3, uintptr_t result, uint32_t backtrace_to_skip) {    
+
+/// @param type malloc, realloc, etc... + NSZoneMalloc
+/// @param arg1 malloc_zone_t 地址
+/// @param arg2 size (realloc时: 原本开辟地址, free时: 释放的地址)
+/// @param arg3 0     (realloc时: size)
+/// @param result = malloc_zone_t->malloc(zone, size) 返回新开辟的内存地址
+/// @param backtrace_to_skip 0
+void apm_Leak_logger(uint32_t type, uintptr_t arg1, uintptr_t arg2, uintptr_t arg3, uintptr_t result, uint32_t backtrace_to_skip) {
+    
+    // realloc
     if (type == (stack_logging_type_dealloc | stack_logging_type_alloc)) {
-        g_apmLeakManager->removeMallocStack(arg2);
-        g_apmLeakManager->recordMallocStack(result, (uint32_t)arg3, "realloc", backtrace_to_skip);
+        if (arg2 == result) return;
+        
+        if (!arg2) {
+            if (g_apmLeakManager->isLeakChecking != true) {
+                g_apmLeakManager->recordMallocStack(result, (uint32_t)arg3, "realloc", 2);
+            }
+        } else {
+            g_apmLeakManager->removeMallocStack(arg2);
+            if (g_apmLeakManager->isLeakChecking != true) {
+                g_apmLeakManager->recordMallocStack(result, (uint32_t)arg3, "realloc", 2);
+            }
+        }
     } else if (type == stack_logging_type_dealloc) {
-        g_apmLeakManager->removeMallocStack(arg2);
+        if (!arg2) return;
+        g_apmLeakManager->removeMallocStack((vm_address_t)arg2);
     } else if ((type & stack_logging_type_alloc) == stack_logging_type_alloc) {
-        g_apmLeakManager->recordMallocStack(result, (uint32_t)arg2, "malloc",backtrace_to_skip);
+        if (g_apmLeakManager->isLeakChecking != true) {
+            g_apmLeakManager->recordMallocStack(result, (uint32_t)arg2, "malloc", 2);
+        }
     }
 }

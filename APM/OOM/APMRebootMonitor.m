@@ -58,10 +58,7 @@ static pthread_mutex_t _rebootMonitorLock;
     }
     
     _lastExitTimeStamp = info.appExitTimeStamp;
-    APMLogDebug(@"\n⚠️ App重启类型: %@\n上次启动时间: %llu\n上次退出时间: %llu",
-                APMRebootMonitor.rebootTypeString,
-                info.appLaunchTimeStamp, info.appExitTimeStamp);
-    printf("babababab");
+    APMLogDebug(@"\n⚠️ App重启类型: %@\n上次启动时间: %llu\n上次退出时间: %llu", APMRebootMonitor.rebootTypeString, info.appLaunchTimeStamp, info.appExitTimeStamp);
     
     info.appLaunchTimeStamp = (uint64_t)time(NULL);
     info.appExitTimeStamp = 0;

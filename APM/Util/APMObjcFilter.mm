@@ -19,11 +19,11 @@ typedef struct{
 } objc_class_ptr;
 
 CObjcFilter::~CObjcFilter() {
-    if(black_class_set != NULL){
+    if(black_class_set != NULL) {
         delete black_class_set;
     }
     
-    if(current_class_set != NULL){
+    if(current_class_set != NULL) {
         delete current_class_set;
     }
 }

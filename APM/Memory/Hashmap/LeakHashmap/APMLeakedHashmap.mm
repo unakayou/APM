@@ -73,7 +73,7 @@ int APMLeakedHashmap::compare(leaked_ptr_t *leak_ptr,uint64_t digest) {
 }
 
 size_t APMLeakedHashmap::hash_code(uint64_t digest) {
-    size_t offset = (size_t)digest%(entry_num - 1);
+    size_t offset = (size_t)digest % (entry_num - 1);
     return offset;
 }
 

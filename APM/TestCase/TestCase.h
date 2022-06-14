@@ -13,7 +13,7 @@ typedef void(^TestCaseBlock)(void);
 
 @interface TestCase : NSObject
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, strong) TestCaseBlock caseBlock;
+@property (nonatomic, copy) TestCaseBlock caseBlock;
 
 + (NSArray <TestCase *>*)allTestCase;
 @end

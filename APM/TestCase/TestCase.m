@@ -34,6 +34,7 @@
     TestCase *cpuHigh = [TestCase new];
     cpuHigh.name = @"CPU高占用";
     cpuHigh.caseBlock = ^{
+        [APMToastView showToastViewWithMessage:@"CPU高占用"];
         for (int i = 0; i < 100; i++) {
             dispatch_queue_t queue = dispatch_queue_create([NSString stringWithFormat:@"Queue-%d",i].UTF8String, DISPATCH_QUEUE_CONCURRENT);
             dispatch_async(queue, ^{
@@ -187,14 +188,19 @@ static void *tmpArray[1000];
 }
 
 + (void)leakedTestCase {
-    [APMToastView showToastViewWithMessage:@"开始泄漏"];
+    [APMToastView showToastViewWithMessage:@"产生泄漏"];
 
-    static void *tmp;
-    tmp = malloc(1024 * 5);
+    char *tmp;
+    int size = 1024 * 5;
+    tmp = malloc(size);
+    memset(tmp, 1, size);
     NSLog(@"创造泄漏 %p", tmp);
     tmp = NULL;
     
-    [APMController leakDump];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [APMToastView showToastViewWithMessage:@"检测泄漏"];
+        [APMController leakDump];
+    });
 }
 
 @end

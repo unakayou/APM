@@ -81,7 +81,7 @@
     
     [APMController startLeakMonitor];
     [APMController setLeakDumpCallback:^(NSString * _Nonnull leakData, size_t leak_num) {
-        NSLog(@"%@", leakData);
+        printf("%s", leakData.UTF8String);
         [weakSelf.messageViewDataSource setObject:leakData forKey:@"7"];
         [weakSelf updateMessageView];
     }];

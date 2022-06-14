@@ -62,7 +62,6 @@ APMStackDumper::~APMStackDumper() {
     allImages.size = 0;
 }
 
-#warning 有泄漏
 size_t APMStackDumper::recordBacktrace(bool needSystemStack,
                                        size_t backtrace_to_skip,
                                        vm_address_t **app_stack,

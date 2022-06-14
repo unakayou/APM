@@ -18,11 +18,8 @@ typedef struct ptr_log_t{
     uint64_t digest;        // rapid_crc64
     vm_address_t address;   // 空间地址
     ptr_log_t *next;        // 链表下一个
-
-    union {
-        uint32_t size;      // 开辟内存占用空间
-        uint32_t hits;      // 空间命中次数
-    };
+    uint32_t size;          // 开辟内存占用空间
+    uint32_t hits;          // 空间命中次数
 } ptr_log_t;
 
 class APMBaseHashmap {

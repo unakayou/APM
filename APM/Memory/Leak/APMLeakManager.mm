@@ -76,11 +76,12 @@ void APMLeakManager::startLeakManager() {
     do_unlockHashmap
     
     enableTracking = true;
+    isLeakChecking = false;
 }
 
 void APMLeakManager::stopLeakManager() {
     enableTracking = false;
-
+    isLeakChecking = false;
     do_lockHashmap
     if (NULL != _apm_leak_address_hashmap) {
         delete _apm_leak_address_hashmap;
@@ -150,6 +151,7 @@ bool APMLeakManager::findPtrInMemoryRegion(vm_address_t address) {
 
 void APMLeakManager::startLeakDump() {
     enableTracking = false;
+    isLeakChecking = true;
     
     if (NULL == _stack_checker) {
         _stack_checker = new APMStackChecker(g_apmLeakManager);
@@ -173,6 +175,7 @@ void APMLeakManager::startLeakDump() {
         }
     }
     enableTracking = true;
+    isLeakChecking = false;
 }
 
 // 筛选泄漏,拼接字符串
@@ -196,9 +199,7 @@ NSString* APMLeakManager::get_all_leak_stack(size_t *total_count) {
             }
             total += current->leak_count;
             [stackData appendString:@"---------------------------------------\n"];
-            [stackData appendFormat:@"[发现泄漏]:\n地址:0x%lx\n名字:%s\n泄漏次数:%d\n堆栈详情:\n",
-             current->address, merge_stack->extra.name, current->leak_count];
-            
+            [stackData appendFormat:@"[发现泄漏]:\n地址:0x%lx\n名字:%s\n泄漏次数:%d\n堆栈详情:\n", (long)current->address, merge_stack->extra.name, current->leak_count];
 #if APM_SYMBOL_SWITCH
             char ** symbols = backtrace_symbols((void**)merge_stack->stack, (int)merge_stack->depth);
             for (int j = 0; j < merge_stack->depth; j++) {
@@ -242,10 +243,11 @@ void APMLeakManager::get_all_leak_ptrs() {
                 current = current->next;
                 continue;
             }
-            
+                        
             // 匹配到了
             if (merge_stack->extra.name != NULL) {
                 if (current->hits == 0) {
+
                     // size为0,说明没有指针指向,所以添加到泄漏map中
                     _apm_leaked_hashmap->insertLeakPtrAndIncreaseCountIfExist(current->digest, current);
                     

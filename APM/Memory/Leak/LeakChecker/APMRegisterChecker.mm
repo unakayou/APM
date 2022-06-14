@@ -9,7 +9,7 @@
 #import <mach/mach.h>
 #import "APMDefines.h"
 
-bool APMRegisterChecker::startPtrCheck(){
+bool APMRegisterChecker::startPtrCheck() {
 #if !TARGET_IPHONE_SIMULATOR
     thread_act_array_t thread_list;
     mach_msg_type_number_t thread_count;
