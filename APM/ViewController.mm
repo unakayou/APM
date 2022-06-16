@@ -8,8 +8,8 @@
 #import "ViewController.h"
 #import <mach/mach.h>
 #import "APMController.h"
-#import "TestCase.h"
 #import "APMMallocManager.h"
+#import "TestCase.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -81,11 +81,14 @@
     
     [APMController startLeakMonitor];
     [APMController setLeakDumpCallback:^(NSString * _Nonnull leakData, size_t leak_num) {
-        printf("%s", leakData.UTF8String);
-        [weakSelf.messageViewDataSource setObject:leakData forKey:@"7"];
+        CFAbsoluteTime endTime = CFAbsoluteTimeGetCurrent();
+        NSString *dataString = [leakData stringByAppendingFormat:@"内存泄漏检测耗时 = %f s", endTime - _startTime];
+        printf("%s\n", dataString.UTF8String);
+        [weakSelf.messageViewDataSource setObject:dataString forKey:@"7"];
         [weakSelf updateMessageView];
     }];
 }
+static CFAbsoluteTime _startTime = 0;
 
 #pragma mark - 初始化
 - (void)initTableView {
@@ -170,6 +173,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    _startTime = CFAbsoluteTimeGetCurrent();
     [_tableViewDataSource[indexPath.row] caseBlock]();
 }
 

@@ -197,7 +197,7 @@ static void *tmpArray[1000];
     NSLog(@"创造泄漏 %p", tmp);
     tmp = NULL;
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [APMToastView showToastViewWithMessage:@"检测泄漏"];
         [APMController leakDump];
     });
