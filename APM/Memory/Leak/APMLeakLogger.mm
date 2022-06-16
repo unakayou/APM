@@ -24,12 +24,12 @@ void apm_Leak_logger(uint32_t type, uintptr_t arg1, uintptr_t arg2, uintptr_t ar
         
         if (!arg2) {
             if (g_apmLeakManager->isLeakChecking != true) {
-                g_apmLeakManager->recordMallocStack(result, (uint32_t)arg3, "realloc", 2);
+                g_apmLeakManager->recordMallocStack(result, (uint32_t)arg3, "realloc", 5);
             }
         } else {
             g_apmLeakManager->removeMallocStack(arg2);
             if (g_apmLeakManager->isLeakChecking != true) {
-                g_apmLeakManager->recordMallocStack(result, (uint32_t)arg3, "realloc", 2);
+                g_apmLeakManager->recordMallocStack(result, (uint32_t)arg3, "realloc", 5);
             }
         }
     } else if (type == stack_logging_type_dealloc) {
@@ -37,7 +37,7 @@ void apm_Leak_logger(uint32_t type, uintptr_t arg1, uintptr_t arg2, uintptr_t ar
         g_apmLeakManager->removeMallocStack((vm_address_t)arg2);
     } else if ((type & stack_logging_type_alloc) == stack_logging_type_alloc) {
         if (g_apmLeakManager->isLeakChecking != true) {
-            g_apmLeakManager->recordMallocStack(result, (uint32_t)arg2, "malloc", 2);
+            g_apmLeakManager->recordMallocStack(result, (uint32_t)arg2, "malloc", 5);
         }
     }
 }

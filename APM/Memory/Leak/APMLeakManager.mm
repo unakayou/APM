@@ -180,7 +180,7 @@ void APMLeakManager::startLeakDump() {
 
 // 筛选泄漏,拼接字符串
 NSString* APMLeakManager::get_all_leak_stack(size_t *total_count) {
-    // 筛选泄漏主要逻辑
+    // ⚠️ 筛选泄漏主要逻辑
     get_all_leak_ptrs();
     
     NSMutableString *stackData = [[NSMutableString alloc] init];
@@ -194,6 +194,19 @@ NSString* APMLeakManager::get_all_leak_stack(size_t *total_count) {
             // 从leaked表中拿堆栈crc去找完整堆栈
             merge_leaked_stack_t *merge_stack = _apm_leak_stack_hashmap->lookupStack(current->digest);
             if (merge_stack == NULL) {
+                current = current->next;
+                continue;
+            }
+            
+            // 过滤掉系统的泄漏
+            segImageInfo segImage;
+            if (_stack_dumper->getImageByAddr((vm_address_t)merge_stack->stack[0], &segImage)) {
+                const char * exeName = [[[NSBundle mainBundle] infoDictionary][@"CFBundleExecutable"] UTF8String];
+                if (exeName != NULL && strcmp(segImage.name, exeName) != 0) {
+                    current = current->next;
+                    continue;
+                }
+            } else {
                 current = current->next;
                 continue;
             }
@@ -243,7 +256,7 @@ void APMLeakManager::get_all_leak_ptrs() {
                 current = current->next;
                 continue;
             }
-                        
+            
             // 匹配到了
             if (merge_stack->extra.name != NULL) {
                 if (current->hits == 0) {
