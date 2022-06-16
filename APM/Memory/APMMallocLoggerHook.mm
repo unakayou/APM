@@ -7,21 +7,30 @@
 
 #import "APMMallocLoggerHook.h"
 #import "APMMallocManager.h"
+#import "APMLeakManager.h"
 #import "APMDefines.h"
 
 extern APMMallocManager *g_apmMallocManager;
+extern APMLeakManager *g_apmLeakManager;
 
 void startMallocLogger(void) {
-    // 保存之前的malloc_logger
-    if (malloc_logger && malloc_logger != apmMallocLoggerHook) {
-        g_apmPreMallocLogger = malloc_logger;
+    // 重复设置大可不必
+    if ((malloc_logger_t *)apm_malloc_logger == malloc_logger) {
+        return;
     }
-    malloc_logger = (malloc_logger_t *)apmMallocLoggerHook;
+    
+    // 保存之前的malloc_logger
+    if (malloc_logger && malloc_logger != apm_malloc_logger) {
+        g_apm_pre_malloc_logger = malloc_logger;
+    }
+    
+    // 指向新函数
+    malloc_logger = (malloc_logger_t *)apm_malloc_logger;
 }
 
 void stopMallocLogger(void) {
     // 还原malloc_logger
-    malloc_logger = g_apmPreMallocLogger;
+    malloc_logger = g_apm_pre_malloc_logger;
 }
 
 /// ⚠️ 记录关键逻辑
@@ -33,13 +42,9 @@ void stopMallocLogger(void) {
 /// @param arg3 0     (realloc时: size)
 /// @param result = malloc_zone_t->malloc(zone, size) 返回新开辟的内存地址
 /// @param backtrace_to_skip 0
-void apmMallocLoggerHook(uint32_t type, uintptr_t arg1, uintptr_t arg2, uintptr_t arg3, uintptr_t result, uint32_t backtrace_to_skip) {
-    if (g_apmMallocManager == NULL) {
-        return;
-    }
-    
-    if (g_apmPreMallocLogger) {
-        g_apmPreMallocLogger(type, arg1, arg2, arg3, result, backtrace_to_skip);
+void apm_malloc_logger(uint32_t type, uintptr_t arg1, uintptr_t arg2, uintptr_t arg3, uintptr_t result, uint32_t backtrace_to_skip) {
+    if (g_apm_pre_malloc_logger != NULL) {
+        g_apm_pre_malloc_logger(type, arg1, arg2, arg3, result, backtrace_to_skip);
     }
     
     // 消除共同项
@@ -47,9 +52,21 @@ void apmMallocLoggerHook(uint32_t type, uintptr_t arg1, uintptr_t arg2, uintptr_
         type &= ~stack_logging_flag_zone;
     }
     
-    // 内存统计
-    apmMemoryLogger(type, arg1, arg2, arg3, result, backtrace_to_skip);
+    if (g_apmMallocManager != NULL && arg1 == g_apmMallocManager->getMemoryZone()){
+        return;
+    }
+
+    if (g_apmLeakManager != NULL && arg1 == g_apmLeakManager->getMemoryZone()) {
+        return;
+    }
+    
+    // 统计Malloc (0.002 ms / 次 - 0.015 ms / 次)
+    if (g_apmMallocManager != NULL && g_apmMallocManager->enableTracking) {
+        apmMemoryLogger(type, arg1, arg2, arg3, result, backtrace_to_skip);
+    }
     
     // 泄漏统计
-    apm_Leak_logger(type, arg1, arg2, arg3, result, backtrace_to_skip);
+    if (g_apmLeakManager != NULL && g_apmLeakManager->enableTracking) {
+        apm_Leak_logger(type, arg1, arg2, arg3, result, backtrace_to_skip);
+    }
 }

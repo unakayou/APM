@@ -4,25 +4,15 @@
 //
 //  Created by unakayou on 2022/3/24.
 //
-//  key: address, 用于地址角度分析内存
+//  保存开辟内存空间地址
 
 #import "APMBaseHashmap.h"
 
-// 外面传进来的指针crc + size
+// 外界临时结构crc + size.内部转为ptr_log_t下挂链表结构.
 typedef struct base_ptr_log {
     uint64_t digest;        // rapid_crc64
     uint64_t size;          // 开辟内存占用空间
 } base_ptr_log;
-
-// 下挂链表结构体, 不需要:堆栈数组、堆栈深度、
-typedef struct ptr_log_t{
-    uint64_t digest;        // rapid_crc64
-    uint32_t size;          // 开辟内存占用空间
-    vm_address_t address;   // 空间地址
-    uint32_t count;         // 开辟数量
-    
-    ptr_log_t *next;        // 链表下一个
-} ptr_log_t;
 
 class APMAddresshashmap : public APMBaseHashmap {
 public:

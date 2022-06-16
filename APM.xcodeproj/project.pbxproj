@@ -7,10 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A3124FE22811514200E69042 /* APMLeakManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3124FE12811514200E69042 /* APMLeakManager.mm */; };
+		A3124FE728115A2600E69042 /* APMLeakedHashmap.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3124FE628115A2600E69042 /* APMLeakedHashmap.mm */; };
+		A3124FEA28115E5E00E69042 /* APMLeakStackHashmap.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3124FE928115E5E00E69042 /* APMLeakStackHashmap.mm */; };
+		A3124FEF2815465900E69042 /* APMMemoryChecker.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3124FEE2815465900E69042 /* APMMemoryChecker.mm */; };
+		A3124FF328154C8100E69042 /* APMStackChecker.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3124FF228154C8100E69042 /* APMStackChecker.mm */; };
+		A3124FF62815518200E69042 /* APMThreadSuspendTool.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3124FF52815518200E69042 /* APMThreadSuspendTool.mm */; };
 		A3183C3827DF15F900310146 /* APMRebootMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = A3183C3727DF15F900310146 /* APMRebootMonitor.m */; };
 		A3183C3B27DF182900310146 /* APMLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3183C3A27DF182900310146 /* APMLogManager.m */; };
 		A3183C3F27DF303900310146 /* APMBaseEncodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3183C3E27DF303900310146 /* APMBaseEncodeModel.m */; };
 		A3183C4227E0305000310146 /* APMDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A3183C4127E0305000310146 /* APMDeviceInfo.m */; };
+		A3255CA1284F4C3D00A509C7 /* APMSmbolTool.m in Sources */ = {isa = PBXBuildFile; fileRef = A3255CA0284F4C3D00A509C7 /* APMSmbolTool.m */; };
 		A349BD2927D8855D00CDEA8A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD2827D8855D00CDEA8A /* AppDelegate.m */; };
 		A349BD2C27D8855D00CDEA8A /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A349BD2B27D8855D00CDEA8A /* SceneDelegate.m */; };
 		A349BD2F27D8855D00CDEA8A /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A349BD2E27D8855D00CDEA8A /* ViewController.mm */; };
@@ -35,6 +42,10 @@
 		A3566FB727EB2286008D51CA /* APMMallocManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FB627EB2286008D51CA /* APMMallocManager.mm */; };
 		A3566FBA27EB427B008D51CA /* APMBaseHashmap.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FB927EB427B008D51CA /* APMBaseHashmap.mm */; };
 		A3566FBE27EC1CA4008D51CA /* APMAddressHashmap.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3566FBD27EC1CA4008D51CA /* APMAddressHashmap.mm */; };
+		A3C0588B281BEB9700AF0513 /* APMRegisterChecker.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3C0588A281BEB9700AF0513 /* APMRegisterChecker.mm */; };
+		A3C0588E28290EDD00AF0513 /* APMHeapChecker.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3C0588D28290EDD00AF0513 /* APMHeapChecker.mm */; };
+		A3C058912829633A00AF0513 /* APMSegmentChecker.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3C058902829633A00AF0513 /* APMSegmentChecker.mm */; };
+		A3C05894282E2CF700AF0513 /* APMObjcFilter.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3C05893282E2CF700AF0513 /* APMObjcFilter.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A3EA793527F58096001287CE /* APMFPSStatisticCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A3EA793427F58096001287CE /* APMFPSStatisticCenter.m */; };
 		A3ECD9C128056E6E00DAACE1 /* APMStackDumper.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3ECD9C028056E6E00DAACE1 /* APMStackDumper.mm */; };
 		A3ECD9C428057BAE00DAACE1 /* APMRapidCRC.c in Sources */ = {isa = PBXBuildFile; fileRef = A3ECD9C328057BAE00DAACE1 /* APMRapidCRC.c */; };
@@ -56,6 +67,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A3124FE02811514200E69042 /* APMLeakManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMLeakManager.h; sourceTree = "<group>"; };
+		A3124FE12811514200E69042 /* APMLeakManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMLeakManager.mm; sourceTree = "<group>"; };
+		A3124FE528115A2600E69042 /* APMLeakedHashmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMLeakedHashmap.h; sourceTree = "<group>"; };
+		A3124FE628115A2600E69042 /* APMLeakedHashmap.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMLeakedHashmap.mm; sourceTree = "<group>"; };
+		A3124FE828115E5E00E69042 /* APMLeakStackHashmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMLeakStackHashmap.h; sourceTree = "<group>"; };
+		A3124FE928115E5E00E69042 /* APMLeakStackHashmap.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMLeakStackHashmap.mm; sourceTree = "<group>"; };
+		A3124FED2815465900E69042 /* APMMemoryChecker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMMemoryChecker.h; sourceTree = "<group>"; };
+		A3124FEE2815465900E69042 /* APMMemoryChecker.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMMemoryChecker.mm; sourceTree = "<group>"; };
+		A3124FF128154C8100E69042 /* APMStackChecker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMStackChecker.h; sourceTree = "<group>"; };
+		A3124FF228154C8100E69042 /* APMStackChecker.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMStackChecker.mm; sourceTree = "<group>"; };
+		A3124FF42815518200E69042 /* APMThreadSuspendTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMThreadSuspendTool.h; sourceTree = "<group>"; };
+		A3124FF52815518200E69042 /* APMThreadSuspendTool.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMThreadSuspendTool.mm; sourceTree = "<group>"; };
 		A3183C3627DF15F900310146 /* APMRebootMonitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMRebootMonitor.h; sourceTree = "<group>"; };
 		A3183C3727DF15F900310146 /* APMRebootMonitor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMRebootMonitor.m; sourceTree = "<group>"; };
 		A3183C3927DF182900310146 /* APMLogManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMLogManager.h; sourceTree = "<group>"; };
@@ -65,6 +88,8 @@
 		A3183C3E27DF303900310146 /* APMBaseEncodeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMBaseEncodeModel.m; sourceTree = "<group>"; };
 		A3183C4027E0305000310146 /* APMDeviceInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMDeviceInfo.h; sourceTree = "<group>"; };
 		A3183C4127E0305000310146 /* APMDeviceInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMDeviceInfo.m; sourceTree = "<group>"; };
+		A3255C9F284F4C3D00A509C7 /* APMSmbolTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMSmbolTool.h; sourceTree = "<group>"; };
+		A3255CA0284F4C3D00A509C7 /* APMSmbolTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMSmbolTool.m; sourceTree = "<group>"; };
 		A349BD2427D8855D00CDEA8A /* APM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A349BD2727D8855D00CDEA8A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A349BD2827D8855D00CDEA8A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -112,6 +137,14 @@
 		A3566FB927EB427B008D51CA /* APMBaseHashmap.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMBaseHashmap.mm; sourceTree = "<group>"; };
 		A3566FBC27EC1CA4008D51CA /* APMAddressHashmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMAddressHashmap.h; sourceTree = "<group>"; };
 		A3566FBD27EC1CA4008D51CA /* APMAddressHashmap.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMAddressHashmap.mm; sourceTree = "<group>"; };
+		A3C05889281BEB9700AF0513 /* APMRegisterChecker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMRegisterChecker.h; sourceTree = "<group>"; };
+		A3C0588A281BEB9700AF0513 /* APMRegisterChecker.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMRegisterChecker.mm; sourceTree = "<group>"; };
+		A3C0588C28290EDD00AF0513 /* APMHeapChecker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMHeapChecker.h; sourceTree = "<group>"; };
+		A3C0588D28290EDD00AF0513 /* APMHeapChecker.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMHeapChecker.mm; sourceTree = "<group>"; };
+		A3C0588F2829633A00AF0513 /* APMSegmentChecker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMSegmentChecker.h; sourceTree = "<group>"; };
+		A3C058902829633A00AF0513 /* APMSegmentChecker.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMSegmentChecker.mm; sourceTree = "<group>"; };
+		A3C05892282E2CF700AF0513 /* APMObjcFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMObjcFilter.h; sourceTree = "<group>"; };
+		A3C05893282E2CF700AF0513 /* APMObjcFilter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMObjcFilter.mm; sourceTree = "<group>"; };
 		A3EA793327F58096001287CE /* APMFPSStatisticCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMFPSStatisticCenter.h; sourceTree = "<group>"; };
 		A3EA793427F58096001287CE /* APMFPSStatisticCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMFPSStatisticCenter.m; sourceTree = "<group>"; };
 		A3ECD9BF28056E6E00DAACE1 /* APMStackDumper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMStackDumper.h; sourceTree = "<group>"; };
@@ -135,6 +168,68 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A3124FE3281159DA00E69042 /* MallocHashmap */ = {
+			isa = PBXGroup;
+			children = (
+				A3ECD9C52806C65300DAACE1 /* APMStackHashmap.h */,
+				A3ECD9C62806C65300DAACE1 /* APMStackHashmap.mm */,
+				A3ECD9C82807FCEA00DAACE1 /* APMStackWriter.h */,
+				A3ECD9C92807FCEA00DAACE1 /* APMStackWriter.mm */,
+			);
+			path = MallocHashmap;
+			sourceTree = "<group>";
+		};
+		A3124FE4281159E600E69042 /* LeakHashmap */ = {
+			isa = PBXGroup;
+			children = (
+				A3124FE528115A2600E69042 /* APMLeakedHashmap.h */,
+				A3124FE628115A2600E69042 /* APMLeakedHashmap.mm */,
+				A3124FE828115E5E00E69042 /* APMLeakStackHashmap.h */,
+				A3124FE928115E5E00E69042 /* APMLeakStackHashmap.mm */,
+			);
+			path = LeakHashmap;
+			sourceTree = "<group>";
+		};
+		A3124FEB2815454400E69042 /* Malloc */ = {
+			isa = PBXGroup;
+			children = (
+				A3566FAE27EAFB69008D51CA /* APMMemoryLogger.h */,
+				A3566FAF27EAFB69008D51CA /* APMMemoryLogger.mm */,
+				A3566FB527EB2286008D51CA /* APMMallocManager.h */,
+				A3566FB627EB2286008D51CA /* APMMallocManager.mm */,
+			);
+			path = Malloc;
+			sourceTree = "<group>";
+		};
+		A3124FEC2815455500E69042 /* Leak */ = {
+			isa = PBXGroup;
+			children = (
+				A3566FAB27EAFAF4008D51CA /* APMLeakLogger.h */,
+				A3566FAC27EAFAF4008D51CA /* APMLeakLogger.mm */,
+				A3124FE02811514200E69042 /* APMLeakManager.h */,
+				A3124FE12811514200E69042 /* APMLeakManager.mm */,
+				A3124FF028154BC000E69042 /* LeakChecker */,
+			);
+			path = Leak;
+			sourceTree = "<group>";
+		};
+		A3124FF028154BC000E69042 /* LeakChecker */ = {
+			isa = PBXGroup;
+			children = (
+				A3124FED2815465900E69042 /* APMMemoryChecker.h */,
+				A3124FEE2815465900E69042 /* APMMemoryChecker.mm */,
+				A3124FF128154C8100E69042 /* APMStackChecker.h */,
+				A3124FF228154C8100E69042 /* APMStackChecker.mm */,
+				A3C0588C28290EDD00AF0513 /* APMHeapChecker.h */,
+				A3C0588D28290EDD00AF0513 /* APMHeapChecker.mm */,
+				A3C05889281BEB9700AF0513 /* APMRegisterChecker.h */,
+				A3C0588A281BEB9700AF0513 /* APMRegisterChecker.mm */,
+				A3C0588F2829633A00AF0513 /* APMSegmentChecker.h */,
+				A3C058902829633A00AF0513 /* APMSegmentChecker.mm */,
+			);
+			path = LeakChecker;
+			sourceTree = "<group>";
+		};
 		A349BD1B27D8855D00CDEA8A = {
 			isa = PBXGroup;
 			children = (
@@ -216,6 +311,12 @@
 				A349BD5627D8AB2C00CDEA8A /* APMSharedThread.m */,
 				A3183C3D27DF303900310146 /* APMBaseEncodeModel.h */,
 				A3183C3E27DF303900310146 /* APMBaseEncodeModel.m */,
+				A3124FF42815518200E69042 /* APMThreadSuspendTool.h */,
+				A3124FF52815518200E69042 /* APMThreadSuspendTool.mm */,
+				A3255C9F284F4C3D00A509C7 /* APMSmbolTool.h */,
+				A3255CA0284F4C3D00A509C7 /* APMSmbolTool.m */,
+				A3C05892282E2CF700AF0513 /* APMObjcFilter.h */,
+				A3C05893282E2CF700AF0513 /* APMObjcFilter.mm */,
 				A3ECD9C228057BAE00DAACE1 /* APMRapidCRC.h */,
 				A3ECD9C328057BAE00DAACE1 /* APMRapidCRC.c */,
 			);
@@ -256,17 +357,13 @@
 		A34F55FA27E47F3000553067 /* Memory */ = {
 			isa = PBXGroup;
 			children = (
-				A3566FBB27EB4280008D51CA /* Hashmap */,
-				A3566FB527EB2286008D51CA /* APMMallocManager.h */,
-				A3566FB627EB2286008D51CA /* APMMallocManager.mm */,
 				A3566FA827EAF9A6008D51CA /* APMMallocLoggerHook.h */,
 				A3566FA927EAF9A6008D51CA /* APMMallocLoggerHook.mm */,
-				A3566FAE27EAFB69008D51CA /* APMMemoryLogger.h */,
-				A3566FAF27EAFB69008D51CA /* APMMemoryLogger.mm */,
-				A3566FAB27EAFAF4008D51CA /* APMLeakLogger.h */,
-				A3566FAC27EAFAF4008D51CA /* APMLeakLogger.mm */,
 				A3ECD9BF28056E6E00DAACE1 /* APMStackDumper.h */,
 				A3ECD9C028056E6E00DAACE1 /* APMStackDumper.mm */,
+				A3124FEB2815454400E69042 /* Malloc */,
+				A3124FEC2815455500E69042 /* Leak */,
+				A3566FBB27EB4280008D51CA /* Hashmap */,
 			);
 			path = Memory;
 			sourceTree = "<group>";
@@ -285,12 +382,10 @@
 			children = (
 				A3566FB827EB427B008D51CA /* APMBaseHashmap.h */,
 				A3566FB927EB427B008D51CA /* APMBaseHashmap.mm */,
-				A3ECD9C52806C65300DAACE1 /* APMStackHashmap.h */,
-				A3ECD9C62806C65300DAACE1 /* APMStackHashmap.mm */,
 				A3566FBC27EC1CA4008D51CA /* APMAddressHashmap.h */,
 				A3566FBD27EC1CA4008D51CA /* APMAddressHashmap.mm */,
-				A3ECD9C82807FCEA00DAACE1 /* APMStackWriter.h */,
-				A3ECD9C92807FCEA00DAACE1 /* APMStackWriter.mm */,
+				A3124FE3281159DA00E69042 /* MallocHashmap */,
+				A3124FE4281159E600E69042 /* LeakHashmap */,
 			);
 			path = Hashmap;
 			sourceTree = "<group>";
@@ -366,9 +461,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3C0588E28290EDD00AF0513 /* APMHeapChecker.mm in Sources */,
 				A3566FAA27EAF9A6008D51CA /* APMMallocLoggerHook.mm in Sources */,
 				A349BD4B27D8919100CDEA8A /* APMPathUtil.m in Sources */,
 				A3ECD9CA2807FCEA00DAACE1 /* APMStackWriter.mm in Sources */,
+				A3C05894282E2CF700AF0513 /* APMObjcFilter.mm in Sources */,
+				A3124FF62815518200E69042 /* APMThreadSuspendTool.mm in Sources */,
+				A3255CA1284F4C3D00A509C7 /* APMSmbolTool.m in Sources */,
 				A3183C3B27DF182900310146 /* APMLogManager.m in Sources */,
 				A34F55EB27E09B5500553067 /* APMToastView.m in Sources */,
 				A3ECD9C128056E6E00DAACE1 /* APMStackDumper.mm in Sources */,
@@ -377,22 +476,29 @@
 				A34F55F027E2038100553067 /* NSObject+DeallocLog.m in Sources */,
 				A349BD2927D8855D00CDEA8A /* AppDelegate.m in Sources */,
 				A3566FB427EB0099008D51CA /* APMController.mm in Sources */,
+				A3124FEA28115E5E00E69042 /* APMLeakStackHashmap.mm in Sources */,
+				A3C058912829633A00AF0513 /* APMSegmentChecker.mm in Sources */,
 				A349BD5727D8AB2C00CDEA8A /* APMSharedThread.m in Sources */,
 				A34F55E727E0917E00553067 /* TestCase.m in Sources */,
 				A3ECD9C428057BAE00DAACE1 /* APMRapidCRC.c in Sources */,
 				A3566FB727EB2286008D51CA /* APMMallocManager.mm in Sources */,
 				A349BD4727D88AD700CDEA8A /* APMRebootInfo.m in Sources */,
 				A349BD3A27D8856000CDEA8A /* main.m in Sources */,
+				A3124FF328154C8100E69042 /* APMStackChecker.mm in Sources */,
 				A349BD5427D898FF00CDEA8A /* APMMemoryStatisticCenter.m in Sources */,
 				A3ECD9C72806C65300DAACE1 /* APMStackHashmap.mm in Sources */,
+				A3124FE728115A2600E69042 /* APMLeakedHashmap.mm in Sources */,
 				A3183C3827DF15F900310146 /* APMRebootMonitor.m in Sources */,
 				A34F55F927E4355B00553067 /* APMCPUStatisticCenter.m in Sources */,
+				A3124FEF2815465900E69042 /* APMMemoryChecker.mm in Sources */,
 				A3183C3F27DF303900310146 /* APMBaseEncodeModel.m in Sources */,
 				A34F55F327E203B300553067 /* DeallocLogObject.m in Sources */,
 				A349BD2C27D8855D00CDEA8A /* SceneDelegate.m in Sources */,
+				A3C0588B281BEB9700AF0513 /* APMRegisterChecker.mm in Sources */,
 				A3566FBE27EC1CA4008D51CA /* APMAddressHashmap.mm in Sources */,
 				A3EA793527F58096001287CE /* APMFPSStatisticCenter.m in Sources */,
 				A3566FAD27EAFAF4008D51CA /* APMLeakLogger.mm in Sources */,
+				A3124FE22811514200E69042 /* APMLeakManager.mm in Sources */,
 				A3183C4227E0305000310146 /* APMDeviceInfo.m in Sources */,
 				A3566FBA27EB427B008D51CA /* APMBaseHashmap.mm in Sources */,
 				A34F55E327E08A9300553067 /* APMMainThreadBlockMonitor.m in Sources */,
@@ -552,6 +658,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -587,6 +694,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;

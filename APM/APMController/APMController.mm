@@ -14,11 +14,16 @@
 #import "APMFPSStatisticCenter.h"
 #import "APMMemoryStatisticCenter.h"
 #import "APMMallocLoggerHook.h"
+#import "APMLeakManager.h"
 
 @implementation APMController
 
-+ (void)startWithAppid:(NSString *)appid config:(id)config {
-    APMLogDebug(@"真正的初始化...");
++ (void)startAPMControllerWithAppid:(NSString *)appid config:(id)config {
+    APMLogDebug(@"初始化...");
+}
+
++ (void)stopAPMController {
+    APMLogDebug(@"停止...");
 }
 
 + (NSTimeInterval)launchTime {
@@ -83,15 +88,21 @@ APMMallocManager *g_apmMallocManager;
     if (NULL == g_apmMallocManager) {
         g_apmMallocManager = new APMMallocManager();
         g_apmMallocManager->setWriterParamarters([APMPathUtil mallocInfoPath], 1024 * 1024);
-        g_apmMallocManager->setMallocFuncLimitSize(functionLimitSize);
-        g_apmMallocManager->setSingleMallocLimitSize(singleLimitSize, ^(size_t bytes, NSString *stack) {
-            APMLogDebug(@"\n发现单次大内存: %ldKB\n堆栈详情:\n%@", bytes / 1024, stack);
-        });
+        g_apmMallocManager->setFuncMallocLimitSize(functionLimitSize);
+        g_apmMallocManager->setSingleMallocLimitSize(singleLimitSize);
         g_apmMallocManager->startMallocManager();
-        
+
         // 先初始化 malloc_manager, 再设置 malloc_logger
         startMallocLogger();
     }
+}
+
++ (void)setFunctionMallocExceedCallback:(MallocExceedCallback)callback {
+    g_apmMallocManager->setFuncMallocExceed(callback);
+}
+
++ (void)setSingleMallocExceedCallback:(MallocExceedCallback)callback {
+    g_apmMallocManager->setSingleMallocExceedCallback(callback);
 }
 
 + (void)stopMallocMonitor {
@@ -102,6 +113,34 @@ APMMallocManager *g_apmMallocManager;
         g_apmMallocManager->stopMallocManager();
         delete g_apmMallocManager;
         g_apmMallocManager = NULL;
+    }
+}
+
+APMLeakManager *g_apmLeakManager;
++ (void)startLeakMonitor {
+    if (NULL == g_apmLeakManager) {
+        g_apmLeakManager = new APMLeakManager();
+        g_apmLeakManager->startLeakManager();
+    }
+}
+
++ (void)setLeakDumpCallback:(LeakExamineCallback)callback {
+    if (NULL != g_apmLeakManager) {
+        g_apmLeakManager->setLeakExamineCallback(callback);
+    }
+}
+
++ (void)stopLeakMonitor {
+    if (NULL != g_apmLeakManager) {
+        g_apmLeakManager->stopLeakManager();
+        delete g_apmLeakManager;
+        g_apmLeakManager = NULL;
+    }
+}
+
++ (void)leakDump {
+    if (NULL != g_apmLeakManager) {
+        g_apmLeakManager->startLeakDump();
     }
 }
 

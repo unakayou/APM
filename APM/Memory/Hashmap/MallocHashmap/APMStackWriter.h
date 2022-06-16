@@ -4,6 +4,7 @@
 //
 //  Created by unakayou on 2022/4/14.
 //
+//  持久化堆栈
 
 #import "APMStackHashmap.h"
 
@@ -15,3 +16,4 @@ public:
     void updateStack(merge_stack_t *current, base_stack_t *stack);
     void removeStack(merge_stack_t *current,bool needRemove);
 };
+

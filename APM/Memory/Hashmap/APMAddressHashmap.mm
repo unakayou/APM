@@ -20,7 +20,7 @@ APMAddresshashmap::~APMAddresshashmap() {
     }
 }
 
-static size_t lastOrderOfMagnitude = 0;
+//static size_t lastOrderOfMagnitude = 0;
 // malloc地址指针入hashmap
 BOOL APMAddresshashmap::insertPtr(vm_address_t addr, base_ptr_log *ptr_log) {
     size_t offset = addr % (entry_num - 1);
@@ -29,30 +29,30 @@ BOOL APMAddresshashmap::insertPtr(vm_address_t addr, base_ptr_log *ptr_log) {
     access_num++;
     collision_num++;
     
-    if (record_num % 1000 == 0 && record_num != lastOrderOfMagnitude) {
-        lastOrderOfMagnitude = record_num;
-        printf("⚠️ 当前节点数量级 %ld \n", record_num);
-    } 
+//    if (record_num % 1000 == 0 && record_num != lastOrderOfMagnitude) {
+//        lastOrderOfMagnitude = record_num;
+//        printf("⚠️ 当前节点数量级 %ld \n", record_num);
+//    }
     
-    if(parent == NULL) {
+    if (parent == NULL) {
         ptr_log_t *insert_data = create_hashmap_data(addr, ptr_log);
         entry->root = insert_data;
         record_num++;
         return YES;
     } else {
-        if(parent->address == addr){
+        if (parent->address == addr){
             return NO;
         }
         ptr_log_t *current = parent->next;
-        while(current != NULL){
+        while (current != NULL) {
             collision_num++;
-            if(current->address == addr){
+            if (current->address == addr){
                 return NO;
             }
             parent = current;
             current = current->next;
         }
-        ptr_log_t *insert_data = create_hashmap_data(addr,ptr_log);
+        ptr_log_t *insert_data = create_hashmap_data(addr, ptr_log);
         parent->next = insert_data;
         record_num++;
         return YES;
@@ -61,7 +61,7 @@ BOOL APMAddresshashmap::insertPtr(vm_address_t addr, base_ptr_log *ptr_log) {
 
 /// 删除指针
 BOOL APMAddresshashmap::removePtr(vm_address_t addr, uint32_t *removeSize, uint64_t *removeDigest) {
-    size_t offset = addr%(entry_num - 1);
+    size_t offset = addr % (entry_num - 1);
     base_entry_t *entry = hashmap_entry + offset;
     ptr_log_t *parent = (ptr_log_t *)entry->root;
     if(parent == NULL) {
@@ -117,10 +117,11 @@ ptr_log_t *APMAddresshashmap::lookupPtr(vm_address_t addr) {
     return NULL;
 }
 
-ptr_log_t *APMAddresshashmap::create_hashmap_data(vm_address_t addr,base_ptr_log *base_ptr) {
+ptr_log_t *APMAddresshashmap::create_hashmap_data(vm_address_t addr, base_ptr_log *base_ptr) {
     ptr_log_t *ptr_log = (ptr_log_t *)hashmap_malloc(sizeof(ptr_log_t));
     ptr_log->digest = base_ptr->digest;
     ptr_log->size = (uint32_t)base_ptr->size;
+    ptr_log->hits = 0;
     ptr_log->address = addr;
     ptr_log->next = NULL;
     return ptr_log;

@@ -14,7 +14,8 @@
 
 @implementation APMRebootMonitor
 @dynamic rebootType, rebootTypeString;
-static double _lastOverLimitMemory; // 上次OOM时的内存占用
+static double _lastOverLimitMemory;                     // 上次OOM时的内存占用
+static uint64_t _lastExitTimeStamp;                     // 上次退出时间
 static APMRebootType _rebootType = APMRebootTypeBegin;
 static pthread_mutex_t _rebootMonitorLock;
 
@@ -56,9 +57,11 @@ static pthread_mutex_t _rebootMonitorLock;
         _rebootType = APMRebootTypeUnKnow;
     }
     
-    APMLogDebug(@"⚠️ 重启类型: %@", APMRebootMonitor.rebootTypeString);
+    _lastExitTimeStamp = info.appExitTimeStamp;
+    APMLogDebug(@"\n⚠️ App重启类型: %@\n上次启动时间: %llu\n上次退出时间: %llu", APMRebootMonitor.rebootTypeString, info.appLaunchTimeStamp, info.appExitTimeStamp);
     
     info.appLaunchTimeStamp = (uint64_t)time(NULL);
+    info.appExitTimeStamp = 0;
     info.appUUID = [APMDeviceInfo mainMachOUUID];
     info.osVersion = [APMDeviceInfo systemVersion];
     info.overLimitMemory = 0;
@@ -92,12 +95,12 @@ static pthread_mutex_t _rebootMonitorLock;
     return ![lastVersion isEqualToString:currentVersion];
 }
 
-/// 系统重启
+/// 操作系统启动
 + (BOOL)osReboot {
     APMRebootInfo *info = [APMRebootInfo lastBootInfo];
     uint64_t lastLaunchTimeStamp = info.appLaunchTimeStamp;
     uint64_t systemStartTimeStamp = [APMDeviceInfo systemLaunchTimeStamp];
-    APMLogDebug(@"\n⚠️ 时间戳\n上次: %llu\n本次: %llu", systemStartTimeStamp, systemStartTimeStamp);
+    APMLogDebug(@"\n⚠️ 操作系统启动时间戳: %llu", systemStartTimeStamp);
     return systemStartTimeStamp > lastLaunchTimeStamp;
 }
 
@@ -107,6 +110,7 @@ static pthread_mutex_t _rebootMonitorLock;
     APMRebootInfo *info = [APMRebootInfo lastBootInfo];
     info.appEnterBackground = YES;
     info.appEnterForeground = NO;
+    info.appExitTimeStamp = (uint64_t)time(NULL);
     [info saveInfo];
 }
 
@@ -116,6 +120,7 @@ static pthread_mutex_t _rebootMonitorLock;
     APMRebootInfo *info = [APMRebootInfo lastBootInfo];
     info.appEnterForeground = YES;
     info.appEnterBackground = NO;
+    info.appExitTimeStamp = 0;
     [info saveInfo];
 }
 
@@ -124,6 +129,7 @@ static pthread_mutex_t _rebootMonitorLock;
     APMLogDebug(@"⚠️ 上滑退出");
     APMRebootInfo *info = [APMRebootInfo lastBootInfo];
     info.appQuitByUser = YES;
+    info.appExitTimeStamp = (uint64_t)time(NULL);
     [info saveInfo];
 }
 
@@ -132,6 +138,7 @@ void exitCallback(void) {
     APMLogDebug(@"⚠️ exit() 退出\n");
     APMRebootInfo *info = [APMRebootInfo lastBootInfo];
     info.appQuitByExit = YES;
+    info.appExitTimeStamp = (uint64_t)time(NULL);;
     [info saveInfo];
 }
 
@@ -143,18 +150,21 @@ void exitCallbackNull(void) {
 + (void)applicationMainThreadBlocked {
     APMRebootInfo *info = [APMRebootInfo lastBootInfo];
     info.appMainThreadBlocked = YES;
+    info.appExitTimeStamp = (uint64_t)time(NULL);;
     [info saveInfo];
 }
 
 + (void)applicationCrashed {
     APMRebootInfo *info = [APMRebootInfo lastBootInfo];
     info.appCrashed = YES;
+    info.appExitTimeStamp = (uint64_t)time(NULL);;
     [info saveInfo];
 }
 
 + (void)applicationWillOOM:(double)memoryValue {
     APMRebootInfo *info = [APMRebootInfo lastBootInfo];
     info.overLimitMemory = memoryValue;
+    info.appExitTimeStamp = (uint64_t)time(NULL);;
     [info saveInfo];
 }
 

@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface APMPathUtil : NSObject
 
 /// 根目录: Library/Caches/com.platform.apmsdk/
@@ -21,5 +19,3 @@ NS_ASSUME_NONNULL_BEGIN
 /// Malloc地址记录
 + (NSString *)mallocInfoPath;
 @end
-
-NS_ASSUME_NONNULL_END

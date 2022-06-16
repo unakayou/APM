@@ -24,18 +24,18 @@ typedef void (malloc_logger_t)(uint32_t type,
                                uint32_t num_hot_frames_to_skip);
 
 /// 接收malloc_logger回调函数
-void apmMallocLoggerHook(uint32_t type,
-                         uintptr_t arg1,
-                         uintptr_t arg2,
-                         uintptr_t arg3,
-                         uintptr_t result,
-                         uint32_t backtrace_to_skip);
+void apm_malloc_logger(uint32_t type,
+                       uintptr_t arg1,
+                       uintptr_t arg2,
+                       uintptr_t arg3,
+                       uintptr_t result,
+                       uint32_t backtrace_to_skip);
 
 /// libmalloc库中的malloc_logger()函数指针
 extern malloc_logger_t* malloc_logger;
 
 /// 保存原本的malloc_logger()函数指针
-static malloc_logger_t *g_apmPreMallocLogger;
+static malloc_logger_t *g_apm_pre_malloc_logger = NULL;
 
 #ifdef __cplusplus
 }
