@@ -10,8 +10,9 @@
 #import "APMController.h"
 #import "APMMallocManager.h"
 #import "TestCase.h"
+#import <MetricKit/MetricKit.h>
 
-@interface ViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface ViewController () <UITableViewDelegate, UITableViewDataSource, MXMetricManagerSubscriber>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray <TestCase *>*tableViewDataSource;
 
@@ -22,7 +23,10 @@
 @implementation ViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
+    [self mericKitLoad];
     
     [self redirectLogToSanbox];
     
@@ -213,6 +217,21 @@ static CFAbsoluteTime _startTime = 0;
     freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stdout);
     freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
     return logFilePath;
+}
+
+#pragma mark - MericKit delegate
+- (void)mericKitLoad {
+    if (@available(iOS 13.0, *)) {
+        MXMetricManager *manager = [MXMetricManager sharedManager];
+        [manager addSubscriber:self];
+    }
+}
+
+- (void)didReceiveMetricPayloads:(NSArray<MXMetricPayload *> *)payloads  API_AVAILABLE(ios(14.0)){
+    for (MXDiagnosticPayload *payload in payloads) {
+        NSDictionary *payloadDic = [payload dictionaryRepresentation];
+        NSLog(@"%@",payloadDic);
+    }
 }
 
 @end
