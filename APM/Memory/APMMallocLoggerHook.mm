@@ -64,7 +64,7 @@ void apm_malloc_logger(uint32_t type, uintptr_t arg1, uintptr_t arg2, uintptr_t 
     if (g_apmMallocManager != NULL && g_apmMallocManager->enableTracking) {
         apmMemoryLogger(type, arg1, arg2, arg3, result, backtrace_to_skip);
     }
-    
+
     // 泄漏统计
     if (g_apmLeakManager != NULL && g_apmLeakManager->enableTracking) {
         apm_Leak_logger(type, arg1, arg2, arg3, result, backtrace_to_skip);

@@ -46,6 +46,7 @@
 		A3C0588E28290EDD00AF0513 /* APMHeapChecker.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3C0588D28290EDD00AF0513 /* APMHeapChecker.mm */; };
 		A3C058912829633A00AF0513 /* APMSegmentChecker.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3C058902829633A00AF0513 /* APMSegmentChecker.mm */; };
 		A3C05894282E2CF700AF0513 /* APMObjcFilter.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3C05893282E2CF700AF0513 /* APMObjcFilter.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		A3C79C9128AE20BB005323A1 /* MetricKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C79C9028AE20BB005323A1 /* MetricKit.framework */; };
 		A3EA793527F58096001287CE /* APMFPSStatisticCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A3EA793427F58096001287CE /* APMFPSStatisticCenter.m */; };
 		A3ECD9C128056E6E00DAACE1 /* APMStackDumper.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3ECD9C028056E6E00DAACE1 /* APMStackDumper.mm */; };
 		A3ECD9C428057BAE00DAACE1 /* APMRapidCRC.c in Sources */ = {isa = PBXBuildFile; fileRef = A3ECD9C328057BAE00DAACE1 /* APMRapidCRC.c */; };
@@ -145,6 +146,7 @@
 		A3C058902829633A00AF0513 /* APMSegmentChecker.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMSegmentChecker.mm; sourceTree = "<group>"; };
 		A3C05892282E2CF700AF0513 /* APMObjcFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMObjcFilter.h; sourceTree = "<group>"; };
 		A3C05893282E2CF700AF0513 /* APMObjcFilter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = APMObjcFilter.mm; sourceTree = "<group>"; };
+		A3C79C9028AE20BB005323A1 /* MetricKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetricKit.framework; path = System/Library/Frameworks/MetricKit.framework; sourceTree = SDKROOT; };
 		A3EA793327F58096001287CE /* APMFPSStatisticCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMFPSStatisticCenter.h; sourceTree = "<group>"; };
 		A3EA793427F58096001287CE /* APMFPSStatisticCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APMFPSStatisticCenter.m; sourceTree = "<group>"; };
 		A3ECD9BF28056E6E00DAACE1 /* APMStackDumper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APMStackDumper.h; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3C79C9128AE20BB005323A1 /* MetricKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,6 +238,7 @@
 			children = (
 				A349BD2627D8855D00CDEA8A /* APM */,
 				A349BD2527D8855D00CDEA8A /* Products */,
+				A3C79C8F28AE20BB005323A1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -388,6 +392,14 @@
 				A3124FE4281159E600E69042 /* LeakHashmap */,
 			);
 			path = Hashmap;
+			sourceTree = "<group>";
+		};
+		A3C79C8F28AE20BB005323A1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A3C79C9028AE20BB005323A1 /* MetricKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -661,6 +673,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -697,6 +710,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
