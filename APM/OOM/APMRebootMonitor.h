@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 卡顿 (需要卡顿模块调用)
 + (void)applicationMainThreadBlocked;
++ (void)applicationMainThreadBlockeResumed;
 
 /// 崩溃 (需要崩溃模块调用)
 + (void)applicationCrashed;

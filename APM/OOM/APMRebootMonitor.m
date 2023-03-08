@@ -138,7 +138,7 @@ void exitCallback(void) {
     APMLogDebug(@"⚠️ exit() 退出\n");
     APMRebootInfo *info = [APMRebootInfo lastBootInfo];
     info.appQuitByExit = YES;
-    info.appExitTimeStamp = (uint64_t)time(NULL);;
+    info.appExitTimeStamp = (uint64_t)time(NULL);
     [info saveInfo];
 }
 
@@ -150,21 +150,28 @@ void exitCallbackNull(void) {
 + (void)applicationMainThreadBlocked {
     APMRebootInfo *info = [APMRebootInfo lastBootInfo];
     info.appMainThreadBlocked = YES;
-    info.appExitTimeStamp = (uint64_t)time(NULL);;
+    info.appExitTimeStamp = (uint64_t)time(NULL);
+    [info saveInfo];
+}
+
++ (void)applicationMainThreadBlockeResumed {
+    APMRebootInfo *info = [APMRebootInfo lastBootInfo];
+    info.appMainThreadBlocked = NO;
+    info.appExitTimeStamp = 0;
     [info saveInfo];
 }
 
 + (void)applicationCrashed {
     APMRebootInfo *info = [APMRebootInfo lastBootInfo];
     info.appCrashed = YES;
-    info.appExitTimeStamp = (uint64_t)time(NULL);;
+    info.appExitTimeStamp = (uint64_t)time(NULL);
     [info saveInfo];
 }
 
 + (void)applicationWillOOM:(double)memoryValue {
     APMRebootInfo *info = [APMRebootInfo lastBootInfo];
     info.overLimitMemory = memoryValue;
-    info.appExitTimeStamp = (uint64_t)time(NULL);;
+    info.appExitTimeStamp = (uint64_t)time(NULL);
     [info saveInfo];
 }
 
