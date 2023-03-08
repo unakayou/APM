@@ -25,6 +25,12 @@
         [TestCase mainThreadBlock];
     };
     
+    TestCase *blockResumeCase = [[TestCase alloc] init];
+    blockResumeCase.name = @"Main Thread Block Resume";
+    blockResumeCase.caseBlock = ^{
+        [TestCase mainThreadBlockResume];
+    };
+    
     TestCase *crashCase = [TestCase new];
     crashCase.name = @"Objective-C Crash";
     crashCase.caseBlock = ^{
@@ -106,6 +112,7 @@
     NSMutableArray *allTestCase = [NSMutableArray new];
     [allTestCase addObject:oomCase];
     [allTestCase addObject:blockCase];
+    [allTestCase addObject:blockResumeCase];
     [allTestCase addObject:crashCase];
     [allTestCase addObject:cpuHigh];
     [allTestCase addObject:exitCase];
@@ -160,6 +167,22 @@
             if (([currentDate timeIntervalSince1970] - [lastDate timeIntervalSince1970]) > 3.0f) {
                 NSLog(@"卡顿结束，即将退出");
                 _exit(0);
+            }
+        }
+    });
+}
+
++ (void)mainThreadBlockResume {
+    [APMToastView showToastViewWithMessage:@"卡顿开始"];
+    [APMRebootMonitor applicationMainThreadBlocked];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSDate *lastDate = [NSDate date];
+        while (1) {
+            NSDate *currentDate = [NSDate date];
+            if (([currentDate timeIntervalSince1970] - [lastDate timeIntervalSince1970]) > 3.0f) {
+                [APMToastView showToastViewWithMessage:@"卡顿结束"];
+                [APMRebootMonitor applicationMainThreadBlockeResumed];
+                break;
             }
         }
     });
