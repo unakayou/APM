@@ -56,35 +56,37 @@
         [TestCase exitCase];
     };
     
-//    TestCase *startCPU = [TestCase new];
-//    startCPU.name = @"重启CPU监控";
-//    startCPU.caseBlock = ^{
-//        [APMController startCPUMonitor];
-//    };
-//
-//    TestCase *stopCPU = [TestCase new];
-//    stopCPU.name = @"停止CPU监控";
-//    stopCPU.caseBlock = ^{
-//        [APMController stopCPUMonitor];
-//    };
-//
-//    TestCase *startCase = [TestCase new];
-//    startCase.name = @"重启内存监控";
-//    startCase.caseBlock = ^{
-//        [APMController  startMemoryMonitor];
-//    };
-//
-//    TestCase *stopCase = [TestCase new];
-//    stopCase.name = @"停止内存监控";
-//    stopCase.caseBlock = ^{
-//        [APMController  stopMemoryMonitor];
-//    };
-//
+    TestCase *startCPU = [TestCase new];
+    startCPU.name = @"重启CPU监控";
+    startCPU.caseBlock = ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:START_CPU_MONITOR_KEY object:nil];
+    };
+
+    TestCase *stopCPU = [TestCase new];
+    stopCPU.name = @"停止CPU监控";
+    stopCPU.caseBlock = ^{
+        [APMController stopCPUMonitor];
+    };
+
+    TestCase *startMemory = [TestCase new];
+    startMemory.name = @"重启内存监控";
+    startMemory.caseBlock = ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:START_MEM_MONITOR_KEY object:nil];
+    };
+
+    TestCase *stopMemory = [TestCase new];
+    stopMemory.name = @"停止内存监控";
+    stopMemory.caseBlock = ^{
+        [APMController  stopMemoryMonitor];
+    };
+
     TestCase *startThread = [TestCase new];
     startThread.name = @"重启共享线程";
     startThread.caseBlock = ^{
         [[APMSharedThread shareDefaultThread] start];
         [[APMSharedThread shareDefaultThread] setName:APM_DOMAIN];
+        [[NSNotificationCenter defaultCenter] postNotificationName:START_MEM_MONITOR_KEY object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:START_CPU_MONITOR_KEY object:nil];
     };
 
     TestCase *stopThread = [TestCase new];
@@ -118,10 +120,10 @@
     [allTestCase addObject:crashCase];
     [allTestCase addObject:cpuHigh];
     [allTestCase addObject:exitCase];
-//    [allTestCase addObject:startCPU];
-//    [allTestCase addObject:stopCPU];
-//    [allTestCase addObject:startCase];
-//    [allTestCase addObject:stopCase];
+    [allTestCase addObject:startCPU];
+    [allTestCase addObject:stopCPU];
+    [allTestCase addObject:startMemory];
+    [allTestCase addObject:stopMemory];
     [allTestCase addObject:startThread];
     [allTestCase addObject:stopThread];
     [allTestCase addObject:chunkMalloc];

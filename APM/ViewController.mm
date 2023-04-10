@@ -34,41 +34,19 @@
     [self initTableView];
     [self initMessageView];
 
-    // 启动时间
+    // 监控初始化
+    [self startCPUMonitor];
+    [self startMemoryMonitor];
+    [self startFPSMonitor];
     [self launchTime];
-    
-    // OOM监测
     [self rebootTypeLog];
-
-    __weak typeof(self) weakSelf = self;
-    // 内存监测
-    [APMController startMemoryMonitor];
-    [APMController setMemoryInfoHandler:^(Float32 memory) {
-        NSString *memoryValueString = [NSString stringWithFormat:@"%.1fMB", memory];
-        [weakSelf.messageViewDataSource setObject:memoryValueString forKey:@"3"];
-        [weakSelf updateMessageView];
-    }];
+    [self registerRestartNotifi];
     
-    // CPU监控
-    [APMController startCPUMonitor];
-    [APMController setCPUUsageHandler:^(double usage) {
-        NSString *cpuUsage = [NSString stringWithFormat:@"%.1f%%",usage * 100];
-        [weakSelf.messageViewDataSource setObject:cpuUsage forKey:@"2"];
-        [weakSelf updateMessageView];
-    }];
-    
-    // 开启FPS
-    [APMController startFPSMonitor];
-    [APMController setFPSValueHandler:^(int fps) {
-        NSString *fpsString = [NSString stringWithFormat:@"%d", fps];
-        [weakSelf.messageViewDataSource setObject:fpsString forKey:@"4"];
-        [weakSelf updateMessageView];
-    }];
-
     // 开启malloc监控
     [APMController startMallocMonitorWithFunctionLimitSize:1024 * 1024 * 10
                                            singleLimitSize:1024 * 1024 * 10];
     
+    __weak typeof(self) weakSelf = self;
     [APMController setFunctionMallocExceedCallback:^(size_t bytes, NSString * _Nonnull stack) {
         APMLogDebug(@"\n发现累积大内存: %ldKB\n堆栈详情:\n%@", bytes / 1024, stack);
         NSString *stackString = [NSString stringWithFormat:@"%ldKB\n%@", bytes / 1024, stack];
@@ -132,6 +110,39 @@ static CFAbsoluteTime _startTime = 0;
     _messageView.text = text;
 }
 
+// CPU监控
+- (void)startCPUMonitor {
+    __weak typeof(self) weakSelf = self;
+    [APMController startCPUMonitor];
+    [APMController setCPUUsageHandler:^(double usage) {
+        NSString *cpuUsage = [NSString stringWithFormat:@"%.1f%%",usage * 100];
+        [weakSelf.messageViewDataSource setObject:cpuUsage forKey:@"2"];
+        [weakSelf updateMessageView];
+    }];
+}
+
+// 内存监测
+- (void)startMemoryMonitor {
+    __weak typeof(self) weakSelf = self;
+    [APMController startMemoryMonitor];
+    [APMController setMemoryInfoHandler:^(Float32 memory) {
+        NSString *memoryValueString = [NSString stringWithFormat:@"%.1fMB", memory];
+        [weakSelf.messageViewDataSource setObject:memoryValueString forKey:@"3"];
+        [weakSelf updateMessageView];
+    }];
+}
+
+// 开启FPS
+- (void)startFPSMonitor {
+    __weak typeof(self) weakSelf = self;
+    [APMController startFPSMonitor];
+    [APMController setFPSValueHandler:^(int fps) {
+        NSString *fpsString = [NSString stringWithFormat:@"%d", fps];
+        [weakSelf.messageViewDataSource setObject:fpsString forKey:@"4"];
+        [weakSelf updateMessageView];
+    }];
+}
+
 // 显示重启类型
 - (void)rebootTypeLog {
     [APMController startOOMMonitor];
@@ -145,6 +156,12 @@ static CFAbsoluteTime _startTime = 0;
     NSTimeInterval launchTime = [APMController launchTime];
     [_messageViewDataSource setObject:[NSString stringWithFormat:@"%f秒", launchTime / USEC_PER_SEC] forKey:@"1"];
     [self updateMessageView];
+}
+
+- (void)registerRestartNotifi {
+    NSNotificationCenter *notifiCenter = [NSNotificationCenter defaultCenter];
+    [notifiCenter addObserver:self selector:@selector(startCPUMonitor) name:START_CPU_MONITOR_KEY object:nil];
+    [notifiCenter addObserver:self selector:@selector(startMemoryMonitor) name:START_MEM_MONITOR_KEY object:nil];
 }
 
 #pragma mark - 布局

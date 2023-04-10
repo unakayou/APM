@@ -83,5 +83,7 @@ typedef NS_ENUM(NSUInteger, APMRebootType) {
 };
 
 #define APM_DOMAIN @"com.platform.apm"
+#define START_CPU_MONITOR_KEY @"startCPUMonitor"
+#define START_MEM_MONITOR_KEY @"startMemoryMonitor"
 
 #endif /* APMDefines_h */
