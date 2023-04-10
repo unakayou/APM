@@ -10,22 +10,19 @@
 #import "APMDefines.h"
 #import <pthread.h>
 
-typedef void(^APMSharedThreadTimerCallback)(APMSharedThread *);
-@interface APMSharedThreadTimer : NSObject
-@property (nonatomic, copy)   NSString *key;
-@property (nonatomic, assign) BOOL repeats;
-@property (nonatomic, assign) NSTimeInterval interval;
-@property (nonatomic, copy)   APMSharedThreadTimerCallback callback;
+@interface APMSharedThreadTimer ()
+@property (nonatomic, strong) NSTimer *timer;
 @end
 
 @implementation APMSharedThreadTimer
+
 @end
 
 @interface APMSharedThread ()
 @property (nonatomic, strong) NSRunLoop *runLoop;
 @property (nonatomic, strong) NSThread *insideThread;
 @property (nonatomic, assign) BOOL shouldKeepRunning;
-@property (nonatomic, strong) NSMutableDictionary <NSString *, NSTimer *>*timerDictionary;
+@property (nonatomic, strong) NSMapTable <NSString *, APMSharedThreadTimer *>*timerDictionary;
 @end
 
 @implementation APMSharedThread
@@ -37,10 +34,13 @@ static pthread_mutex_t _sharedThreadLock;
     if (_insideThread == nil) {
         // 创建后立刻启动线程,进行等待
         self.insideThread = [[NSThread alloc] initWithTarget:self selector:@selector(_start) object:nil];
-        [_insideThread setName:[NSString stringWithFormat:@"%@", self.class]];
         [_insideThread start];
     }
     pthread_mutex_unlock(&_sharedThreadLock);
+}
+
+- (void)setName:(NSString *)name {
+    [_insideThread setName:name];
 }
 
 - (void)stop {
@@ -49,10 +49,10 @@ static pthread_mutex_t _sharedThreadLock;
 }
 
 /// 创建Timer, 需要waitUntilDone = YES
-- (APMSharedThread *)scheduledTimerWithKey:(NSString *)key
-                              timeInterval:(NSTimeInterval)interval
-                                   repeats:(BOOL)repeats
-                                     block:(void (^)(APMSharedThread * _Nonnull))block {
+- (APMSharedThreadTimer *)scheduledTimerWithKey:(NSString *)key
+                                   timeInterval:(NSTimeInterval)interval
+                                        repeats:(BOOL)repeats
+                                          block:(void (^)(APMSharedThreadTimer * _Nonnull))block {
     if (!_insideThread || !key.length || interval <= 0 || !block) return nil;
     
     APMSharedThreadTimer *timer = [APMSharedThreadTimer new];
@@ -61,7 +61,7 @@ static pthread_mutex_t _sharedThreadLock;
     timer.repeats = repeats;
     timer.callback = block;
     [self performSelector:@selector(_addTimer:) onThread:_insideThread withObject:timer waitUntilDone:YES];
-    return self;
+    return timer;
 }
 
 /// 停止Timer,需要waitUntilDone = YES
@@ -81,11 +81,12 @@ static pthread_mutex_t _sharedThreadLock;
 - (void)_start {
     self.shouldKeepRunning = YES;
     self.runLoop = [NSRunLoop currentRunLoop];
-    self.timerDictionary = [NSMutableDictionary new];
+    self.timerDictionary = [NSMapTable weakToWeakObjectsMapTable];
     
     [_runLoop addPort:[NSPort port] forMode:NSRunLoopCommonModes];
     APMLogDebug(@"⚠️ 线程启动 - %@", [NSThread currentThread]);
     while (_shouldKeepRunning && [_runLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]);
+    APMLogDebug(@"⚠️ 线程结束 - %@", [NSThread currentThread]);
 }
 
 - (void)_stop {
@@ -93,15 +94,10 @@ static pthread_mutex_t _sharedThreadLock;
     _insideThread.deallocObject = [DeallocLogObject new];
     _insideThread.deallocObject.lastWord = [NSString stringWithFormat:@"线程销毁 - %@", [NSThread currentThread]];
 #endif
-    
-    NSArray <NSString *>*keyArray = _timerDictionary.allKeys;
-    for (int i = 0; i < keyArray.count; i++) {
-        NSString *key = keyArray[i];
-        NSTimer *timer = _timerDictionary[key];
-        if ([timer isValid]) {
-            [timer invalidate];
-        }
-        [_timerDictionary removeObjectForKey:key];
+    NSMapTable *tableTmp = [_timerDictionary mutableCopy];
+    NSEnumerator *keyEnum = tableTmp.keyEnumerator;
+    for (NSString *key in keyEnum) {
+        [self _invalidateTimerWithKey:key];
     }
     self.runLoop = nil;
     self.insideThread = nil;
@@ -116,28 +112,32 @@ static pthread_mutex_t _sharedThreadLock;
     if ([_timerDictionary objectForKey:timerObj.key]) {
         [self _invalidateTimerWithKey:timerObj.key];
     }
-    __weak typeof(self) weakSelf = self;
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:timerObj.interval
+    timerObj.timer = [NSTimer scheduledTimerWithTimeInterval:timerObj.interval
                                                      repeats:timerObj.repeats
                                                        block:^(NSTimer * _Nonnull timer) {
-        timerObj.callback(weakSelf);
+        timerObj.callback(timerObj);
     }];
-//    APMLogDebug(@"⚠️ %@ - 加入 RunLoop", timer);
-    [_timerDictionary setObject:timer forKey:timerObj.key];
+    [_timerDictionary setObject:timerObj forKey:timerObj.key];
 
 #if APM_DEALLOC_LOG_SWITCH
-    if (!timer.deallocObject) {
-        timer.deallocObject = [[DeallocLogObject alloc] init];
-        timer.deallocObject.lastWord = [NSString stringWithFormat:@"Timer销毁 - %@", timer];
+    if (!timerObj.timer.deallocObject) {
+        timerObj.timer.deallocObject = [[DeallocLogObject alloc] init];
+        timerObj.timer.deallocObject.lastWord = [NSString stringWithFormat:@"Timer 销毁 - %@", timerObj.timer];
+    }
+    
+    if (!timerObj.deallocObject) {
+        timerObj.deallocObject = [[DeallocLogObject alloc] init];
+        timerObj.deallocObject.lastWord = [NSString stringWithFormat:@"TimerObj 销毁 - %@", timerObj.key];
     }
 #endif
 }
 
 - (void)_invalidateTimerWithKey:(NSString *)key {
-    NSTimer *timer = [_timerDictionary objectForKey:key];
-    if (timer.isValid) {
-        [timer invalidate];
+    APMSharedThreadTimer *timerObj = [_timerDictionary objectForKey:key];
+    if (timerObj.timer.isValid) {
+        [timerObj.timer invalidate];
     }
+    // 删不删都可以，因为使用的 NSMapTable 为弱引用
     [_timerDictionary removeObjectForKey:key];
 }
 

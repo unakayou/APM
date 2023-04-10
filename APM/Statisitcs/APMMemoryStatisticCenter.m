@@ -24,10 +24,11 @@ static MemoryCallbackHandler _memoryHandler;
     
     __weak typeof (self) weakSelf = self;
     [[APMSharedThread shareDefaultThread] start];
+    [[APMSharedThread shareDefaultThread] setName:APM_DOMAIN];
     [[APMSharedThread shareDefaultThread] scheduledTimerWithKey:APM_MEMORY_STATISTICS_CENTER_TIMER_KEY
                                                    timeInterval:1
                                                         repeats:YES
-                                                          block:^(APMSharedThread * _Nonnull thread) {
+                                                          block:^(APMSharedThreadTimer * _Nonnull timer) {
         [weakSelf updateMemory];
     }];
 }

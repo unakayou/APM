@@ -9,6 +9,7 @@
 #import "APMToastView.h"
 #import "APMRebootMonitor.h"
 #import "APMController.h"
+#import "APMSharedThread.h"
 
 @implementation TestCase
 
@@ -58,39 +59,40 @@
 //    TestCase *startCPU = [TestCase new];
 //    startCPU.name = @"重启CPU监控";
 //    startCPU.caseBlock = ^{
-//        [APMCPUStatisitcsCenter start];
+//        [APMController startCPUMonitor];
 //    };
 //
 //    TestCase *stopCPU = [TestCase new];
 //    stopCPU.name = @"停止CPU监控";
 //    stopCPU.caseBlock = ^{
-//        [APMCPUStatisitcsCenter stop];
+//        [APMController stopCPUMonitor];
 //    };
-//    
+//
 //    TestCase *startCase = [TestCase new];
 //    startCase.name = @"重启内存监控";
 //    startCase.caseBlock = ^{
-//        [APMMemoryStatisitcsCenter  start];
+//        [APMController  startMemoryMonitor];
 //    };
 //
 //    TestCase *stopCase = [TestCase new];
 //    stopCase.name = @"停止内存监控";
 //    stopCase.caseBlock = ^{
-//        [APMMemoryStatisitcsCenter  stop];
+//        [APMController  stopMemoryMonitor];
 //    };
 //
-//    TestCase *startThread = [TestCase new];
-//    startThread.name = @"重启共享线程";
-//    startThread.caseBlock = ^{
-//        [[APMSharedThread shareDefaultThread] start];
-//    };
-//
-//    TestCase *stopThread = [TestCase new];
-//    stopThread.name = @"退出共享线程";
-//    stopThread.caseBlock = ^{
-//        [[APMSharedThread shareDefaultThread] stop];
-//    };
-//
+    TestCase *startThread = [TestCase new];
+    startThread.name = @"重启共享线程";
+    startThread.caseBlock = ^{
+        [[APMSharedThread shareDefaultThread] start];
+        [[APMSharedThread shareDefaultThread] setName:APM_DOMAIN];
+    };
+
+    TestCase *stopThread = [TestCase new];
+    stopThread.name = @"退出共享线程";
+    stopThread.caseBlock = ^{
+        [[APMSharedThread shareDefaultThread] stop];
+    };
+
     TestCase *chunkMalloc = [TestCase new];
     chunkMalloc.name = @"开辟大块内存";
     chunkMalloc.caseBlock = ^{
@@ -120,8 +122,8 @@
 //    [allTestCase addObject:stopCPU];
 //    [allTestCase addObject:startCase];
 //    [allTestCase addObject:stopCase];
-//    [allTestCase addObject:startThread];
-//    [allTestCase addObject:stopThread];
+    [allTestCase addObject:startThread];
+    [allTestCase addObject:stopThread];
     [allTestCase addObject:chunkMalloc];
     [allTestCase addObject:funcMallocLimit];
     [allTestCase addObject:leakedCase];

@@ -23,7 +23,7 @@ static float _maxCPUUsagePercent = DEFUTALT_MAX_CPU_USAGE_PERCENT;  // 默认CPU
     [[APMSharedThread shareDefaultThread] scheduledTimerWithKey:APM_CPU_STATISTICS_CENTER_TIMER_KEY
                                                    timeInterval:1
                                                         repeats:YES
-                                                          block:^(APMSharedThread * _Nonnull thread) {
+                                                          block:^(APMSharedThreadTimer * _Nonnull timer) {
         [weakSelf updateCPUUsage];
     }];
 }

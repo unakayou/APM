@@ -7,10 +7,21 @@
 //  共享使用的线程
 
 #import <Foundation/Foundation.h>
+@class APMSharedThreadTimer;
+typedef void(^APMSharedThreadTimerCallback)(APMSharedThreadTimer *);
+
+@interface APMSharedThreadTimer : NSObject
+@property (nonatomic, copy)   NSString *key;
+@property (nonatomic, assign) BOOL repeats;
+@property (nonatomic, assign) NSTimeInterval interval;
+@property (nonatomic, copy)   APMSharedThreadTimerCallback callback;
+@end
 
 @interface APMSharedThread : NSObject
 
 + (instancetype)shareDefaultThread;
+
+- (void)setName:(NSString *)name;
 
 /// 启动线程
 - (void)start;
@@ -19,10 +30,10 @@
 - (void)stop;
 
 /// 创建一个Timer
-- (APMSharedThread *)scheduledTimerWithKey:(NSString *)key
-                              timeInterval:(NSTimeInterval)interval
-                                   repeats:(BOOL)repeats
-                                     block:(void (^)(APMSharedThread *thread))block;
+- (APMSharedThreadTimer *)scheduledTimerWithKey:(NSString *)key
+                                   timeInterval:(NSTimeInterval)interval
+                                        repeats:(BOOL)repeats
+                                          block:(void (^)(APMSharedThreadTimer *timer))block;
 
 /// 停止Timer
 - (void)invalidateTimerWithKey:(NSString *)key;

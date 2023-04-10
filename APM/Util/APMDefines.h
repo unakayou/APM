@@ -9,7 +9,7 @@
 #define APMDefines_h
 
 #define APM_SYMBOL_SWITCH 1
-#define APM_DEALLOC_LOG_SWITCH 0
+#define APM_DEALLOC_LOG_SWITCH 1
 
 #ifdef __LP64__
 typedef struct mach_header_64 mach_header_t;
@@ -81,5 +81,7 @@ typedef NS_ENUM(NSUInteger, APMRebootType) {
     APMRebootTypeFOOM               = 9,    // 前台OOM
     APMRebootTypeBOOM               = 10,   // 后台OOM或被Jestam杀掉
 };
+
+#define APM_DOMAIN @"com.platform.apm"
 
 #endif /* APMDefines_h */

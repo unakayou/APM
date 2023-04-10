@@ -152,7 +152,7 @@ static CFAbsoluteTime _startTime = 0;
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     CGFloat x = 0, y = 0, width = self.view.frame.size.width, height = CELL_HEIGHT * self.tableViewDataSource.count;
-    CGFloat maxHeight = self.view.frame.size.height / 3 ;
+    CGFloat maxHeight = self.view.frame.size.height / 2 ;
     height = height < maxHeight ? height : maxHeight;
     
     self.tableView.frame = CGRectMake(x, y, width, height);
